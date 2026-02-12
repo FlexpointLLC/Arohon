@@ -38,8 +38,9 @@ export default async function UserDetailPage({
   const startOfMonth = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), 1, 0, 0, 0, 0));
   const endOfNow = new Date(now.getTime() + 60000);
 
-  let statsWeek: { total_requests?: number; total_trips?: number; completion_rate?: number; total_income?: number } | null = null;
-  let statsMonth: { total_requests?: number; total_trips?: number; completion_rate?: number; total_income?: number } | null = null;
+  type IncomeStats = { total_requests?: number; total_trips?: number; completion_rate?: number; total_income?: number } | null;
+  let statsWeek: IncomeStats = null;
+  let statsMonth: IncomeStats = null;
   try {
     const [weekRes, monthRes] = await Promise.all([
       supabaseAdmin.rpc("fn_get_income_stats", {
@@ -53,8 +54,8 @@ export default async function UserDetailPage({
         p_end_date: endOfNow.toISOString(),
       }).maybeSingle(),
     ]);
-    statsWeek = weekRes.data;
-    statsMonth = monthRes.data;
+    statsWeek = weekRes.data as IncomeStats;
+    statsMonth = monthRes.data as IncomeStats;
   } catch {
     // RPC may not exist before migration 006
   }
