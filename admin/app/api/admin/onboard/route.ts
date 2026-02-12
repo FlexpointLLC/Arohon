@@ -1,12 +1,10 @@
 import { NextResponse } from "next/server";
-import { createServerClient } from "@supabase/ssr";
-import { cookies } from "next/headers";
 import { jwtVerify } from "jose";
 import { supabaseAdmin } from "@/lib/supabase/server";
 
 /**
  * After sign-up, create public.users and admin_users so the user can access the panel.
- * Accepts accessToken from the client (session cookie is not set yet right after signUp).
+ * Client must send accessToken (e.g. from session.access_token after signUp or getSession).
  * Allowed if: (1) no admins exist yet (first user), OR (2) valid ADMIN_INVITE_CODE is sent.
  */
 export async function POST(request: Request) {
@@ -15,70 +13,46 @@ export async function POST(request: Request) {
   const inviteCode = (body?.inviteCode as string)?.trim();
   const requiredCode = process.env.ADMIN_INVITE_CODE ?? process.env.NEXT_PUBLIC_ADMIN_INVITE_CODE ?? "";
 
+  if (!accessToken) {
+    return NextResponse.json(
+      { error: "Missing accessToken. Send session.access_token from the client." },
+      { status: 400 }
+    );
+  }
+
+  const secret = process.env.SUPABASE_JWT_SECRET;
+  if (!secret) {
+    return NextResponse.json(
+      { error: "Server misconfiguration: JWT secret not set." },
+      { status: 500 }
+    );
+  }
+
   let userId: string;
   let email: string | null = null;
   let fullName: string | null = null;
 
-  if (accessToken) {
-    const secret = process.env.SUPABASE_JWT_SECRET;
-    if (!secret) {
-      return NextResponse.json(
-        { error: "Server misconfiguration: JWT secret not set." },
-        { status: 500 }
-      );
-    }
-    try {
-      const { payload } = await jwtVerify(
-        accessToken,
-        new TextEncoder().encode(secret)
-      );
-      const sub = payload.sub;
-      if (!sub) {
-        return NextResponse.json(
-          { error: "Invalid token." },
-          { status: 401 }
-        );
-      }
-      userId = sub;
-      email = (payload.email as string) ?? null;
-      const meta = payload as { user_metadata?: { full_name?: string } };
-      fullName = (meta.user_metadata?.full_name as string) ?? null;
-    } catch {
-      return NextResponse.json(
-        { error: "Invalid or expired token." },
-        { status: 401 }
-      );
-    }
-  } else {
-    const cookieStore = await cookies();
-    const supabase = createServerClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY!,
-      {
-        cookies: {
-          getAll() {
-            return cookieStore.getAll();
-          },
-          setAll(cookiesToSet: { name: string; value: string; options?: object }[]) {
-            cookiesToSet.forEach(({ name, value, options }) =>
-              cookieStore.set(name, value, options)
-            );
-          },
-        },
-      }
+  try {
+    const { payload } = await jwtVerify(
+      accessToken,
+      new TextEncoder().encode(secret)
     );
-    const {
-      data: { session },
-    } = await supabase.auth.getSession();
-    if (!session?.user?.id) {
+    const sub = payload.sub;
+    if (!sub) {
       return NextResponse.json(
-        { error: "Not authenticated. Sign up first." },
+        { error: "Invalid token." },
         { status: 401 }
       );
     }
-    userId = session.user.id;
-    email = session.user.email ?? null;
-    fullName = (session.user.user_metadata?.full_name as string) ?? null;
+    userId = sub;
+    email = (payload.email as string) ?? null;
+    const meta = payload as { user_metadata?: { full_name?: string } };
+    fullName = (meta.user_metadata?.full_name as string) ?? null;
+  } catch {
+    return NextResponse.json(
+      { error: "Invalid or expired token." },
+      { status: 401 }
+    );
   }
 
   const { count } = await supabaseAdmin
