@@ -111,7 +111,7 @@ export function HeroSection() {
           className="relative z-20 h-[38vh] min-h-[240px] w-full shrink-0 bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: 'url(/hero.png)' }}
         />
-        <div className="relative z-10 -mt-48 flex flex-1 flex-col justify-center bg-white px-4 pb-10">
+        <div className="relative z-10 -mt-24 flex flex-1 flex-col justify-center bg-white px-4 pb-10">
           <HeroContent />
         </div>
       </section>
