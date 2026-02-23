@@ -23,11 +23,6 @@ export const WEBSITE_JSON_LD = {
   url: SITE_URL,
   description:
     'Book a ride in Bangladesh. Plan your trip, journey, or commute with Arohon. Safe, affordable rides across Dhaka, Sylhet, and nationwide. Ride sharing made simple.',
-  potentialAction: {
-    '@type': 'SearchAction',
-    target: `${SITE_URL}/services`,
-    'query-input': 'required name=search_term_string',
-  },
 };
 
 export const LOCAL_BUSINESS_JSON_LD = {

@@ -44,7 +44,7 @@ export default function PartnersPage() {
               className="mt-6 flex w-full items-center justify-center rounded-xl px-5 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-95 sm:inline-flex sm:w-auto"
               style={{ backgroundColor: '#016b42' }}
             >
-              Learn more
+              Become a driver
             </Link>
           </div>
         </div>
