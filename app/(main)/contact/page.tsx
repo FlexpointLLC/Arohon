@@ -3,8 +3,8 @@ import { ContactPageLayout } from '@/components/ContactPageLayout';
 import { ContactForm } from '@/components/ContactForm';
 
 export const metadata: Metadata = {
-  title: 'Contact Us - Arohon',
-  description: 'Get in touch with Arohon. Send us your questions, feedback, or support requests.',
+  title: 'Contact | Book a Ride, Plan Your Trip - Arohon Bangladesh',
+  description: 'Contact Arohon for ride booking, trip planning, or support. Get help with your journey across Bangladesh. support@arohon.co',
 };
 
 const BRAND_GREEN = '#016b42';

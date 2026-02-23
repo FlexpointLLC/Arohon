@@ -3,8 +3,8 @@ import { PageSection } from '@/components/PageSection';
 import { USER_APP_URL } from '@/lib/app-links';
 
 export const metadata: Metadata = {
-  title: 'Ride - Arohon',
-  description: 'Book rides across Bangladesh. City rides, intercity travel, and more.',
+  title: 'Book a Ride | City, Intercity & Airport Rides in Bangladesh',
+  description: 'Book a ride in Bangladesh. Plan your journey or trip. City rides, intercity travel, airport transfers, hourly rental. Verified drivers, live tracking.',
 };
 
 export default function RidePage() {

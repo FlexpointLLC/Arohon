@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import { PageSection } from '@/components/PageSection';
 
 export const metadata: Metadata = {
-  title: 'About Us - Arohon',
-  description: 'Learn about Arohon and our mission to transform ride-sharing in Bangladesh.',
+  title: 'About Arohon | Ride Sharing for Your Journey & Trip in Bangladesh',
+  description: 'Arohon helps you plan your ride, journey, and trip across Bangladesh. Safe ride sharing in Dhaka, Sylhet, and 64 districts. Verified drivers, trusted travel.',
 };
 
 export default function AboutPage() {
