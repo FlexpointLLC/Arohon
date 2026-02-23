@@ -1,10 +1,18 @@
-import { AppDownloadCTA } from '@/components/AppDownloadCTA';
-import { BlogSection } from '@/components/BlogSection';
+import dynamic from 'next/dynamic';
 import { HeroSection } from '@/components/HeroSection';
-import { SeoContentSection } from '@/components/SeoContentSection';
-import { ServicesSection } from '@/components/ServicesSection';
-import { ServicesTabsSection } from '@/components/ServicesTabsSection';
 import { TrustedBy } from '@/components/TrustedBy';
+import { ServicesSection } from '@/components/ServicesSection';
+import { SeoContentSection } from '@/components/SeoContentSection';
+
+const ServicesTabsSection = dynamic(() => import('@/components/ServicesTabsSection').then((m) => m.ServicesTabsSection), {
+  ssr: true,
+});
+const AppDownloadCTA = dynamic(() => import('@/components/AppDownloadCTA').then((m) => m.AppDownloadCTA), {
+  ssr: true,
+});
+const BlogSection = dynamic(() => import('@/components/BlogSection').then((m) => m.BlogSection), {
+  ssr: true,
+});
 
 export const metadata = {
   title: 'Arohon | Book a Ride in Bangladesh – Dhaka, Sylhet, 64 Districts',

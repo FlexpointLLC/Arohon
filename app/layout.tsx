@@ -93,6 +93,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${instrumentSerif.variable}`}>
+      <head>
+        <link rel="preload" as="image" href="/hero.png" fetchPriority="high" />
+      </head>
       <body className={`antialiased ${inter.className}`}>
         <JsonLd data={ORGANIZATION_JSON_LD} />
         <JsonLd data={WEBSITE_JSON_LD} />
