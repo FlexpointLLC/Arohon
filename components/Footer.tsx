@@ -63,7 +63,7 @@ export function Footer() {
       className="border-t border-gray-100 bg-white"
       style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}
     >
-      <div className="mx-auto max-w-6xl px-6 py-12 lg:py-16">
+      <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12 lg:py-16">
         {/* Top section: Logo + Links grid + Right column */}
         <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between lg:gap-12">
           {/* Left: Logo + App download */}
@@ -84,7 +84,7 @@ export function Footer() {
           </div>
 
           {/* Middle: Link columns */}
-          <div className="grid flex-1 grid-cols-2 gap-8 sm:grid-cols-4 lg:max-w-2xl">
+          <div className="grid flex-1 grid-cols-2 gap-6 sm:grid-cols-4 sm:gap-8 lg:max-w-2xl">
             {LINK_GROUPS.map((group) => (
               <div key={group.title}>
                 <h3 className="mb-4 text-sm font-semibold text-gray-900">{group.title}</h3>
@@ -118,7 +118,7 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-12 flex flex-col items-center justify-between gap-6 border-t border-gray-100 pt-8 sm:flex-row">
+        <div className="mt-10 flex flex-col items-center justify-between gap-5 border-t border-gray-100 pt-6 sm:flex-row sm:mt-12 sm:gap-6 sm:pt-8">
           <p className="text-sm text-gray-500">All rights reserved. Arohon © 2026</p>
           <div className="flex items-center gap-6">
             <a href="/terms" className="text-sm text-gray-600 transition-colors hover:text-gray-900">

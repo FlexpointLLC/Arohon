@@ -40,7 +40,17 @@
   }
 }
 
+html {
+  overflow-x: hidden;
+}
+
 body {
   font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
-  padding: 8px;
+  padding: 6px;
+}
+
+@media (min-width: 640px) {
+  body {
+    padding: 8px;
+  }
 }

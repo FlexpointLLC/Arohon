@@ -18,7 +18,7 @@ export default function DrivePage() {
           className="space-y-10"
           style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}
         >
-          <div className="grid gap-6 sm:grid-cols-2">
+            <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
             {[
               { title: 'Flexible Earnings', desc: 'Drive when you want. No fixed shifts. Earn per trip with clear, upfront rates.' },
               { title: 'Verified Riders', desc: 'Connect with real riders through our app. Safe, traceable, and paid.' },
@@ -31,7 +31,7 @@ export default function DrivePage() {
               </div>
             ))}
           </div>
-          <div className="rounded-2xl border-2 border-[#016b42]/20 bg-[#016b42]/5 p-8 text-center">
+          <div className="rounded-2xl border-2 border-[#016b42]/20 bg-[#016b42]/5 p-6 text-center sm:p-8">
             <h3 className="text-xl font-semibold text-gray-900">Ready to start driving?</h3>
             <p className="mt-2 text-gray-600">Download the Arohon driver app and begin earning today.</p>
             <a

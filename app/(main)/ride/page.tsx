@@ -15,7 +15,7 @@ export default function RidePage() {
         subtitle="One tap to book. Live tracking. Verified drivers. Whether you need a quick city hop or a long-distance journey, we have the right ride for you."
       >
         <div
-          className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3"
+          className="grid gap-4 sm:gap-8 sm:grid-cols-2 lg:grid-cols-3"
           style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}
         >
           {[
@@ -58,7 +58,7 @@ export default function RidePage() {
             href="https://play.google.com/store/apps"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-xl px-6 py-3.5 text-base font-semibold text-white transition-opacity hover:opacity-95"
+            className="inline-flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-95 sm:px-6 sm:py-3.5 sm:text-base"
             style={{ backgroundColor: '#016b42' }}
           >
             Download the app to book

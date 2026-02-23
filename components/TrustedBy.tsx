@@ -1,6 +1,8 @@
 'use client';
 
+import { motion } from 'framer-motion';
 import { Car, MapTrifold, Compass, AirplaneTakeoff } from '@phosphor-icons/react';
+import { appearTransition, appearViewport, fadeUpVariants } from './AnimateIn';
 
 const CARDS = [
   {
@@ -39,8 +41,13 @@ const CARDS = [
 
 export function TrustedBy() {
   return (
-    <section
-      className="px-6 pt-3 pb-20 bg-white"
+    <motion.section
+      className="px-4 pt-3 pb-12 sm:px-6 sm:pb-20"
+      initial="initial"
+      whileInView="animate"
+      viewport={appearViewport}
+      transition={appearTransition}
+      variants={fadeUpVariants}
     >
       <div
         className="mx-auto mt-0 w-full max-w-[990px] rounded-[20px] bg-white py-8 text-white shadow-[0px_15px_32px_0px_rgba(0,0,0,0.08)]"
@@ -51,10 +58,7 @@ export function TrustedBy() {
             return (
               <div
                 key={card.title}
-                className="flex flex-1 flex-col items-center text-center border-r px-[12px] first:pl-0 last:border-r-0 last:pr-0"
-                style={{
-                  borderColor: 'rgb(235, 235, 235)',
-                }}
+                className="flex flex-1 flex-col items-center border-b border-gray-200 px-4 py-6 text-center last:border-b-0 sm:border-b-0 sm:border-r sm:border-gray-200 sm:px-3 sm:py-8 sm:first:pl-0 sm:last:border-r-0 sm:last:pr-0"
               >
                 {/* Icon: 48×38px container, 20px graphic */}
                 <div
@@ -93,6 +97,6 @@ export function TrustedBy() {
           })}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

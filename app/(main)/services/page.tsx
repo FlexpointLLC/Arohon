@@ -36,7 +36,7 @@ const SERVICE_GROUPS = [
     ],
   },
   {
-    title: 'Special services',
+    title: 'Daily services',
     items: [
       { label: 'Ambulance', icon: Ambulance, href: '/ride' },
       { label: 'Pickup', icon: Truck, href: '/ride' },
@@ -52,7 +52,7 @@ export default function ServicesPage() {
       <PageSection
         title="How we"
         accent="serve"
-        subtitle="you. From quick city rides to long-distance trips and special services—book bikes, cars, buses, and more. Pay your way with cash, card, or mobile wallet."
+        subtitle="you. From quick city rides to long-distance trips and daily services—book bikes, cars, buses, and more. Use your way with cash, card, or mobile wallet."
       >
         <div
           className="space-y-12"

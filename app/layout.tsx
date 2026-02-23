@@ -1,7 +1,5 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Inter, Instrument_Serif } from 'next/font/google';
-import { Footer } from '@/components/Footer';
-import { NavBar } from '@/components/NavBar';
 import './globals.css';
 
 const inter = Inter({
@@ -22,6 +20,11 @@ export const metadata: Metadata = {
     'Book rides instantly, track drivers in real time, and manage operations effortlessly. A powerful ride-sharing platform built for speed, safety, and scale.',
 };
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -30,9 +33,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${instrumentSerif.variable}`}>
       <body className={`antialiased ${inter.className}`}>
-        <NavBar />
         {children}
-        <Footer />
       </body>
     </html>
   );

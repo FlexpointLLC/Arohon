@@ -39,7 +39,7 @@ export default function JoinOurTeamPage() {
               </li>
             </ul>
           </div>
-          <div className="rounded-2xl border-2 border-[#016b42]/20 bg-[#016b42]/5 p-8 text-center">
+          <div className="rounded-2xl border-2 border-[#016b42]/20 bg-[#016b42]/5 p-6 text-center sm:p-8">
             <h3 className="text-xl font-semibold text-gray-900">Explore open roles</h3>
             <p className="mt-2 text-gray-600">
               We are always looking for talented people to join our team. Check back soon for current

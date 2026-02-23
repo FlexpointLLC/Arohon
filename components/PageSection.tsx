@@ -1,3 +1,8 @@
+'use client';
+
+import { motion } from 'framer-motion';
+import { appearTransition, appearViewport, fadeUpVariants } from './AnimateIn';
+
 const BRAND_GREEN = '#016b42';
 
 export function PageSection({
@@ -12,8 +17,13 @@ export function PageSection({
   children: React.ReactNode;
 }) {
   return (
-    <section
-      className="relative flex flex-col items-center px-6 py-[100px] md:py-[150px]"
+    <motion.section
+      className="relative flex flex-col items-center px-4 py-16 sm:px-6 sm:py-20 md:py-[120px] lg:py-[150px]"
+      initial="initial"
+      whileInView="animate"
+      viewport={appearViewport}
+      transition={appearTransition}
+      variants={fadeUpVariants}
       style={{
         backgroundColor: '#ffffff',
         backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(0,0,0,0.04) 1px, transparent 0)',
@@ -26,8 +36,8 @@ export function PageSection({
           style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}
         >
           <h1
-            className="font-semibold tracking-tight text-gray-900"
-            style={{ fontSize: '48px', lineHeight: '100%' }}
+            className="font-semibold tracking-tight text-gray-900 text-3xl sm:text-4xl md:text-[48px]"
+            style={{ lineHeight: '100%' }}
           >
             {title}{' '}
             <span
@@ -46,6 +56,6 @@ export function PageSection({
         </div>
         {children}
       </div>
-    </section>
+    </motion.section>
   );
 }

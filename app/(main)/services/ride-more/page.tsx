@@ -1,0 +1,69 @@
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { PageSection } from '@/components/PageSection';
+import { Car, Bus, AirplaneTakeoff, Clock } from '@phosphor-icons/react';
+
+const BRAND_GREEN = '#016b42';
+
+export const metadata: Metadata = {
+  title: 'Ride More - Intercity & Premium | Arohon',
+  description: 'Car Plus, Hiace, airport transfers, and hourly rentals. Comfortable intercity travel with transparent pricing.',
+};
+
+const SERVICES = [
+  { label: 'Car Plus', icon: Car, desc: 'Premium rides for intercity travel. Comfort and reliability.' },
+  { label: 'Hiace', icon: Bus, desc: 'Spacious vehicles for group trips between cities.' },
+  { label: 'Airport', icon: AirplaneTakeoff, desc: 'Hassle-free airport pickups and drop-offs with flight tracking.' },
+  { label: 'Hourly Rental', icon: Clock, desc: 'Rent by the hour for errands, events, or flexible travel.' },
+];
+
+export default function RideMorePage() {
+  return (
+    <main className="min-h-screen">
+      <PageSection
+        title="Ride"
+        accent="more"
+        subtitle="Car Plus, Hiace, airport transfers, and hourly rentals. Comfortable intercity travel with transparent pricing."
+      >
+        <div
+          className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
+          style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}
+        >
+          {SERVICES.map((item) => {
+            const Icon = item.icon;
+            return (
+              <div
+                key={item.label}
+                className="flex flex-col gap-4 rounded-2xl border border-gray-100 bg-white p-6"
+              >
+                <div
+                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl"
+                  style={{ backgroundColor: `${BRAND_GREEN}15` }}
+                >
+                  <Icon size={24} style={{ color: BRAND_GREEN }} weight="fill" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900">{item.label}</h3>
+                <p className="text-gray-600">{item.desc}</p>
+              </div>
+            );
+          })}
+        </div>
+        <div className="mt-12 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+          <Link
+            href="/ride"
+            className="inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-95"
+            style={{ backgroundColor: BRAND_GREEN }}
+          >
+            Book a ride
+          </Link>
+          <Link
+            href="/services"
+            className="inline-flex items-center gap-2 rounded-xl border border-gray-200 px-6 py-3 text-sm font-semibold text-gray-700 transition-colors hover:bg-gray-50"
+          >
+            View all services
+          </Link>
+        </div>
+      </PageSection>
+    </main>
+  );
+}

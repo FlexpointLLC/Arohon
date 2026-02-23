@@ -1,6 +1,8 @@
 'use client';
 
+import { motion } from 'framer-motion';
 import { CaretRight, Article } from '@phosphor-icons/react';
+import { appearTransition, appearViewport, fadeUpVariants } from './AnimateIn';
 
 const BRAND_GREEN = '#016b42';
 
@@ -36,8 +38,13 @@ const POSTS = [
 
 export function BlogSection() {
   return (
-    <section
-      className="relative flex flex-col items-center px-6 py-[150px]"
+    <motion.section
+      className="relative flex flex-col items-center px-4 py-16 sm:px-6 sm:py-24 md:py-[100px] lg:py-[150px]"
+      initial="initial"
+      whileInView="animate"
+      viewport={appearViewport}
+      transition={appearTransition}
+      variants={fadeUpVariants}
       style={{
         backgroundColor: '#ffffff',
         backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(0,0,0,0.04) 1px, transparent 0)',
@@ -48,8 +55,8 @@ export function BlogSection() {
         {/* Header */}
         <div className="mx-auto mb-12 w-full max-w-[990px]" style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}>
           <h2
-            className="font-semibold tracking-tight text-gray-900"
-            style={{ fontSize: '48px', lineHeight: '100%' }}
+            className="font-semibold tracking-tight text-gray-900 text-3xl sm:text-4xl lg:text-[48px]"
+            style={{ lineHeight: '100%' }}
           >
             From our <span style={{ color: BRAND_GREEN, fontWeight: 800, fontFamily: 'var(--font-instrument), Georgia, serif', fontStyle: 'italic', letterSpacing: '1px' }}>blog</span>
           </h2>
@@ -98,6 +105,6 @@ export function BlogSection() {
           </a>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

@@ -33,14 +33,8 @@ export default function TrackPage() {
         }
       `}</style>
       <main
+        className="relative flex min-h-[calc(100vh+12px)] w-[calc(100%+12px)] -m-[6px] flex-col items-center justify-center overflow-hidden p-6 sm:min-h-[calc(100vh+16px)] sm:w-[calc(100%+16px)] sm:-m-2"
         style={{
-          position: 'relative',
-          minHeight: '100vh',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          overflow: 'hidden',
-          padding: '1.5rem',
           fontFamily: 'system-ui, -apple-system, sans-serif',
           background: '#0f172a',
           color: '#f1f5f9',

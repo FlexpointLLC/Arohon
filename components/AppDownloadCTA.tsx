@@ -1,6 +1,8 @@
 'use client';
 
+import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { appearTransition, appearViewport, fadeUpVariants } from './AnimateIn';
 
 const PLAY_STORE_URL = 'https://play.google.com/store/apps';
 
@@ -14,9 +16,14 @@ function GooglePlayIcon({ className }: { className?: string }) {
 
 export function AppDownloadCTA() {
   return (
-    <section
-      className="relative mx-6 mb-16 max-w-[1110px] overflow-hidden rounded-2xl bg-[#016b42] px-6 py-12 text-white md:mx-auto md:px-12 md:py-16 lg:pl-16 lg:pr-0 lg:pt-0 lg:pb-0"
+    <motion.section
+      className="relative mx-4 mb-12 max-w-[1110px] overflow-hidden rounded-2xl bg-[#016b42] px-4 py-10 text-white sm:mx-6 sm:px-6 sm:py-12 md:mx-auto md:px-12 md:py-16 lg:mb-16 lg:pl-16 lg:pr-0 lg:pt-0 lg:pb-0"
       style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}
+      initial="initial"
+      whileInView="animate"
+      viewport={appearViewport}
+      transition={appearTransition}
+      variants={fadeUpVariants}
     >
       {/* Dot pattern overlay */}
       <div
@@ -30,7 +37,7 @@ export function AppDownloadCTA() {
       <div className="relative z-10 flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between lg:gap-12">
         {/* Text block */}
         <div className="flex flex-col justify-center lg:max-w-xl">
-          <h2 className="text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
+          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl">
             Install our app from
             <br />
             <span
@@ -52,7 +59,7 @@ export function AppDownloadCTA() {
             href={PLAY_STORE_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-8 inline-flex w-fit items-center gap-3 rounded-2xl bg-black px-6 py-4 text-white transition-all hover:scale-[1.02] hover:bg-gray-900 active:scale-[0.98]"
+            className="mt-6 inline-flex w-fit items-center gap-3 rounded-2xl bg-black px-5 py-3.5 text-white transition-all hover:scale-[1.02] hover:bg-gray-900 active:scale-[0.98] sm:mt-8 sm:px-6 sm:py-4"
           >
             <GooglePlayIcon className="h-10 w-10 shrink-0" />
             <div className="flex flex-col items-start text-left">
@@ -69,11 +76,11 @@ export function AppDownloadCTA() {
             alt="Download Arohon app from Google Play"
             width={560}
             height={420}
-            className="h-auto max-h-[300px] w-auto object-contain lg:max-h-[400px]"
+            className="h-auto max-h-[220px] w-auto object-contain sm:max-h-[280px] lg:max-h-[400px]"
             sizes="(max-width: 1024px) 320px, 560px"
           />
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

@@ -1,13 +1,23 @@
 'use client';
 
-import Image from 'next/image';
+import { motion } from 'framer-motion';
+import { appearTransition, appearViewport, fadeUpVariants } from './AnimateIn';
 
 const BRAND_GREEN = '#016b42';
+const PLAY_STORE_URL = 'https://play.google.com/store/apps';
+
+function GooglePlayIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+      <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.198l2.807 1.626a1 1 0 0 1 0 1.73l-2.808 1.626L15.206 12l2.492-2.491zM5.864 2.658L16.802 8.99l-2.302 2.302-8.636-8.634z" />
+    </svg>
+  );
+}
 
 export function HeroSection() {
   return (
     <section
-        className="relative -mt-[88px] min-h-screen overflow-hidden rounded-[16px] bg-cover bg-center bg-no-repeat"
+        className="relative -mt-[72px] min-h-[100dvh] overflow-hidden rounded-xl bg-cover bg-center bg-no-repeat sm:-mt-[88px] sm:min-h-screen sm:rounded-[16px]"
         style={{ backgroundImage: 'url(/hero.png)', backgroundColor: '#ffffff' }}
       >
         {/* Decorative elements - stars/plus signs */}
@@ -26,8 +36,15 @@ export function HeroSection() {
       </div>
 
         {/* Hero content */}
-      <div className="relative z-10 mx-auto flex min-h-[calc(100vh-140px)] max-w-5xl items-center pl-4 pr-2 pt-28 pb-12">
-        <div className="flex flex-1 flex-col justify-center">
+      <div className="relative z-10 mx-auto flex min-h-[calc(100dvh-120px)] max-w-5xl items-center px-4 pt-24 pb-10 sm:min-h-[calc(100vh-140px)] sm:pl-4 sm:pr-2 sm:pt-28 sm:pb-12">
+        <motion.div
+          className="flex flex-1 flex-col justify-center"
+          initial="initial"
+          whileInView="animate"
+          viewport={appearViewport}
+          transition={appearTransition}
+          variants={fadeUpVariants}
+        >
           <div
             className="mb-6 inline-flex w-fit items-center gap-2 rounded-full border px-3.5 py-1.5 text-xs font-medium uppercase tracking-wider text-gray-600"
             style={{
@@ -71,37 +88,24 @@ export function HeroSection() {
             One tap to book. Live tracking. Verified drivers. Ride with confidence from Dhaka to Sylhet and beyond.
           </p>
           <a
-            href="#"
-            className="mt-6 inline-flex w-fit items-center gap-2 rounded-xl px-6 py-3.5 text-base font-semibold text-white transition-opacity hover:opacity-95"
-            style={{
-              backgroundColor: BRAND_GREEN,
-              fontFamily: 'var(--font-inter), system-ui, sans-serif',
-              WebkitFontSmoothing: 'antialiased',
-            }}
+            href={PLAY_STORE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-6 inline-flex w-fit items-center gap-2.5 rounded-2xl bg-black px-5 py-3 text-white transition-all hover:scale-[1.02] hover:bg-gray-900 active:scale-[0.98] sm:gap-3 sm:px-6 sm:py-4"
           >
-            Download the app
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
-              <polyline points="7 10 12 15 17 10" />
-              <line x1="12" y1="15" x2="12" y2="3" />
-            </svg>
+            <GooglePlayIcon className="h-8 w-8 shrink-0 sm:h-10 sm:w-10" />
+            <div className="flex flex-col items-start text-left">
+              <span className="text-[10px] uppercase tracking-wider text-white/80">Get it on</span>
+              <span className="text-base font-semibold sm:text-lg">Google Play</span>
+            </div>
           </a>
           {/* Statistics */}
-          <div className="mt-16" style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}>
-            <h2 className="text-xl font-semibold text-gray-900">Our reach in Bangladesh</h2>
+          <div className="mt-10 sm:mt-16" style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}>
+            <h2 className="text-lg font-semibold text-gray-900 sm:text-xl">Our reach in Bangladesh</h2>
             <p className="mt-1 max-w-md text-sm text-gray-600">
               We connect riders and drivers across the country with safe, reliable, and affordable rides.
             </p>
-            <div className="mt-6 flex gap-12">
+            <div className="mt-4 flex flex-wrap gap-6 sm:mt-6 sm:gap-8 md:gap-12">
               <div>
                 <div className="text-xs font-medium uppercase tracking-wider text-gray-500">
                   Districts
@@ -122,7 +126,7 @@ export function HeroSection() {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

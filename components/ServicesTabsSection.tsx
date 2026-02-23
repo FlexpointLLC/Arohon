@@ -1,6 +1,8 @@
 'use client';
 
+import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { appearTransition, appearViewport, fadeUpVariants } from './AnimateIn';
 import { useState } from 'react';
 import { Car, CaretRight } from '@phosphor-icons/react';
 
@@ -117,8 +119,13 @@ export function ServicesTabsSection() {
   const showPlaceholder = imageError[activeTabImage];
 
   return (
-    <section
-      className="relative flex flex-col items-center px-6 py-[150px]"
+    <motion.section
+      className="relative flex flex-col items-center px-4 py-16 sm:px-6 sm:py-24 md:py-[100px] lg:py-[150px]"
+      initial="initial"
+      whileInView="animate"
+      viewport={appearViewport}
+      transition={appearTransition}
+      variants={fadeUpVariants}
       style={{
         backgroundColor: '#ffffff',
         backgroundImage: `radial-gradient(circle at 1px 1px, rgba(0,0,0,0.04) 1px, transparent 0)`,
@@ -129,8 +136,8 @@ export function ServicesTabsSection() {
         {/* Title & description */}
         <div className="mx-auto mb-12 w-full max-w-[990px]" style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}>
           <h2
-            className="font-semibold tracking-tight text-gray-900"
-            style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif', fontSize: '48px', lineHeight: '100%' }}
+            className="font-semibold tracking-tight text-gray-900 text-3xl sm:text-4xl lg:text-[48px]"
+            style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif', lineHeight: '100%' }}
           >
             How we <span style={{ color: BRAND_GREEN, fontWeight: 800, fontFamily: 'var(--font-instrument), Georgia, serif', fontStyle: 'italic', letterSpacing: '1px' }}>get</span> you there
           </h2>
@@ -139,13 +146,14 @@ export function ServicesTabsSection() {
           </p>
         </div>
 
-        {/* Tabs - bottom bar style */}
-        <div className="mb-10 flex w-full gap-4 px-4 md:px-8">
+        {/* Tabs - horizontal scroll on mobile */}
+        <div className="mb-10 -mx-4 overflow-x-auto px-4 md:mx-0 md:overflow-visible md:px-8">
+          <div className="flex min-w-max gap-2 md:min-w-0 md:w-full md:gap-4">
           {TABS.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className="relative -mb-px flex-1 border-b-2 px-4 py-3 text-sm font-medium transition-colors"
+              className="relative -mb-px flex-1 min-w-[72px] shrink-0 border-b-2 px-3 py-3 text-xs font-medium transition-colors sm:min-w-0 sm:px-4 sm:text-sm"
               style={
                 activeTab === tab.id
                   ? { borderColor: BRAND_GREEN, color: BRAND_GREEN }
@@ -155,11 +163,12 @@ export function ServicesTabsSection() {
               {tab.label}
             </button>
           ))}
+          </div>
         </div>
 
         {/* Tab content - Two columns: Left features + CTA, Right phone mockup */}
-        <div className="grid min-h-[400px] grid-cols-1 gap-10 px-7 lg:grid-cols-2 lg:items-start">
-          <div className="flex w-full max-w-[450px] flex-col justify-start py-10">
+        <div className="grid min-h-[400px] grid-cols-1 gap-8 px-4 sm:gap-10 sm:px-7 lg:grid-cols-2 lg:items-start">
+          <div className="flex w-full max-w-[450px] flex-col justify-start py-6 sm:py-10">
             <div className="space-y-6">
               {content.features.map((feature, i) => (
                 <div key={i}>
@@ -216,6 +225,6 @@ export function ServicesTabsSection() {
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

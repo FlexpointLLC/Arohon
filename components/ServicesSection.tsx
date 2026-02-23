@@ -1,5 +1,8 @@
 'use client';
 
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { appearTransition, appearViewport, fadeUpVariants } from './AnimateIn';
 import {
   Bicycle,
   Car,
@@ -22,6 +25,7 @@ const CARDS = [
   {
     titleBig: 'Go',
     titleSmall: 'anywhere',
+    href: '/services/go-anywhere',
     bgColor: '#3b82f6',
     textColor: 'white',
     arrowColor: 'white',
@@ -36,6 +40,7 @@ const CARDS = [
   {
     titleBig: 'Ride',
     titleSmall: 'more',
+    href: '/services/ride-more',
     bgColor: '#bbf7d0',
     textColor: '#166534',
     arrowColor: '#166534',
@@ -48,8 +53,9 @@ const CARDS = [
     ],
   },
   {
-    titleBig: 'Special',
+    titleBig: 'Daily',
     titleSmall: 'services',
+    href: '/services/daily',
     bgColor: '#8b5cf6',
     textColor: 'white',
     arrowColor: 'white',
@@ -62,8 +68,9 @@ const CARDS = [
     ],
   },
   {
-    titleBig: 'Pay',
+    titleBig: 'Use',
     titleSmall: 'your way',
+    href: '/services/payment',
     bgColor: '#1e3a8a',
     textColor: 'white',
     arrowColor: 'white',
@@ -80,6 +87,7 @@ const CARDS = [
 function ServiceCard({
   titleBig,
   titleSmall,
+  href,
   bgColor,
   textColor,
   arrowColor,
@@ -88,6 +96,7 @@ function ServiceCard({
 }: {
   titleBig: string;
   titleSmall: string;
+  href: string;
   bgColor: string;
   textColor: string;
   arrowColor: string;
@@ -95,8 +104,9 @@ function ServiceCard({
   items: { label: string; icon: React.ElementType }[];
 }) {
   return (
-    <div
-      className="flex h-[456px] flex-col justify-between rounded-3xl p-6"
+    <Link
+      href={href}
+      className="flex min-h-[340px] flex-col justify-between rounded-2xl p-5 transition-all hover:scale-[1.02] sm:min-h-[400px] sm:rounded-3xl sm:p-6 lg:h-[456px]"
       style={{
         backgroundColor: bgColor,
         boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
@@ -104,11 +114,10 @@ function ServiceCard({
     >
       <div>
         <h3 className="flex flex-col gap-0" style={{ color: textColor }}>
-          <span className="font-bold leading-[90%]" style={{ fontSize: '48px' }}>{titleBig}</span>
+          <span className="font-bold leading-[90%] text-3xl sm:text-4xl lg:text-[48px]">{titleBig}</span>
           <span
-            className="font-bold italic"
+            className="font-bold italic text-lg sm:text-xl lg:text-[28px]"
             style={{
-              fontSize: '28px',
               lineHeight: '90%',
               fontFamily: 'var(--font-instrument), Georgia, serif',
               letterSpacing: '1px',
@@ -140,14 +149,19 @@ function ServiceCard({
           </svg>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 
 export function ServicesSection() {
   return (
-    <section
-      className="relative flex flex-col items-center px-6 py-[150px]"
+    <motion.section
+      className="relative flex flex-col items-center px-4 py-16 sm:px-6 sm:py-24 md:py-[100px] lg:py-[150px]"
+      initial="initial"
+      whileInView="animate"
+      viewport={appearViewport}
+      transition={appearTransition}
+      variants={fadeUpVariants}
       style={{
         backgroundColor: '#ffffff',
         backgroundImage: `radial-gradient(circle at 1px 1px, rgba(0,0,0,0.04) 1px, transparent 0)`,
@@ -157,13 +171,13 @@ export function ServicesSection() {
       <div className="w-full max-w-6xl">
         <div className="mx-auto mb-12 w-full max-w-[990px]" style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}>
           <h2
-            className="font-semibold tracking-tight text-gray-900"
-            style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif', fontSize: '48px', lineHeight: '100%' }}
+            className="font-semibold tracking-tight text-gray-900 text-3xl sm:text-4xl lg:text-[48px]"
+            style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif', lineHeight: '100%' }}
           >
             How we <span style={{ color: BRAND_GREEN, fontWeight: 800, fontFamily: 'var(--font-instrument), Georgia, serif', fontStyle: 'italic', letterSpacing: '1px' }}>serve</span> you
           </h2>
           <p className="mt-1 max-w-[600px] text-base text-gray-600 leading-relaxed">
-            From quick city rides to long-distance trips and special services—book bikes, cars, buses, and more. Pay your way with cash, card, or mobile wallet.
+            From quick city rides to long-distance trips and daily services—book bikes, cars, buses, and more. Use your way with cash, card, or mobile wallet.
           </p>
         </div>
         {/* Service cards */}
@@ -173,6 +187,7 @@ export function ServicesSection() {
               key={card.titleBig + card.titleSmall}
               titleBig={card.titleBig}
               titleSmall={card.titleSmall}
+              href={card.href}
               bgColor={card.bgColor}
               textColor={card.textColor}
               arrowColor={card.arrowColor}
@@ -182,6 +197,6 @@ export function ServicesSection() {
           ))}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }
