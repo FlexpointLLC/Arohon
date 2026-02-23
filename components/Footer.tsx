@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { MapPin, Globe } from '@phosphor-icons/react';
 
-const PLAY_STORE_URL = 'https://play.google.com/store/apps';
+import { USER_APP_URL, DRIVER_APP_URL } from '@/lib/app-links';
 
 function GooglePlayIcon({ className }: { className?: string }) {
   return (
@@ -52,6 +52,8 @@ const LINK_GROUPS = [
     title: 'About us',
     links: [
       { label: 'Our social impact', href: '/about' },
+      { label: 'Contact', href: '/contact' },
+      { label: "What's New", href: '/whats-new' },
       { label: 'Information security', href: '/privacy' },
     ],
   },
@@ -67,20 +69,35 @@ export function Footer() {
         {/* Top section: Logo + Links grid + Right column */}
         <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between lg:gap-12">
           {/* Left: Logo + App download */}
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-4">
             <Image src="/logo.png" alt="Arohon" width={120} height={38} />
-            <a
-              href={PLAY_STORE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex w-full items-center justify-center gap-3 rounded-2xl bg-black px-6 py-4 text-white transition-all hover:scale-[1.02] hover:bg-gray-900 active:scale-[0.98] sm:w-fit"
-            >
-              <GooglePlayIcon className="h-10 w-10 shrink-0" />
-              <div className="flex flex-col items-start text-left">
-                <span className="text-[10px] uppercase tracking-wider text-white/80">Get it on</span>
-                <span className="text-lg font-semibold">Google Play</span>
-              </div>
-            </a>
+            <div className="flex flex-col gap-3">
+              <a
+                href={USER_APP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex w-full items-center justify-center gap-3 rounded-2xl px-5 py-3.5 text-white transition-all hover:scale-[1.02] active:scale-[0.98]"
+                style={{ backgroundColor: '#016b42' }}
+              >
+                <GooglePlayIcon className="h-9 w-9 shrink-0" />
+                <div className="flex flex-col items-start text-left">
+                  <span className="text-[10px] uppercase tracking-wider text-white/80">Ride</span>
+                  <span className="text-base font-semibold">User App</span>
+                </div>
+              </a>
+              <a
+                href={DRIVER_APP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex w-full items-center justify-center gap-3 rounded-2xl bg-black px-5 py-3.5 text-white transition-all hover:scale-[1.02] hover:bg-gray-900 active:scale-[0.98]"
+              >
+                <GooglePlayIcon className="h-9 w-9 shrink-0" />
+                <div className="flex flex-col items-start text-left">
+                  <span className="text-[10px] uppercase tracking-wider text-white/80">Earn</span>
+                  <span className="text-base font-semibold">Driver App</span>
+                </div>
+              </a>
+            </div>
           </div>
 
           {/* Middle: Link columns */}
@@ -123,6 +140,9 @@ export function Footer() {
           <div className="flex items-center gap-6">
             <a href="/terms" className="text-sm text-gray-600 transition-colors hover:text-gray-900">
               Terms of Service
+            </a>
+            <a href="/terms-return-refund" className="text-sm text-gray-600 transition-colors hover:text-gray-900">
+              Return and Refund
             </a>
             <a href="/privacy" className="text-sm text-gray-600 transition-colors hover:text-gray-900">
               Privacy Notices

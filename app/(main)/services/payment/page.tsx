@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { PageSection } from '@/components/PageSection';
+import { USER_APP_URL } from '@/lib/app-links';
 
 const BRAND_GREEN = '#016b42';
 
@@ -46,7 +47,7 @@ export default function PaymentPage() {
         </div>
         <div className="mt-12 flex flex-col gap-4 sm:flex-row sm:justify-center">
           <a
-            href="https://play.google.com/store/apps"
+            href={USER_APP_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="flex w-full items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-95 sm:w-auto"

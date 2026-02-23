@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { PageSection } from '@/components/PageSection';
+import { DRIVER_APP_URL } from '@/lib/app-links';
 
 export const metadata: Metadata = {
   title: 'Drive with Arohon - Arohon',
@@ -35,7 +36,7 @@ export default function DrivePage() {
             <h3 className="text-xl font-semibold text-gray-900">Ready to start driving?</h3>
             <p className="mt-2 text-gray-600">Download the Arohon driver app and begin earning today.</p>
             <a
-              href="https://play.google.com/store/apps"
+              href={DRIVER_APP_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="mt-6 flex w-full items-center justify-center rounded-xl px-6 py-3.5 font-semibold text-white transition-opacity hover:opacity-95 sm:inline-flex sm:w-auto"

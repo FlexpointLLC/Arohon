@@ -5,10 +5,18 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { List, X } from '@phosphor-icons/react';
+import { USER_APP_URL, DRIVER_APP_URL } from '@/lib/app-links';
 
 const BRAND_GREEN = '#016b42';
 const SCROLL_THRESHOLD = 80;
-const PLAY_STORE_URL = 'https://play.google.com/store/apps';
+
+function GooglePlayIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+      <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.198l2.807 1.626a1 1 0 0 1 0 1.73l-2.808 1.626L15.206 12l2.492-2.491zM5.864 2.658L16.802 8.99l-2.302 2.302-8.636-8.634z" />
+    </svg>
+  );
+}
 
 export function NavBar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -73,14 +81,24 @@ export function NavBar() {
         </div>
         <div className="flex items-center gap-2">
           <a
-            href={PLAY_STORE_URL}
+            href={USER_APP_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-95 md:flex"
+            aria-label="Download User App"
+            className="hidden h-10 w-10 shrink-0 items-center justify-center rounded-xl text-white transition-opacity hover:opacity-95 md:flex"
+            style={{ backgroundColor: BRAND_GREEN }}
+          >
+            <GooglePlayIcon className="h-5 w-5" />
+          </a>
+          <a
+            href={DRIVER_APP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Download Driver App"
+            className="hidden h-10 w-10 shrink-0 items-center justify-center rounded-xl text-white transition-opacity hover:opacity-95 md:flex"
             style={{ backgroundColor: 'rgba(15, 20, 28, 1)' }}
           >
-            <Image src="/play.png" alt="Play" width={18} height={18} className="object-contain" />
-            Download
+            <GooglePlayIcon className="h-5 w-5" />
           </a>
           <button
             type="button"
@@ -122,14 +140,24 @@ export function NavBar() {
             );
           })}
           <a
-            href={PLAY_STORE_URL}
+            href={USER_APP_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="mt-4 flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold text-white"
+            style={{ backgroundColor: BRAND_GREEN }}
+          >
+            <GooglePlayIcon className="h-5 w-5 shrink-0" />
+            User App
+          </a>
+          <a
+            href={DRIVER_APP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold text-white"
             style={{ backgroundColor: 'rgba(15, 20, 28, 1)' }}
           >
-            <Image src="/play.png" alt="Play" width={18} height={18} className="object-contain" />
-            Download app
+            <GooglePlayIcon className="h-5 w-5 shrink-0" />
+            Driver App
           </a>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { PageSection } from '@/components/PageSection';
+import { USER_APP_URL } from '@/lib/app-links';
 
 export const metadata: Metadata = {
   title: 'Ride - Arohon',
@@ -55,7 +56,7 @@ export default function RidePage() {
         </div>
         <div className="mt-12 w-full sm:text-center">
           <a
-            href="https://play.google.com/store/apps"
+            href={USER_APP_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-95 sm:w-auto sm:px-6 sm:py-3.5 sm:text-base"

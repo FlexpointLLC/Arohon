@@ -3,8 +3,9 @@
 import { motion } from 'framer-motion';
 import { appearTransition, appearViewport, fadeUpVariants } from './AnimateIn';
 
+import { USER_APP_URL, DRIVER_APP_URL } from '@/lib/app-links';
+
 const BRAND_GREEN = '#016b42';
-const PLAY_STORE_URL = 'https://play.google.com/store/apps';
 
 function GooglePlayIcon({ className }: { className?: string }) {
   return (
@@ -66,18 +67,33 @@ function HeroContent() {
       >
         One tap to book. Live tracking. Verified drivers. Ride with confidence from Dhaka to Sylhet and beyond.
       </p>
-      <a
-        href={PLAY_STORE_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="mt-6 flex w-full items-center justify-center gap-2.5 rounded-2xl bg-black px-5 py-3 text-white transition-all hover:scale-[1.02] hover:bg-gray-900 active:scale-[0.98] sm:w-fit sm:gap-3 sm:px-6 sm:py-4"
-      >
-        <GooglePlayIcon className="h-8 w-8 shrink-0 sm:h-10 sm:w-10" />
-        <div className="flex flex-col items-start text-left">
-          <span className="text-[10px] uppercase tracking-wider text-white/80">Get it on</span>
-          <span className="text-base font-semibold sm:text-lg">Google Play</span>
-        </div>
-      </a>
+      <div className="mt-6 flex flex-wrap gap-3 sm:gap-4">
+        <a
+          href={USER_APP_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center gap-2.5 rounded-2xl px-5 py-3 text-white transition-all hover:scale-[1.02] active:scale-[0.98] sm:gap-3 sm:px-6 sm:py-4"
+          style={{ backgroundColor: BRAND_GREEN }}
+        >
+          <GooglePlayIcon className="h-8 w-8 shrink-0 sm:h-10 sm:w-10" />
+          <div className="flex flex-col items-start text-left">
+            <span className="text-[10px] uppercase tracking-wider text-white/80">Ride</span>
+            <span className="text-base font-semibold sm:text-lg">User App</span>
+          </div>
+        </a>
+        <a
+          href={DRIVER_APP_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center gap-2.5 rounded-2xl bg-black px-5 py-3 text-white transition-all hover:scale-[1.02] hover:bg-gray-900 active:scale-[0.98] sm:gap-3 sm:px-6 sm:py-4"
+        >
+          <GooglePlayIcon className="h-8 w-8 shrink-0 sm:h-10 sm:w-10" />
+          <div className="flex flex-col items-start text-left">
+            <span className="text-[10px] uppercase tracking-wider text-white/80">Earn</span>
+            <span className="text-base font-semibold sm:text-lg">Driver App</span>
+          </div>
+        </a>
+      </div>
       <div className="mt-10 sm:mt-16" style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}>
         <h2 className="text-lg font-semibold text-gray-900 sm:text-xl">Our reach in Bangladesh</h2>
         <p className="mt-1 max-w-md text-sm text-gray-600">

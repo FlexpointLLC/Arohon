@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import Link from 'next/link';
 import { appearTransition, appearViewport, fadeUpVariants } from './AnimateIn';
 import { useState } from 'react';
 import { Car, CaretRight } from '@phosphor-icons/react';
@@ -182,13 +183,14 @@ export function ServicesTabsSection() {
                 </div>
               ))}
             </div>
-            <button
+            <Link
+              href="/services"
               className="mt-8 flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-95 sm:w-fit"
               style={{ backgroundColor: BRAND_GREEN }}
             >
               Learn More
               <CaretRight size={18} weight="bold" />
-            </button>
+            </Link>
           </div>
 
           {/* Phone mockup - competitor style */}
