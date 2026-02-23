@@ -56,7 +56,7 @@ export default function DailyPage() {
             href="/services"
             className="flex w-full items-center justify-center gap-2 rounded-xl border border-gray-200 px-6 py-3 text-sm font-semibold text-gray-700 transition-colors hover:bg-gray-50 sm:w-auto"
           >
-            View all services
+            Browse all services
           </Link>
         </div>
       </PageSection>

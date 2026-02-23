@@ -42,7 +42,7 @@ const LINK_GROUPS = [
   {
     title: 'Join our team',
     links: [
-      { label: 'About us', href: '/about' },
+      { label: 'Our story', href: '/about' },
       { label: 'Careers', href: '/join-our-team' },
       { label: 'Explore open roles', href: '/join-our-team' },
       { label: 'Why Arohon', href: '/about' },

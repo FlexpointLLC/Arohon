@@ -120,40 +120,33 @@ function HeroContent() {
 
 export function HeroSection() {
   return (
-    <>
-      {/* Mobile: image top + content below */}
-      <section className="relative -mt-[72px] flex min-h-0 flex-col overflow-hidden rounded-xl sm:hidden">
-        <div
-          className="relative z-20 h-[38vh] min-h-[240px] w-full shrink-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: 'url(/hero.png)' }}
-        />
-        <div className="relative z-10 -mt-24 flex flex-1 flex-col justify-center bg-white px-4 pt-6 pb-10">
-          <HeroContent />
-        </div>
-      </section>
-
-      {/* Desktop: original layout - full bg with overlay content */}
-      <section
-        className="relative -mt-[88px] hidden min-h-screen overflow-hidden rounded-[16px] bg-cover bg-center bg-no-repeat sm:block"
-        style={{ backgroundImage: 'url(/hero.png)', backgroundColor: '#ffffff' }}
-      >
-        <div className="pointer-events-none absolute left-4 top-24 z-10 text-gray-200">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7-6.3-4.5-6.3 4.5 2.3-7-6-4.6h7.6z" />
-          </svg>
-        </div>
-        <div className="pointer-events-none absolute left-8 top-[45%] z-10 text-gray-200">
-          <span className="text-2xl font-light">+</span>
-        </div>
-        <div className="pointer-events-none absolute left-12 bottom-32 z-10 text-gray-200">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7-6.3-4.5-6.3 4.5 2.3-7-6-4.6h7.6z" />
-          </svg>
-        </div>
-        <div className="relative z-10 mx-auto flex min-h-[calc(100vh-140px)] max-w-5xl items-center pl-4 pr-2 pt-36 pb-12">
-          <HeroContent />
-        </div>
-      </section>
-    </>
+    <section
+      className="relative -mt-[72px] flex min-h-0 flex-col overflow-hidden rounded-xl sm:-mt-[88px] sm:min-h-screen sm:rounded-[16px]"
+      style={{ backgroundColor: '#ffffff' }}
+    >
+      {/* Mobile: image in flow */}
+      <div
+        className="relative z-20 h-[38vh] min-h-[240px] w-full shrink-0 bg-cover bg-center bg-no-repeat sm:absolute sm:inset-0 sm:h-full sm:min-h-0"
+        style={{ backgroundImage: 'url(/hero.png)' }}
+      />
+      {/* Desktop decorative elements */}
+      <div className="pointer-events-none absolute left-4 top-24 z-10 hidden text-gray-200 sm:block">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7-6.3-4.5-6.3 4.5 2.3-7-6-4.6h7.6z" />
+        </svg>
+      </div>
+      <div className="pointer-events-none absolute left-8 top-[45%] z-10 hidden text-gray-200 sm:block">
+        <span className="text-2xl font-light">+</span>
+      </div>
+      <div className="pointer-events-none absolute left-12 bottom-32 z-10 hidden text-gray-200 sm:block">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7-6.3-4.5-6.3 4.5 2.3-7-6-4.6h7.6z" />
+        </svg>
+      </div>
+      {/* Content - single instance for one H1 */}
+      <div className="relative z-10 -mt-24 flex flex-1 flex-col justify-center bg-white px-4 pt-6 pb-10 sm:mx-auto sm:mt-0 sm:min-h-[calc(100vh-140px)] sm:max-w-5xl sm:items-center sm:pl-4 sm:pr-2 sm:pt-36 sm:pb-12">
+        <HeroContent />
+      </div>
+    </section>
   );
 }

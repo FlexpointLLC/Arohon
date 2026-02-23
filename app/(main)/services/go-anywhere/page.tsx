@@ -49,13 +49,13 @@ export default function GoAnywherePage() {
             className="flex w-full items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-95 sm:w-auto"
             style={{ backgroundColor: BRAND_GREEN }}
           >
-            Book a ride
+            Book a city ride
           </Link>
           <Link
             href="/services"
             className="flex w-full items-center justify-center gap-2 rounded-xl border border-gray-200 px-6 py-3 text-sm font-semibold text-gray-700 transition-colors hover:bg-gray-50 sm:w-auto"
           >
-            View all services
+            Explore more services
           </Link>
         </div>
       </PageSection>
