@@ -127,7 +127,7 @@ export function HeroSection() {
           className="relative z-20 h-[38vh] min-h-[240px] w-full shrink-0 bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: 'url(/hero.png)' }}
         />
-        <div className="relative z-10 -mt-24 flex flex-1 flex-col justify-center bg-white px-4 pb-10">
+        <div className="relative z-10 -mt-24 flex flex-1 flex-col justify-center bg-white px-4 pt-6 pb-10">
           <HeroContent />
         </div>
       </section>
@@ -150,7 +150,7 @@ export function HeroSection() {
             <path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7-6.3-4.5-6.3 4.5 2.3-7-6-4.6h7.6z" />
           </svg>
         </div>
-        <div className="relative z-10 mx-auto flex min-h-[calc(100vh-140px)] max-w-5xl items-center pl-4 pr-2 pt-28 pb-12">
+        <div className="relative z-10 mx-auto flex min-h-[calc(100vh-140px)] max-w-5xl items-center pl-4 pr-2 pt-36 pb-12">
           <HeroContent />
         </div>
       </section>

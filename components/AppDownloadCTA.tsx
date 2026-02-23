@@ -17,7 +17,7 @@ function GooglePlayIcon({ className }: { className?: string }) {
 export function AppDownloadCTA() {
   return (
     <motion.section
-      className="relative mx-4 mb-12 max-w-[1110px] overflow-hidden rounded-2xl bg-[#016b42] px-4 py-10 text-white sm:mx-6 sm:px-6 sm:py-12 md:mx-auto md:px-12 md:py-16 lg:mb-16 lg:pl-16 lg:pr-0 lg:pt-0 lg:pb-0"
+      className="relative mx-4 mb-12 max-w-[1110px] overflow-hidden rounded-2xl bg-[#016b42] px-0 pt-10 pb-0 text-white sm:mx-6 sm:px-6 sm:py-12 md:mx-auto md:px-12 md:py-16 lg:mb-16 lg:pl-16 lg:pr-0 lg:pt-0 lg:pb-0"
       style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}
       initial="initial"
       whileInView="animate"
@@ -34,9 +34,9 @@ export function AppDownloadCTA() {
         }}
       />
 
-      <div className="relative z-10 flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between lg:gap-12">
+      <div className="relative z-10 flex flex-col gap-6 sm:gap-10 lg:flex-row lg:items-center lg:justify-between lg:gap-12">
         {/* Text block */}
-        <div className="flex flex-col justify-center lg:max-w-xl">
+        <div className="flex flex-col justify-center px-4 sm:px-0 lg:max-w-xl">
           <h2 className="text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl">
             Install our app from
             <br />
@@ -84,14 +84,24 @@ export function AppDownloadCTA() {
           </div>
         </div>
 
-        {/* Image */}
-        <div className="flex shrink-0 items-center justify-center lg:justify-end">
+        {/* Image - mobile: cta-mobile.png full bleed; sm+: CTA.png original desktop styling */}
+        <div className="flex w-full shrink-0 items-center justify-center sm:w-auto lg:justify-end">
+          {/* Mobile: images/cta-mobile.png */}
           <Image
-            src="/CTA.png"
+            src="/images/cta-mobile.png"
             alt="Download Arohon app from Google Play"
             width={560}
             height={420}
-            className="h-auto max-h-[220px] w-auto object-contain sm:max-h-[280px] lg:max-h-[400px]"
+            className="h-auto w-full max-w-none object-cover object-center sm:hidden"
+            sizes="100vw"
+          />
+          {/* Desktop: images/CTA.png */}
+          <Image
+            src="/images/CTA.png"
+            alt="Download Arohon app from Google Play"
+            width={560}
+            height={420}
+            className="hidden h-auto w-auto object-contain sm:block sm:max-h-[280px] lg:max-h-[400px]"
             sizes="(max-width: 1024px) 320px, 560px"
           />
         </div>
