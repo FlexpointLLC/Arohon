@@ -34,7 +34,7 @@ export default function RidePage() {
             },
             {
               title: 'Rentals',
-              desc: 'Hourly or daily rentals. Drive yourself or hire a driver—flexibility on your schedule.',
+              desc: 'Hourly or daily rentals. Drive yourself or hire a driver. Flexibility on your schedule.',
             },
             {
               title: 'Pickup & Truck',

@@ -7,7 +7,7 @@ import { ServicesTabsSection } from '@/components/ServicesTabsSection';
 import { TrustedBy } from '@/components/TrustedBy';
 
 export const metadata = {
-  title: 'Book a Ride | Plan Your Journey & Trip in Bangladesh',
+  title: 'Arohon | Book a Ride in Bangladesh – Dhaka, Sylhet, 64 Districts',
   description:
     'Book a ride, plan your journey, or plan your trip in Bangladesh. Arohon ride sharing: Dhaka, Sylhet, 64 districts. Safe, affordable rides. One tap to ride.',
 };
@@ -18,9 +18,9 @@ export default function Home() {
       <HeroSection />
       <TrustedBy />
       <ServicesSection />
+      <SeoContentSection />
       <ServicesTabsSection />
       <AppDownloadCTA />
-      <SeoContentSection />
       <BlogSection />
     </main>
   );

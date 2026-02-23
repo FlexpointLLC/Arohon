@@ -9,7 +9,7 @@ export function ContactPageLayout({
   children,
   title,
   heroTitle = 'Contact Us',
-  heroSubtitle = 'We want your input. Questions, bug reports, complaints, praise, feature requests — every little bit helps.',
+  heroSubtitle = 'We want your input. Questions, bug reports, complaints, praise, feature requests. Every little bit helps.',
 }: {
   children: React.ReactNode;
   title: string;

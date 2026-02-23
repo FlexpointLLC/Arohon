@@ -52,7 +52,7 @@ export default function ServicesPage() {
       <PageSection
         title="How we"
         accent="serve"
-        subtitle="you. From quick city rides to long-distance trips and daily services—book bikes, cars, buses, and more. Use your way with cash, card, or mobile wallet."
+        subtitle="you. From quick city rides to long-distance trips and daily services. Book bikes, cars, buses, and more. Use your way with cash, card, or mobile wallet."
       >
         <div
           className="space-y-12"

@@ -13,7 +13,7 @@ export default function PartnersPage() {
       <PageSection
         title="Partner"
         accent="with us"
-        subtitle="Whether you need corporate travel solutions, fleet management, or want to join as a driver—Arohon has options for businesses and individuals."
+        subtitle="Whether you need corporate travel solutions, fleet management, or want to join as a driver. Arohon has options for businesses and individuals."
       >
         <div
           className="grid gap-6 sm:gap-8 md:grid-cols-3"

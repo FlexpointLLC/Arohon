@@ -20,7 +20,7 @@ const POSTS = [
     id: 2,
     title: 'How transparent pricing works on Arohon',
     excerpt:
-      'We show you the fare before you book. No surprise charges, no hidden fees—just clear numbers you can trust.',
+      'We show you the fare before you book. No surprise charges, no hidden fees. Just clear numbers you can trust.',
     date: 'Feb 12, 2025',
     readTime: '3 min',
     href: '#',
@@ -100,7 +100,7 @@ export function BlogSection() {
             className="flex w-full items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-95 sm:w-auto"
             style={{ backgroundColor: BRAND_GREEN }}
           >
-            View all posts
+            View all ride tips and updates
             <CaretRight size={18} weight="bold" />
           </a>
         </div>

@@ -37,7 +37,7 @@ const TAB_CONTENT: Record<TabId, TabContentType> = {
       },
       {
         heading: 'Comfort With Affordability',
-        text: "With Arohon's rates, you can travel with ease and comfort that is affordable—whether it's a quick errand or a longer ride across town.",
+        text: "With Arohon's rates, you can travel with ease and comfort that is affordable. Whether it's a quick errand or a longer ride across town.",
       },
       {
         heading: 'Hassle-free and Quick',
@@ -49,7 +49,7 @@ const TAB_CONTENT: Record<TabId, TabContentType> = {
     features: [
       {
         heading: 'Car Plus & Hiace',
-        text: 'Travel between cities in comfort. Book Car Plus for a premium ride or Hiace for group trips—both offer spacious seating and safe, experienced drivers.',
+        text: 'Travel between cities in comfort. Book Car Plus for a premium ride or Hiace for group trips. Both offer spacious seating and safe, experienced drivers.',
       },
       {
         heading: 'Long-Distance Made Easy',
@@ -85,7 +85,7 @@ const TAB_CONTENT: Record<TabId, TabContentType> = {
       },
       {
         heading: 'Built for Heavy Loads',
-        text: 'Pickups and trucks designed for hauling. Whether it is household goods, appliances, or deliveries—we handle it.',
+        text: 'Pickups and trucks designed for hauling. Whether it is household goods, appliances, or deliveries. We handle it.',
       },
       {
         heading: 'Book When You Need',
@@ -143,7 +143,7 @@ export function ServicesTabsSection() {
             How we <span style={{ color: BRAND_GREEN, fontWeight: 800, fontFamily: 'var(--font-instrument), Georgia, serif', fontStyle: 'italic', letterSpacing: '1px' }}>get</span> you there
           </h2>
           <p className="mt-1 max-w-[600px] text-base text-gray-600 leading-relaxed">
-            From short hops to long journeys—choose the ride that fits your trip. Tap a tab to explore each service.
+            From short hops to long journeys. Choose the ride that fits your trip. Tap a tab to explore each service.
           </p>
         </div>
 

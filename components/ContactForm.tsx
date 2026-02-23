@@ -86,7 +86,7 @@ export function ContactForm() {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           className="w-full resize-none rounded-xl border border-gray-300 px-4 py-3 text-base text-gray-900 placeholder-gray-400 transition-colors focus:border-[#016b42] focus:outline-none focus:ring-2 focus:ring-[#016b42]/20"
-          placeholder="We want your input: questions, bug reports, complaints, praise, feature requests — every little bit helps. Let us know what we can do to improve Arohon."
+          placeholder="We want your input: questions, bug reports, complaints, praise, feature requests. Every little bit helps. Let us know what we can do to improve Arohon."
         />
       </div>
       <button

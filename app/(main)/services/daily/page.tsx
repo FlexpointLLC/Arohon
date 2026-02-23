@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 const SERVICES = [
   { label: 'Ambulance', desc: '24/7 emergency medical transport. When every second counts.' },
   { label: 'Pickup', desc: 'Moving house or hauling items? We make it easy.' },
-  { label: 'Truck', desc: 'Heavy loads, appliances, deliveries—we handle it.' },
+  { label: 'Truck', desc: 'Heavy loads, appliances, deliveries. We handle it.' },
   { label: 'Rental', desc: 'Hourly or daily vehicle rental. Drive yourself or hire a driver.' },
 ];
 

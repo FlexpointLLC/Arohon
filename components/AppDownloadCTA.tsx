@@ -52,8 +52,8 @@ export function AppDownloadCTA() {
             </span>
           </h2>
           <p className="mt-4 max-w-lg text-base leading-relaxed text-white/90 md:text-lg">
-            One tap to book rides across Bangladesh. Live tracking, verified drivers, and transparent
-            pricing—all in your pocket.
+            Download the Arohon app for rides across Bangladesh. Real-time tracking, verified drivers, and
+            transparent pricing. All in your pocket.
           </p>
           <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:gap-4">
             <a

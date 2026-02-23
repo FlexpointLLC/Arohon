@@ -15,9 +15,9 @@ const instrumentSerif = Instrument_Serif({
   variable: '--font-instrument',
 });
 
-const TITLE = 'Arohon - Book a Ride, Plan Your Journey & Trip in Bangladesh';
+const TITLE = 'Arohon | Book a Ride in Bangladesh – Dhaka, Sylhet, 64 Districts';
 const DESCRIPTION =
-  'Book a ride in Bangladesh. Plan your journey, trip, or commute with Arohon. Safe ride sharing across Dhaka, Sylhet & 64 districts. One tap to ride—verified drivers, live tracking.';
+  'Book a ride in Bangladesh. Plan your journey, trip, or commute with Arohon. Safe ride sharing across Dhaka, Sylhet & 64 districts. One tap to ride. Verified drivers, live tracking.';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

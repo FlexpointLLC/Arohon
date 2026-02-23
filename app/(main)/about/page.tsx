@@ -12,7 +12,7 @@ export default function AboutPage() {
       <PageSection
         title="About"
         accent="Arohon"
-        subtitle="We are building the future of ride-sharing in Bangladesh—connecting riders and drivers with safe, affordable, and reliable transportation across the country."
+        subtitle="We are building the future of ride-sharing in Bangladesh. We connect riders and drivers with safe, affordable, and reliable transportation across the country."
       >
         <div
           className="space-y-8 text-gray-600"
@@ -23,7 +23,7 @@ export default function AboutPage() {
             <p className="leading-relaxed">
               Arohon exists to make getting around Bangladesh easier, safer, and more accessible. Whether
               you need a quick bike ride across the city, a comfortable car for an intercity trip, or
-              specialized transport—we connect you with verified drivers and transparent pricing.
+              specialized transport. We connect you with verified drivers and transparent pricing.
             </p>
           </div>
           <div>
@@ -43,6 +43,20 @@ export default function AboutPage() {
               <li>Live tracking for every ride</li>
               <li>24/7 availability for city and intercity trips</li>
             </ul>
+          </div>
+          <div>
+            <h2 className="mb-3 text-xl font-semibold text-gray-900">Plan Your Ride</h2>
+            <p className="mb-4 leading-relaxed">
+              <strong className="text-gray-900">Plan your ride, journey, or trip</strong> across Bangladesh
+              with Arohon. Whether you need a quick city ride in Dhaka, an intercity journey to Sylhet, or
+              a planned trip across 64 districts. Book a ride in one tap. Our ride-sharing platform connects
+              you with verified drivers for safe, affordable travel.
+            </p>
+            <p className="leading-relaxed">
+              Plan your commute, plan your journey, or plan a weekend trip. Live tracking and transparent
+              pricing make every ride simple. From hourly rentals to long-distance travel, Arohon is your
+              partner for ride booking in Bangladesh. Ride safe, anywhere.
+            </p>
           </div>
         </div>
       </PageSection>

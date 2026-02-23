@@ -23,7 +23,7 @@ export default function DrivePage() {
             {[
               { title: 'Flexible Earnings', desc: 'Drive when you want. No fixed shifts. Earn per trip with clear, upfront rates.' },
               { title: 'Verified Riders', desc: 'Connect with real riders through our app. Safe, traceable, and paid.' },
-              { title: 'Multiple Service Types', desc: 'City rides, intercity, rentals—offer what suits your vehicle and schedule.' },
+              { title: 'Multiple Service Types', desc: 'City rides, intercity, rentals. Offer what suits your vehicle and schedule.' },
               { title: 'Support & Training', desc: 'We support our drivers with training, help centre access, and fair policies.' },
             ].map((item) => (
               <div key={item.title} className="rounded-2xl border border-gray-100 bg-white p-6">

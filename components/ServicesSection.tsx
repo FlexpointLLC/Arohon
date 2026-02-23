@@ -177,7 +177,7 @@ export function ServicesSection() {
             How we <span style={{ color: BRAND_GREEN, fontWeight: 800, fontFamily: 'var(--font-instrument), Georgia, serif', fontStyle: 'italic', letterSpacing: '1px' }}>serve</span> you
           </h2>
           <p className="mt-1 max-w-[600px] text-base text-gray-600 leading-relaxed">
-            From quick city rides to long-distance trips and daily services—book bikes, cars, buses, and more. Use your way with cash, card, or mobile wallet.
+            From quick city rides to long-distance trips and daily services. Book bikes, cars, buses, and more. Use your way with cash, card, or mobile wallet.
           </p>
         </div>
         {/* Service cards */}
