@@ -59,7 +59,7 @@ export function AppDownloadCTA() {
             href={PLAY_STORE_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-6 inline-flex w-fit items-center gap-3 rounded-2xl bg-black px-5 py-3.5 text-white transition-all hover:scale-[1.02] hover:bg-gray-900 active:scale-[0.98] sm:mt-8 sm:px-6 sm:py-4"
+            className="mt-6 flex w-full items-center justify-center gap-3 rounded-2xl bg-black px-5 py-3.5 text-white transition-all hover:scale-[1.02] hover:bg-gray-900 active:scale-[0.98] sm:mt-8 sm:w-fit sm:px-6 sm:py-4"
           >
             <GooglePlayIcon className="h-10 w-10 shrink-0" />
             <div className="flex flex-col items-start text-left">

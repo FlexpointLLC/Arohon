@@ -53,12 +53,12 @@ export default function RidePage() {
             </div>
           ))}
         </div>
-        <div className="mt-12 text-center">
+        <div className="mt-12 w-full sm:text-center">
           <a
             href="https://play.google.com/store/apps"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-95 sm:px-6 sm:py-3.5 sm:text-base"
+            className="flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-95 sm:w-auto sm:px-6 sm:py-3.5 sm:text-base"
             style={{ backgroundColor: '#016b42' }}
           >
             Download the app to book

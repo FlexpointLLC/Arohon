@@ -14,120 +14,130 @@ function GooglePlayIcon({ className }: { className?: string }) {
   );
 }
 
+function HeroContent() {
+  return (
+    <motion.div
+      className="flex flex-1 flex-col justify-center"
+      initial="initial"
+      whileInView="animate"
+      viewport={appearViewport}
+      transition={appearTransition}
+      variants={fadeUpVariants}
+    >
+      <div
+        className="mb-6 inline-flex w-fit items-center gap-2 rounded-full border px-3.5 py-1.5 text-xs font-medium uppercase tracking-wider text-gray-600"
+        style={{
+          fontFamily: 'var(--font-inter), system-ui, sans-serif',
+          borderColor: `${BRAND_GREEN}40`,
+          backgroundColor: `${BRAND_GREEN}08`,
+          animation: 'badge-border-pulse 2s ease-in-out infinite',
+        }}
+      >
+        <span
+          className="h-1.5 w-1.5 shrink-0 rounded-full"
+          style={{
+            backgroundColor: BRAND_GREEN,
+            animation: 'badge-dot-pulse 1.5s ease-in-out infinite',
+          }}
+        />
+        Rides available 24/7
+      </div>
+      <h1
+        className="max-w-2xl font-semibold leading-tight tracking-tight text-gray-900"
+        style={{
+          fontFamily: 'var(--font-inter), system-ui, sans-serif',
+          fontSize: 'clamp(2rem, 4vw, 3.25rem)',
+          letterSpacing: '-0.03em',
+          lineHeight: 1.2,
+          WebkitFontSmoothing: 'antialiased',
+        }}
+      >
+        Ride safe, anywhere
+        <br />
+        in <span style={{ color: BRAND_GREEN, fontWeight: 700, fontFamily: 'var(--font-instrument), Georgia, serif', fontStyle: 'italic', letterSpacing: '1px' }}>Bangladesh</span>
+      </h1>
+      <p
+        className="mt-2 max-w-lg text-base text-gray-600"
+        style={{
+          fontFamily: 'var(--font-inter), system-ui, sans-serif',
+          lineHeight: 1.65,
+          WebkitFontSmoothing: 'antialiased',
+        }}
+      >
+        One tap to book. Live tracking. Verified drivers. Ride with confidence from Dhaka to Sylhet and beyond.
+      </p>
+      <a
+        href={PLAY_STORE_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-6 flex w-full items-center justify-center gap-2.5 rounded-2xl bg-black px-5 py-3 text-white transition-all hover:scale-[1.02] hover:bg-gray-900 active:scale-[0.98] sm:w-fit sm:gap-3 sm:px-6 sm:py-4"
+      >
+        <GooglePlayIcon className="h-8 w-8 shrink-0 sm:h-10 sm:w-10" />
+        <div className="flex flex-col items-start text-left">
+          <span className="text-[10px] uppercase tracking-wider text-white/80">Get it on</span>
+          <span className="text-base font-semibold sm:text-lg">Google Play</span>
+        </div>
+      </a>
+      <div className="mt-10 sm:mt-16" style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}>
+        <h2 className="text-lg font-semibold text-gray-900 sm:text-xl">Our reach in Bangladesh</h2>
+        <p className="mt-1 max-w-md text-sm text-gray-600">
+          We connect riders and drivers across the country with safe, reliable, and affordable rides.
+        </p>
+        <div className="mt-4 flex flex-wrap gap-6 sm:mt-6 sm:gap-8 md:gap-12">
+          <div>
+            <div className="text-xs font-medium uppercase tracking-wider text-gray-500">Districts</div>
+            <div className="mt-1 text-2xl font-bold text-gray-900">64</div>
+          </div>
+          <div>
+            <div className="text-xs font-medium uppercase tracking-wider text-gray-500">Partner drivers</div>
+            <div className="mt-1 text-2xl font-bold text-gray-900">500+</div>
+          </div>
+          <div>
+            <div className="text-xs font-medium uppercase tracking-wider text-gray-500">Trips</div>
+            <div className="mt-1 text-2xl font-bold text-gray-900">10K+</div>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
 export function HeroSection() {
   return (
-    <section
-        className="relative -mt-[72px] min-h-[100dvh] overflow-hidden rounded-xl bg-cover bg-center bg-no-repeat sm:-mt-[88px] sm:min-h-screen sm:rounded-[16px]"
+    <>
+      {/* Mobile: image top + content below */}
+      <section className="relative -mt-[72px] flex min-h-0 flex-col overflow-hidden rounded-xl sm:hidden">
+        <div
+          className="relative z-20 h-[38vh] min-h-[240px] w-full shrink-0 bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: 'url(/hero.png)' }}
+        />
+        <div className="relative z-10 -mt-48 flex flex-1 flex-col justify-center bg-white px-4 pb-10">
+          <HeroContent />
+        </div>
+      </section>
+
+      {/* Desktop: original layout - full bg with overlay content */}
+      <section
+        className="relative -mt-[88px] hidden min-h-screen overflow-hidden rounded-[16px] bg-cover bg-center bg-no-repeat sm:block"
         style={{ backgroundImage: 'url(/hero.png)', backgroundColor: '#ffffff' }}
       >
-        {/* Decorative elements - stars/plus signs */}
-      <div className="pointer-events-none absolute left-4 top-24 z-10 text-gray-200">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7-6.3-4.5-6.3 4.5 2.3-7-6-4.6h7.6z" />
-        </svg>
-      </div>
-      <div className="pointer-events-none absolute left-8 top-[45%] z-10 text-gray-200">
-        <span className="text-2xl font-light">+</span>
-      </div>
-      <div className="pointer-events-none absolute left-12 bottom-32 z-10 text-gray-200">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7-6.3-4.5-6.3 4.5 2.3-7-6-4.6h7.6z" />
-        </svg>
-      </div>
-
-        {/* Hero content */}
-      <div className="relative z-10 mx-auto flex min-h-[calc(100dvh-120px)] max-w-5xl items-center px-4 pt-24 pb-10 sm:min-h-[calc(100vh-140px)] sm:pl-4 sm:pr-2 sm:pt-28 sm:pb-12">
-        <motion.div
-          className="flex flex-1 flex-col justify-center"
-          initial="initial"
-          whileInView="animate"
-          viewport={appearViewport}
-          transition={appearTransition}
-          variants={fadeUpVariants}
-        >
-          <div
-            className="mb-6 inline-flex w-fit items-center gap-2 rounded-full border px-3.5 py-1.5 text-xs font-medium uppercase tracking-wider text-gray-600"
-            style={{
-              fontFamily: 'var(--font-inter), system-ui, sans-serif',
-              borderColor: `${BRAND_GREEN}40`,
-              backgroundColor: `${BRAND_GREEN}08`,
-              animation: 'badge-border-pulse 2s ease-in-out infinite',
-            }}
-          >
-            <span
-              className="h-1.5 w-1.5 shrink-0 rounded-full"
-              style={{
-                backgroundColor: BRAND_GREEN,
-                animation: 'badge-dot-pulse 1.5s ease-in-out infinite',
-              }}
-            />
-            Rides available 24/7
-          </div>
-          <h1
-            className="max-w-2xl font-semibold leading-tight tracking-tight text-gray-900"
-            style={{
-              fontFamily: 'var(--font-inter), system-ui, sans-serif',
-              fontSize: 'clamp(2rem, 4vw, 3.25rem)',
-              letterSpacing: '-0.03em',
-              lineHeight: 1.2,
-              WebkitFontSmoothing: 'antialiased',
-            }}
-          >
-            Ride safe, anywhere
-            <br />
-            in <span style={{ color: BRAND_GREEN, fontWeight: 700, fontFamily: 'var(--font-instrument), Georgia, serif', fontStyle: 'italic', letterSpacing: '1px' }}>Bangladesh</span>
-          </h1>
-          <p
-            className="mt-2 max-w-lg text-base text-gray-600"
-            style={{
-              fontFamily: 'var(--font-inter), system-ui, sans-serif',
-              lineHeight: 1.65,
-              WebkitFontSmoothing: 'antialiased',
-            }}
-          >
-            One tap to book. Live tracking. Verified drivers. Ride with confidence from Dhaka to Sylhet and beyond.
-          </p>
-          <a
-            href={PLAY_STORE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-6 inline-flex w-fit items-center gap-2.5 rounded-2xl bg-black px-5 py-3 text-white transition-all hover:scale-[1.02] hover:bg-gray-900 active:scale-[0.98] sm:gap-3 sm:px-6 sm:py-4"
-          >
-            <GooglePlayIcon className="h-8 w-8 shrink-0 sm:h-10 sm:w-10" />
-            <div className="flex flex-col items-start text-left">
-              <span className="text-[10px] uppercase tracking-wider text-white/80">Get it on</span>
-              <span className="text-base font-semibold sm:text-lg">Google Play</span>
-            </div>
-          </a>
-          {/* Statistics */}
-          <div className="mt-10 sm:mt-16" style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}>
-            <h2 className="text-lg font-semibold text-gray-900 sm:text-xl">Our reach in Bangladesh</h2>
-            <p className="mt-1 max-w-md text-sm text-gray-600">
-              We connect riders and drivers across the country with safe, reliable, and affordable rides.
-            </p>
-            <div className="mt-4 flex flex-wrap gap-6 sm:mt-6 sm:gap-8 md:gap-12">
-              <div>
-                <div className="text-xs font-medium uppercase tracking-wider text-gray-500">
-                  Districts
-                </div>
-                <div className="mt-1 text-2xl font-bold text-gray-900">64</div>
-              </div>
-              <div>
-                <div className="text-xs font-medium uppercase tracking-wider text-gray-500">
-                  Partner drivers
-                </div>
-                <div className="mt-1 text-2xl font-bold text-gray-900">500+</div>
-              </div>
-              <div>
-                <div className="text-xs font-medium uppercase tracking-wider text-gray-500">
-                  Trips
-                </div>
-                <div className="mt-1 text-2xl font-bold text-gray-900">10K+</div>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-      </div>
-    </section>
+        <div className="pointer-events-none absolute left-4 top-24 z-10 text-gray-200">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7-6.3-4.5-6.3 4.5 2.3-7-6-4.6h7.6z" />
+          </svg>
+        </div>
+        <div className="pointer-events-none absolute left-8 top-[45%] z-10 text-gray-200">
+          <span className="text-2xl font-light">+</span>
+        </div>
+        <div className="pointer-events-none absolute left-12 bottom-32 z-10 text-gray-200">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7-6.3-4.5-6.3 4.5 2.3-7-6-4.6h7.6z" />
+          </svg>
+        </div>
+        <div className="relative z-10 mx-auto flex min-h-[calc(100vh-140px)] max-w-5xl items-center pl-4 pr-2 pt-28 pb-12">
+          <HeroContent />
+        </div>
+      </section>
+    </>
   );
 }

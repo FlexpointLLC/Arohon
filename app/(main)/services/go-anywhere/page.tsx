@@ -43,17 +43,17 @@ export default function GoAnywherePage() {
               </div>
             ))}
         </div>
-        <div className="mt-12 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+        <div className="mt-12 flex flex-col gap-4 sm:flex-row sm:justify-center">
           <Link
             href="/ride"
-            className="inline-flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-95"
+            className="flex w-full items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-95 sm:w-auto"
             style={{ backgroundColor: BRAND_GREEN }}
           >
             Book a ride
           </Link>
           <Link
             href="/services"
-            className="inline-flex items-center gap-2 rounded-xl border border-gray-200 px-6 py-3 text-sm font-semibold text-gray-700 transition-colors hover:bg-gray-50"
+            className="flex w-full items-center justify-center gap-2 rounded-xl border border-gray-200 px-6 py-3 text-sm font-semibold text-gray-700 transition-colors hover:bg-gray-50 sm:w-auto"
           >
             View all services
           </Link>

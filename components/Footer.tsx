@@ -73,7 +73,7 @@ export function Footer() {
               href={PLAY_STORE_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex w-fit items-center gap-3 rounded-2xl bg-black px-6 py-4 text-white transition-all hover:scale-[1.02] hover:bg-gray-900 active:scale-[0.98]"
+              className="flex w-full items-center justify-center gap-3 rounded-2xl bg-black px-6 py-4 text-white transition-all hover:scale-[1.02] hover:bg-gray-900 active:scale-[0.98] sm:w-fit"
             >
               <GooglePlayIcon className="h-10 w-10 shrink-0" />
               <div className="flex flex-col items-start text-left">

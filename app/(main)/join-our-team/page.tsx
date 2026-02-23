@@ -47,7 +47,7 @@ export default function JoinOurTeamPage() {
             </p>
             <a
               href="mailto:careers@arohon.co"
-              className="mt-6 inline-block rounded-xl px-6 py-3.5 font-semibold text-white transition-opacity hover:opacity-95"
+              className="mt-6 flex w-full items-center justify-center rounded-xl px-6 py-3.5 font-semibold text-white transition-opacity hover:opacity-95 sm:inline-flex sm:w-auto"
               style={{ backgroundColor: '#016b42' }}
             >
               Get in touch

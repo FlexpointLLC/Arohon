@@ -183,7 +183,7 @@ export function ServicesTabsSection() {
               ))}
             </div>
             <button
-              className="mt-8 flex w-fit items-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-95"
+              className="mt-8 flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-95 sm:w-fit"
               style={{ backgroundColor: BRAND_GREEN }}
             >
               Learn More
