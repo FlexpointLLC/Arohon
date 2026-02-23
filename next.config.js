@@ -1,8 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  turbopack: {
+    root: __dirname,
+    resolveAlias: {
+      'next/dist/build/polyfills/polyfill-module': './lib/modern-polyfill.js',
+    },
+  },
   experimental: {
     optimizePackageImports: ['@phosphor-icons/react'],
     optimizeCss: true,
+    inlineCss: true,
   },
   images: {
     remotePatterns: [
