@@ -1,0 +1,79 @@
+'use client';
+
+import Image from 'next/image';
+
+const PLAY_STORE_URL = 'https://play.google.com/store/apps';
+
+function GooglePlayIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+      <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.198l2.807 1.626a1 1 0 0 1 0 1.73l-2.808 1.626L15.206 12l2.492-2.491zM5.864 2.658L16.802 8.99l-2.302 2.302-8.636-8.634z" />
+    </svg>
+  );
+}
+
+export function AppDownloadCTA() {
+  return (
+    <section
+      className="relative mx-6 mb-16 max-w-[1110px] overflow-hidden rounded-2xl bg-[#016b42] px-6 py-12 text-white md:mx-auto md:px-12 md:py-16 lg:pl-16 lg:pr-0 lg:pt-0 lg:pb-0"
+      style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}
+    >
+      {/* Dot pattern overlay */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.06]"
+        style={{
+          backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
+          backgroundSize: '24px 24px',
+        }}
+      />
+
+      <div className="relative z-10 flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between lg:gap-12">
+        {/* Text block */}
+        <div className="flex flex-col justify-center lg:max-w-xl">
+          <h2 className="text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
+            Install our app from
+            <br />
+            <span
+              className="font-serif italic"
+              style={{
+                fontFamily: 'var(--font-instrument), Georgia, serif',
+                letterSpacing: '1px',
+                fontWeight: 700,
+              }}
+            >
+              Google Play
+            </span>
+          </h2>
+          <p className="mt-4 max-w-lg text-base leading-relaxed text-white/90 md:text-lg">
+            One tap to book rides across Bangladesh. Live tracking, verified drivers, and transparent
+            pricing—all in your pocket.
+          </p>
+          <a
+            href={PLAY_STORE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-8 inline-flex w-fit items-center gap-3 rounded-2xl bg-black px-6 py-4 text-white transition-all hover:scale-[1.02] hover:bg-gray-900 active:scale-[0.98]"
+          >
+            <GooglePlayIcon className="h-10 w-10 shrink-0" />
+            <div className="flex flex-col items-start text-left">
+              <span className="text-[10px] uppercase tracking-wider text-white/80">Get it on</span>
+              <span className="text-lg font-semibold">Google Play</span>
+            </div>
+          </a>
+        </div>
+
+        {/* Image */}
+        <div className="flex shrink-0 items-center justify-center lg:justify-end">
+          <Image
+            src="/CTA.png"
+            alt="Download Arohon app from Google Play"
+            width={560}
+            height={420}
+            className="h-auto max-h-[300px] w-auto object-contain lg:max-h-[400px]"
+            sizes="(max-width: 1024px) 320px, 560px"
+          />
+        </div>
+      </div>
+    </section>
+  );
+}
