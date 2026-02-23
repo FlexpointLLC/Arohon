@@ -31,16 +31,15 @@ interface AnimateInProps {
 export function AnimateIn({
   children,
   className,
-  as: Tag = 'div',
+  as: _Tag = 'div',
   variant = 'fadeUp',
   delay = 0,
   once = true,
 }: AnimateInProps) {
-  const MotionTag = motion[Tag as keyof typeof motion] || motion.div;
   const v = variant === 'fadeUp' ? fadeUp : fadeIn;
 
   return (
-    <MotionTag
+    <motion.div
       className={className}
       initial="initial"
       whileInView="animate"
@@ -49,6 +48,6 @@ export function AnimateIn({
       variants={v}
     >
       {children}
-    </MotionTag>
+    </motion.div>
   );
 }

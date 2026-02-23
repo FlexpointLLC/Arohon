@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { PageSection } from '@/components/PageSection';
-import { Car, Bus, AirplaneTakeoff, Clock } from '@phosphor-icons/react';
 
 const BRAND_GREEN = '#016b42';
 
@@ -11,10 +10,10 @@ export const metadata: Metadata = {
 };
 
 const SERVICES = [
-  { label: 'Car Plus', icon: Car, desc: 'Premium rides for intercity travel. Comfort and reliability.' },
-  { label: 'Hiace', icon: Bus, desc: 'Spacious vehicles for group trips between cities.' },
-  { label: 'Airport', icon: AirplaneTakeoff, desc: 'Hassle-free airport pickups and drop-offs with flight tracking.' },
-  { label: 'Hourly Rental', icon: Clock, desc: 'Rent by the hour for errands, events, or flexible travel.' },
+  { label: 'Car Plus', desc: 'Premium rides for intercity travel. Comfort and reliability.' },
+  { label: 'Hiace', desc: 'Spacious vehicles for group trips between cities.' },
+  { label: 'Airport', desc: 'Hassle-free airport pickups and drop-offs with flight tracking.' },
+  { label: 'Hourly Rental', desc: 'Rent by the hour for errands, events, or flexible travel.' },
 ];
 
 export default function RideMorePage() {
@@ -29,24 +28,21 @@ export default function RideMorePage() {
           className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
           style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}
         >
-          {SERVICES.map((item) => {
-            const Icon = item.icon;
-            return (
+          {SERVICES.map((item) => (
               <div
                 key={item.label}
                 className="flex flex-col gap-4 rounded-2xl border border-gray-100 bg-white p-6"
               >
                 <div
-                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl"
-                  style={{ backgroundColor: `${BRAND_GREEN}15` }}
+                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-lg font-bold"
+                  style={{ backgroundColor: `${BRAND_GREEN}15`, color: BRAND_GREEN }}
                 >
-                  <Icon size={24} style={{ color: BRAND_GREEN }} weight="fill" />
+                  {item.label.charAt(0)}
                 </div>
                 <h3 className="text-lg font-semibold text-gray-900">{item.label}</h3>
                 <p className="text-gray-600">{item.desc}</p>
               </div>
-            );
-          })}
+            ))}
         </div>
         <div className="mt-12 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
           <Link
