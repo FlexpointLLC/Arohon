@@ -21,17 +21,17 @@ export function SeoContentSection() {
         className="mx-auto max-w-2xl text-left text-base leading-relaxed text-gray-600 sm:text-lg"
         style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}
       >
-        <p className="mb-4 text-gray-600">
-          <strong className="text-gray-900">Plan your ride, journey, or trip</strong> across Bangladesh
-          with Arohon. Whether you need a quick city ride in Dhaka, an intercity journey to Sylhet, or
-          a planned trip across 64 districts. Book a ride in one tap. Our ride-sharing platform connects
-          you with verified drivers for safe, affordable travel.
-        </p>
-        <p className="mb-4 text-gray-600">
-          Plan your commute, plan your journey, or plan a weekend trip. Live tracking and transparent
-          pricing make every ride simple. From hourly rentals to long-distance travel, Arohon is your
-          partner for ride booking in Bangladesh. Ride safe, anywhere.
-        </p>
+        <blockquote className="relative mb-4 pl-14 italic text-gray-600">
+          <span className="absolute -top-1 left-0 font-serif text-6xl leading-none text-gray-300">
+            &ldquo;
+          </span>
+          <span className="relative">
+            Plan your commute, plan your journey, or plan a weekend trip. Live tracking and transparent
+            pricing make every ride simple. From hourly rentals to long-distance travel, Arohon is your
+            partner for ride booking in Bangladesh. Ride safe, anywhere.
+          </span>
+          <span className="ml-1 font-serif text-2xl text-gray-300">&rdquo;</span>
+        </blockquote>
       </article>
     </motion.section>
   );

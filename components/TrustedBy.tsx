@@ -42,7 +42,7 @@ const CARDS = [
 export function TrustedBy() {
   return (
     <motion.section
-      className="px-4 pt-3 pb-12 sm:px-6 sm:pb-20"
+      className="overflow-visible px-4 pt-3 pb-2 sm:px-6 sm:pb-12"
       initial="initial"
       whileInView="animate"
       viewport={appearViewport}
@@ -95,6 +95,17 @@ export function TrustedBy() {
               </div>
             );
           })}
+        </div>
+        <div
+          className="mt-0 border-t border-gray-200 px-4 pt-6 pb-2 sm:px-6 sm:pt-8 sm:pb-3"
+          style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}
+        >
+          <p className="w-full text-center text-[13px] leading-relaxed text-gray-600">
+            <strong className="text-gray-900">Plan your ride, journey, or trip</strong> across Bangladesh
+            with Arohon. Whether you need a quick city ride in Dhaka, an intercity journey to Sylhet, or
+            a planned trip across 64 districts. Book a ride in one tap. Our ride-sharing platform connects
+            you with verified drivers for safe, affordable travel.
+          </p>
         </div>
       </div>
     </motion.section>
