@@ -119,6 +119,15 @@ export function LegalPageLayout({
               >
                 Privacy Policy
               </Link>
+              <Link
+                href="/delete-account"
+                className={`block py-2 text-sm transition-colors ${
+                  pathname === '/delete-account' ? 'font-semibold' : 'text-gray-600 hover:text-gray-900'
+                }`}
+                style={pathname === '/delete-account' ? { color: BRAND_GREEN } : {}}
+              >
+                Account Deletion
+              </Link>
             </nav>
           </aside>
 
