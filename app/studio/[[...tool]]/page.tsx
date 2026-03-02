@@ -1,7 +1,21 @@
-import { redirect } from 'next/navigation';
+'use client';
 
-const SANITY_PROJECT_ID = 'pfm6u125';
+import { NextStudio } from 'next-sanity/studio';
+import config from '../../../sanity.config';
 
 export default function StudioPage() {
-  redirect(`https://www.sanity.io/manage/personal/project/${SANITY_PROJECT_ID}`);
+  return (
+    <div
+      style={{
+        height: '100vh',
+        maxHeight: '100dvh',
+        overscrollBehavior: 'none',
+        WebkitFontSmoothing: 'antialiased',
+        overflow: 'auto',
+      }}
+      className="fixed inset-0 z-50"
+    >
+      <NextStudio config={config} />
+    </div>
+  );
 }
