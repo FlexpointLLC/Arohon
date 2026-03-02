@@ -2,41 +2,28 @@
 
 import { motion } from 'framer-motion';
 import { CaretRight, Article } from '@phosphor-icons/react';
+import { BLOG_URL } from '@/lib/seo';
 import { appearTransition, appearViewport, fadeUpVariants } from './AnimateIn';
 
 const BRAND_GREEN = '#016b42';
 
-const POSTS = [
-  {
-    id: 1,
-    title: 'Tips for safer rides in Dhaka traffic',
-    excerpt:
-      'Navigate city traffic with confidence. Simple habits that make every ride safer and smoother for riders and drivers alike.',
-    date: 'Feb 18, 2025',
-    readTime: '4 min',
-    href: '#',
-  },
-  {
-    id: 2,
-    title: 'How transparent pricing works on Arohon',
-    excerpt:
-      'We show you the fare before you book. No surprise charges, no hidden fees. Just clear numbers you can trust.',
-    date: 'Feb 12, 2025',
-    readTime: '3 min',
-    href: '#',
-  },
-  {
-    id: 3,
-    title: 'Intercity travel: What to expect',
-    excerpt:
-      'From booking to drop-off, here’s how Arohon makes long-distance rides comfortable and hassle-free.',
-    date: 'Feb 5, 2025',
-    readTime: '5 min',
-    href: '#',
-  },
-];
+export type BlogPost = {
+  _id: string;
+  title: string;
+  slug: string;
+  excerpt: string | null;
+  publishedAt: string | null;
+  mainImage: string | null;
+  readTime: number | null;
+};
 
-export function BlogSection() {
+function formatDate(dateStr: string | null) {
+  if (!dateStr) return '';
+  return new Date(dateStr).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+
+export function BlogSection({ posts }: { posts: BlogPost[] }) {
   return (
     <motion.section
       className="relative flex flex-col items-center px-4 py-16 sm:px-6 sm:py-24 md:py-[100px] lg:py-[150px]"
@@ -67,36 +54,42 @@ export function BlogSection() {
 
         {/* Post cards */}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {POSTS.map((post) => (
-            <a
-              key={post.id}
-              href={post.href}
-              className="group flex flex-col rounded-2xl border border-gray-100 bg-white p-6 transition-all hover:border-gray-200 hover:shadow-lg"
-            >
-              <div
-                className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl"
-                style={{ backgroundColor: `${BRAND_GREEN}15` }}
+          {posts.length === 0 ? (
+            <p className="col-span-full text-center text-gray-500">No posts yet. Add posts in the Sanity Studio.</p>
+          ) : (
+            posts.map((post) => (
+              <a
+                key={post._id}
+                href={`${BLOG_URL}/${post.slug}`}
+                className="group flex flex-col rounded-2xl border border-gray-100 bg-white p-6 transition-all hover:border-gray-200 hover:shadow-lg"
               >
-                <Article size={24} style={{ color: BRAND_GREEN }} weight="fill" />
-              </div>
-              <h3 className="font-semibold text-gray-900 transition-colors group-hover:text-[#016b42]" style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif', fontSize: '18px' }}>
-                {post.title}
-              </h3>
-              <p className="mt-2 flex-1 text-sm leading-relaxed text-gray-600">
-                {post.excerpt}
-              </p>
-              <div className="mt-4 flex items-center justify-between text-xs text-gray-500">
-                <span>{post.date}</span>
-                <span>{post.readTime} read</span>
-              </div>
-            </a>
-          ))}
+                <div
+                  className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl"
+                  style={{ backgroundColor: `${BRAND_GREEN}15` }}
+                >
+                  <Article size={24} style={{ color: BRAND_GREEN }} weight="fill" />
+                </div>
+                <h3 className="font-semibold text-gray-900 transition-colors group-hover:text-[#016b42]" style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif', fontSize: '18px' }}>
+                  {post.title}
+                </h3>
+                {post.excerpt && (
+                  <p className="mt-2 flex-1 text-sm leading-relaxed text-gray-600 line-clamp-3">
+                    {post.excerpt}
+                  </p>
+                )}
+                <div className="mt-4 flex items-center justify-between text-xs text-gray-500">
+                  <span>{formatDate(post.publishedAt)}</span>
+                  {post.readTime != null && <span>{post.readTime} min read</span>}
+                </div>
+              </a>
+            ))
+          )}
         </div>
 
         {/* View all link */}
         <div className="mt-12 flex justify-center">
           <a
-            href="#"
+            href={BLOG_URL}
             className="flex w-full items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-95 sm:w-auto"
             style={{ backgroundColor: BRAND_GREEN }}
           >

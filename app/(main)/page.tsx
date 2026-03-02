@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic';
+import { client, POSTS_QUERY } from '@/lib/sanity';
 import { HeroSection } from '@/components/HeroSection';
 import { TrustedBy } from '@/components/TrustedBy';
 import { ServicesSection } from '@/components/ServicesSection';
@@ -20,7 +21,18 @@ export const metadata = {
     'Book a ride, plan your journey, or plan your trip in Bangladesh. Arohon ride sharing: Dhaka, Sylhet, 64 districts. Safe, affordable rides. One tap to ride.',
 };
 
-export default function Home() {
+export default async function Home() {
+  const posts = await client.fetch<Array<{
+    _id: string;
+    title: string;
+    slug: string;
+    excerpt: string | null;
+    publishedAt: string | null;
+    mainImage: string | null;
+    readTime: number | null;
+  }>>(POSTS_QUERY);
+  const latestPosts = posts.slice(0, 3);
+
   return (
     <main className="min-h-screen">
       <HeroSection />
@@ -29,7 +41,7 @@ export default function Home() {
       <SeoContentSection />
       <ServicesTabsSection />
       <AppDownloadCTA />
-      <BlogSection />
+      <BlogSection posts={latestPosts} />
     </main>
   );
 }

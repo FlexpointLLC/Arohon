@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { MapPin, Globe } from '@phosphor-icons/react';
 
 import { USER_APP_URL, DRIVER_APP_URL } from '@/lib/app-links';
+import { BLOG_URL } from '@/lib/seo';
 
 function GooglePlayIcon({ className }: { className?: string }) {
   return (
@@ -52,6 +53,7 @@ const LINK_GROUPS = [
     title: 'About us',
     links: [
       { label: 'Our social impact', href: '/about' },
+      { label: 'Blog', href: BLOG_URL, external: true },
       { label: 'Contact', href: '/contact' },
       { label: "What's New", href: '/whats-new' },
       { label: 'Information security', href: '/privacy' },

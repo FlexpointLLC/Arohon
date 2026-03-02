@@ -1,4 +1,5 @@
 export const SITE_URL = 'https://arohon.co';
+export const BLOG_URL = 'https://blogs.arohon.co';
 
 export const ORGANIZATION_JSON_LD = {
   '@context': 'https://schema.org',

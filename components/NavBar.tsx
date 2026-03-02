@@ -62,17 +62,13 @@ export function NavBar() {
         {/* Desktop nav - hidden on mobile */}
         <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 rounded-full bg-gray-100/90 py-1 pl-1 pr-1 md:flex">
           {navItems.map((item) => {
-            const isActive = pathname === item.href;
+            const isActive = item.href === '/' ? pathname === '/' : pathname === item.href || pathname.startsWith(`${item.href}/`);
             return (
               <Link
                 key={item.label}
                 href={item.href}
-                className={`rounded-full px-5 py-2 text-sm font-medium transition-colors ${
-                  isActive ? '' : 'text-gray-700 hover:text-gray-900'
-                }`}
-                style={
-                  isActive ? { backgroundColor: `${BRAND_GREEN}20`, color: BRAND_GREEN } : undefined
-                }
+                className={`rounded-full px-5 py-2 text-sm font-medium transition-colors ${isActive ? '' : 'text-gray-700 hover:text-gray-900'}`}
+                style={isActive ? { backgroundColor: `${BRAND_GREEN}20`, color: BRAND_GREEN } : undefined}
               >
                 {item.label}
               </Link>
@@ -126,14 +122,12 @@ export function NavBar() {
       >
         <div className="flex flex-col gap-1 p-6 pt-16">
           {navItems.map((item) => {
-            const isActive = pathname === item.href;
+            const isActive = item.href === '/' ? pathname === '/' : pathname === item.href || pathname.startsWith(`${item.href}/`);
             return (
               <Link
                 key={item.label}
                 href={item.href}
-                className={`rounded-xl px-4 py-3 text-base font-medium transition-colors ${
-                  isActive ? 'bg-green-50 text-[#016b42]' : 'text-gray-700 hover:bg-gray-50'
-                }`}
+                className={`rounded-xl px-4 py-3 text-base font-medium transition-colors ${isActive ? 'bg-green-50 text-[#016b42]' : 'text-gray-700 hover:bg-gray-50'}`}
               >
                 {item.label}
               </Link>
