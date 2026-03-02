@@ -62,11 +62,11 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
   return (
     <main className="min-h-screen">
-      <div className="mx-3 sm:mx-4 md:mx-6">
-        <article
-          className="mx-auto max-w-[990px] px-4 py-16 sm:px-6 sm:py-20"
-          style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}
-        >
+      <div
+        className="flex flex-col items-center px-4 py-16 sm:px-6 sm:py-20"
+        style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}
+      >
+        <article className="w-full max-w-[720px]">
         <Link href="/" className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-gray-900">
           <CaretRight size={18} weight="bold" className="rotate-180" />
           Back to blog
@@ -88,9 +88,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
         {post.body && post.body.length > 0 ? (
           <div
-            className="prose prose-gray mt-10 max-w-none prose-p:leading-relaxed prose-p:text-gray-700 prose-headings:font-semibold prose-headings:text-gray-900 prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4 prose-h2:border-b prose-h2:border-gray-100 prose-h2:pb-2 prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3 prose-h4:text-lg prose-h4:mt-6 prose-h4:mb-2 prose-blockquote:border-l-4 prose-blockquote:border-[#016b42] prose-blockquote:pl-6 prose-blockquote:italic prose-blockquote:text-gray-600 prose-blockquote:my-6 prose-ul:my-4 prose-ol:my-4 prose-li:my-1.5"
+            className="blog-content mt-10"
             style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}
-            dangerouslySetInnerHTML={{ __html: toHTML(post.body as import('@portabletext/types').TypedObject[], { components: portableTextComponents }) }}
+            dangerouslySetInnerHTML={{
+              __html: toHTML(post.body as import('@portabletext/types').TypedObject[], {
+                components: portableTextComponents,
+              }),
+            }}
           />
         ) : null}
         </article>

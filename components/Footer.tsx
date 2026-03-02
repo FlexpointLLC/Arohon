@@ -61,8 +61,7 @@ const LINK_GROUPS = [
   },
 ];
 
-export function Footer() {
-  const isBlogSite = typeof window !== 'undefined' && window.location.hostname === 'blogs.arohon.co';
+export function Footer({ isBlogSite = false }: { isBlogSite?: boolean }) {
   const baseUrl = isBlogSite ? SITE_URL : '';
 
   return (

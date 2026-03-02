@@ -19,10 +19,12 @@ function GooglePlayIcon({ className }: { className?: string }) {
   );
 }
 
-export function NavBar() {
+export function NavBar({ isBlogSite = false }: { isBlogSite?: boolean }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+
+  const baseUrl = isBlogSite ? SITE_URL : '';
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > SCROLL_THRESHOLD);
@@ -41,8 +43,6 @@ export function NavBar() {
     return () => { document.body.style.overflow = ''; };
   }, [mobileMenuOpen]);
 
-  const isBlogSite = typeof window !== 'undefined' && window.location.hostname === 'blogs.arohon.co';
-  const baseUrl = isBlogSite ? SITE_URL : '';
   const navItems = [
     { label: 'Home', href: '/' },
     { label: 'About', href: '/about' },
@@ -59,27 +59,42 @@ export function NavBar() {
           maxWidth: isScrolled ? '992px' : '736px',
         }}
       >
-        <Link href={baseUrl || '/'} className="relative flex h-8 w-24 flex-shrink-0 sm:h-9 sm:w-[110px]">
-          <Image
-            src={`${SITE_URL}/logo.png`}
-            alt="Arohon"
-            fill
-            className="object-contain object-left"
-            priority
-            sizes="110px"
-          />
-        </Link>
+        {baseUrl ? (
+          <a href={baseUrl} className="relative flex h-8 w-24 flex-shrink-0 sm:h-9 sm:w-[110px]">
+            <Image
+              src={`${SITE_URL}/logo.png`}
+              alt="Arohon"
+              fill
+              className="object-contain object-left"
+              priority
+              sizes="110px"
+            />
+          </a>
+        ) : (
+          <Link href="/" className="relative flex h-8 w-24 flex-shrink-0 sm:h-9 sm:w-[110px]">
+            <Image
+              src={`${SITE_URL}/logo.png`}
+              alt="Arohon"
+              fill
+              className="object-contain object-left"
+              priority
+              sizes="110px"
+            />
+          </Link>
+        )}
         {/* Desktop nav - hidden on mobile */}
         <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 rounded-full bg-gray-100/90 py-1 pl-1 pr-1 md:flex">
           {navItems.map((item) => {
             const isActive = item.href === '/' ? pathname === '/' : pathname === item.href || pathname.startsWith(`${item.href}/`);
-            return (
-              <Link
-                key={item.label}
-                href={baseUrl + item.href}
-                className={`rounded-full px-5 py-2 text-sm font-medium transition-colors ${isActive ? '' : 'text-gray-700 hover:text-gray-900'}`}
-                style={isActive ? { backgroundColor: `${BRAND_GREEN}20`, color: BRAND_GREEN } : undefined}
-              >
+            const href = baseUrl + item.href;
+            const className = `rounded-full px-5 py-2 text-sm font-medium transition-colors ${isActive ? '' : 'text-gray-700 hover:text-gray-900'}`;
+            const style = isActive ? { backgroundColor: `${BRAND_GREEN}20`, color: BRAND_GREEN } : undefined;
+            return baseUrl ? (
+              <a key={item.label} href={href} className={className} style={style}>
+                {item.label}
+              </a>
+            ) : (
+              <Link key={item.label} href={href} className={className} style={style}>
                 {item.label}
               </Link>
             );
@@ -133,12 +148,14 @@ export function NavBar() {
         <div className="flex flex-col gap-1 p-6 pt-16">
           {navItems.map((item) => {
             const isActive = item.href === '/' ? pathname === '/' : pathname === item.href || pathname.startsWith(`${item.href}/`);
-            return (
-<Link
-                  key={item.label}
-                  href={baseUrl + item.href}
-                  className={`rounded-xl px-4 py-3 text-base font-medium transition-colors ${isActive ? 'bg-green-50 text-[#016b42]' : 'text-gray-700 hover:bg-gray-50'}`}
-                >
+            const href = baseUrl + item.href;
+            const className = `rounded-xl px-4 py-3 text-base font-medium transition-colors ${isActive ? 'bg-green-50 text-[#016b42]' : 'text-gray-700 hover:bg-gray-50'}`;
+            return baseUrl ? (
+              <a key={item.label} href={href} className={className}>
+                {item.label}
+              </a>
+            ) : (
+              <Link key={item.label} href={href} className={className}>
                 {item.label}
               </Link>
             );

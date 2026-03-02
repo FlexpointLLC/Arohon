@@ -1,12 +1,17 @@
+import { headers } from 'next/headers';
 import { Footer } from '@/components/Footer';
 import { NavBar } from '@/components/NavBar';
 
-export default function MainLayout({ children }: { children: React.ReactNode }) {
+export default async function MainLayout({ children }: { children: React.ReactNode }) {
+  const headersList = await headers();
+  const host = headersList.get('host') ?? '';
+  const isBlogSite = host === 'blogs.arohon.co' || host === 'blog.arohon.co';
+
   return (
     <>
-      <NavBar />
+      <NavBar isBlogSite={isBlogSite} />
       {children}
-      <Footer />
+      <Footer isBlogSite={isBlogSite} />
     </>
   );
 }
