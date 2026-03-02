@@ -8,6 +8,8 @@ import { CaretRight } from '@phosphor-icons/react/ssr';
 
 const BRAND_GREEN = '#016b42';
 
+export const revalidate = 60; // Revalidate every 60 seconds to show new posts
+
 function formatDate(dateStr: string | null) {
   if (!dateStr) return '';
   return new Date(dateStr).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });

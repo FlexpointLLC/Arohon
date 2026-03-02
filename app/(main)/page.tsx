@@ -15,6 +15,8 @@ const BlogSection = dynamic(() => import('@/components/BlogSection').then((m) =>
   ssr: true,
 });
 
+export const revalidate = 60; // Revalidate so new blog posts appear on homepage
+
 export const metadata = {
   title: 'Arohon | Book a Ride in Bangladesh – Dhaka, Sylhet, 64 Districts',
   description:

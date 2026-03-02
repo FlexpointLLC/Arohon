@@ -6,6 +6,8 @@ import { CaretRight, Article } from '@phosphor-icons/react/ssr';
 
 const BRAND_GREEN = '#016b42';
 
+export const revalidate = 60; // Revalidate every 60 seconds to show new posts
+
 export const metadata: Metadata = {
   metadataBase: new URL(BLOG_URL),
   title: 'Blog | Ride Tips & Updates',
