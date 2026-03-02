@@ -4,6 +4,11 @@ export const blockContentType = defineType({
   title: 'Block Content',
   name: 'blockContent',
   type: 'array',
+  options: {
+    canvasApp: {
+      purpose: 'Rich text body content with headings, quotes, and links.',
+    },
+  },
   of: [
     defineArrayMember({
       title: 'Block',

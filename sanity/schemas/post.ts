@@ -4,6 +4,11 @@ export const postType = defineType({
   name: 'post',
   title: 'Post',
   type: 'document',
+  options: {
+    canvasApp: {
+      purpose: 'Blog post article for publishing on the site.',
+    },
+  },
   fields: [
     defineField({
       name: 'title',
@@ -15,7 +20,13 @@ export const postType = defineType({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
-      options: { source: 'title', maxLength: 96 },
+      options: {
+        source: 'title',
+        maxLength: 96,
+        canvasApp: {
+          purpose: 'URL-friendly slug for the post, derived from the title.',
+        },
+      },
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -39,6 +50,11 @@ export const postType = defineType({
       name: 'readTime',
       title: 'Read time (minutes)',
       type: 'number',
+      options: {
+        canvasApp: {
+          purpose: 'Estimated read time in minutes for the full article.',
+        },
+      },
     }),
     defineField({
       name: 'body',

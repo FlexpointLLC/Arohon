@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { List, X } from '@phosphor-icons/react';
 import { USER_APP_URL, DRIVER_APP_URL } from '@/lib/app-links';
+import { SITE_URL } from '@/lib/seo';
 
 const BRAND_GREEN = '#016b42';
 const SCROLL_THRESHOLD = 80;
@@ -57,7 +58,14 @@ export function NavBar() {
         }}
       >
         <Link href="/" className="relative flex h-8 w-24 flex-shrink-0 sm:h-9 sm:w-[110px]">
-          <Image src="/logo.png" alt="Arohon" fill className="object-contain object-left" priority sizes="110px" />
+          <Image
+            src={`${SITE_URL}/logo.png`}
+            alt="Arohon"
+            fill
+            className="object-contain object-left"
+            priority
+            sizes="110px"
+          />
         </Link>
         {/* Desktop nav - hidden on mobile */}
         <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 rounded-full bg-gray-100/90 py-1 pl-1 pr-1 md:flex">
