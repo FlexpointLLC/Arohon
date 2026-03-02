@@ -13,4 +13,8 @@ export default defineConfig({
   basePath: '/studio',
   plugins: [structureTool()],
   schema: { types: schemaTypes },
+  deployment: {
+    appId: 'v2x8mg63ld1ft19d7ipmzbsx',
+    autoUpdates: true,
+  },
 });
