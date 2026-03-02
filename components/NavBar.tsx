@@ -41,6 +41,8 @@ export function NavBar() {
     return () => { document.body.style.overflow = ''; };
   }, [mobileMenuOpen]);
 
+  const isBlogSite = typeof window !== 'undefined' && window.location.hostname === 'blogs.arohon.co';
+  const baseUrl = isBlogSite ? SITE_URL : '';
   const navItems = [
     { label: 'Home', href: '/' },
     { label: 'About', href: '/about' },
@@ -57,7 +59,7 @@ export function NavBar() {
           maxWidth: isScrolled ? '992px' : '736px',
         }}
       >
-        <Link href="/" className="relative flex h-8 w-24 flex-shrink-0 sm:h-9 sm:w-[110px]">
+        <Link href={baseUrl || '/'} className="relative flex h-8 w-24 flex-shrink-0 sm:h-9 sm:w-[110px]">
           <Image
             src={`${SITE_URL}/logo.png`}
             alt="Arohon"
@@ -74,7 +76,7 @@ export function NavBar() {
             return (
               <Link
                 key={item.label}
-                href={item.href}
+                href={baseUrl + item.href}
                 className={`rounded-full px-5 py-2 text-sm font-medium transition-colors ${isActive ? '' : 'text-gray-700 hover:text-gray-900'}`}
                 style={isActive ? { backgroundColor: `${BRAND_GREEN}20`, color: BRAND_GREEN } : undefined}
               >
@@ -132,11 +134,11 @@ export function NavBar() {
           {navItems.map((item) => {
             const isActive = item.href === '/' ? pathname === '/' : pathname === item.href || pathname.startsWith(`${item.href}/`);
             return (
-              <Link
-                key={item.label}
-                href={item.href}
-                className={`rounded-xl px-4 py-3 text-base font-medium transition-colors ${isActive ? 'bg-green-50 text-[#016b42]' : 'text-gray-700 hover:bg-gray-50'}`}
-              >
+<Link
+                  key={item.label}
+                  href={baseUrl + item.href}
+                  className={`rounded-xl px-4 py-3 text-base font-medium transition-colors ${isActive ? 'bg-green-50 text-[#016b42]' : 'text-gray-700 hover:bg-gray-50'}`}
+                >
                 {item.label}
               </Link>
             );

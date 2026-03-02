@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { MapPin, Globe } from '@phosphor-icons/react';
 
 import { USER_APP_URL, DRIVER_APP_URL } from '@/lib/app-links';
-import { BLOG_URL } from '@/lib/seo';
+import { BLOG_URL, SITE_URL } from '@/lib/seo';
 
 function GooglePlayIcon({ className }: { className?: string }) {
   return (
@@ -62,6 +62,9 @@ const LINK_GROUPS = [
 ];
 
 export function Footer() {
+  const isBlogSite = typeof window !== 'undefined' && window.location.hostname === 'blogs.arohon.co';
+  const baseUrl = isBlogSite ? SITE_URL : '';
+
   return (
     <footer
       className="border-t border-gray-100 bg-white"
@@ -72,7 +75,9 @@ export function Footer() {
         <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between lg:gap-12">
           {/* Left: Logo + App download */}
           <div className="flex flex-col gap-4">
-            <Image src="/logo.png" alt="Arohon" width={120} height={38} />
+            <a href={baseUrl || '/'} className="block">
+              <Image src={baseUrl ? `${baseUrl}/logo.png` : '/logo.png'} alt="Arohon" width={120} height={38} />
+            </a>
             <div className="flex flex-col gap-3">
               <a
                 href={USER_APP_URL}
@@ -108,16 +113,20 @@ export function Footer() {
               <div key={group.title}>
                 <h3 className="mb-4 text-sm font-semibold text-gray-900">{group.title}</h3>
                 <ul className="space-y-3">
-                  {group.links.map((link) => (
-                    <li key={link.label}>
-                      <a
-                        href={link.href}
-                        className="text-sm text-gray-600 transition-colors hover:text-gray-900"
-                      >
-                        {link.label}
-                      </a>
-                    </li>
-                  ))}
+                  {group.links.map((link) => {
+                    const href = 'external' in link && link.external ? link.href : baseUrl + link.href;
+                    return (
+                      <li key={link.label}>
+                        <a
+                          href={href}
+                          className="text-sm text-gray-600 transition-colors hover:text-gray-900"
+                          {...('external' in link && link.external && { target: '_blank', rel: 'noopener noreferrer' })}
+                        >
+                          {link.label}
+                        </a>
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             ))}
@@ -140,13 +149,13 @@ export function Footer() {
         <div className="mt-10 flex flex-col items-center justify-between gap-5 border-t border-gray-100 pt-6 sm:flex-row sm:mt-12 sm:gap-6 sm:pt-8">
           <p className="text-sm text-gray-500">All rights reserved. Arohon © 2026</p>
           <div className="flex items-center gap-6">
-            <a href="/terms" className="text-sm text-gray-600 transition-colors hover:text-gray-900">
+            <a href={`${baseUrl}/terms`} className="text-sm text-gray-600 transition-colors hover:text-gray-900">
               Terms of Service
             </a>
-            <a href="/terms-return-refund" className="text-sm text-gray-600 transition-colors hover:text-gray-900">
+            <a href={`${baseUrl}/terms-return-refund`} className="text-sm text-gray-600 transition-colors hover:text-gray-900">
               Return and Refund
             </a>
-            <a href="/privacy" className="text-sm text-gray-600 transition-colors hover:text-gray-900">
+            <a href={`${baseUrl}/privacy`} className="text-sm text-gray-600 transition-colors hover:text-gray-900">
               Privacy Notices
             </a>
           </div>

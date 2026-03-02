@@ -36,18 +36,20 @@ export default async function BlogPage() {
     <main className="min-h-screen">
       <div className="mx-3 sm:mx-4 md:mx-6">
         <div
-          className="mx-auto max-w-[736px] px-4 py-16 sm:px-6 sm:py-20"
+          className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6 sm:py-20"
           style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}
         >
-        <h1
-          className="text-3xl font-semibold tracking-tight text-gray-900 sm:text-4xl"
-          style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}
-        >
-          From our <span style={{ color: BRAND_GREEN, fontFamily: 'var(--font-instrument), Georgia, serif', fontStyle: 'italic' }}>blog</span>
-        </h1>
-        <p className="mt-2 max-w-[600px] text-base text-gray-600">
-          Tips, updates, and stories about riding safer and smarter across Bangladesh.
-        </p>
+        <div className="mb-12 w-full max-w-[990px]">
+          <h1
+            className="text-3xl font-semibold tracking-tight text-gray-900 sm:text-4xl"
+            style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}
+          >
+            From our <span style={{ color: BRAND_GREEN, fontFamily: 'var(--font-instrument), Georgia, serif', fontStyle: 'italic' }}>blog</span>
+          </h1>
+          <p className="mt-2 max-w-[600px] text-base text-gray-600">
+            Tips, updates, and stories about riding safer and smarter across Bangladesh.
+          </p>
+        </div>
 
         {posts.length === 0 ? (
           <p className="mt-12 text-gray-500">No posts yet. Add posts in the Sanity Studio at /studio.</p>

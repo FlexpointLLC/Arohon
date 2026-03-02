@@ -1,12 +1,24 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { toHTML } from '@portabletext/to-html';
+import { toHTML, uriLooksSafe } from '@portabletext/to-html';
 import { client, POST_BY_SLUG_QUERY, POST_SLUGS_QUERY } from '@/lib/sanity';
 import { BLOG_URL } from '@/lib/seo';
 import { CaretRight } from '@phosphor-icons/react/ssr';
 
 const BRAND_GREEN = '#016b42';
+
+const portableTextComponents = {
+  marks: {
+    link: ({ value, children }: { value?: { href?: string }; children?: string }) => {
+      const href = value?.href ?? '#';
+      const safe = typeof href === 'string' && uriLooksSafe(href);
+      const external = safe && (href.startsWith('http://') || href.startsWith('https://'));
+      const attrs = external ? ' target="_blank" rel="noopener noreferrer"' : '';
+      return safe ? `<a href="${href}" class="text-[#016b42] font-medium underline decoration-[#016b42]/30 hover:decoration-[#016b42] underline-offset-2"${attrs}>${children ?? ''}</a>` : (children ?? '');
+    },
+  },
+};
 
 export const revalidate = 60; // Revalidate every 60 seconds to show new posts
 
@@ -52,7 +64,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     <main className="min-h-screen">
       <div className="mx-3 sm:mx-4 md:mx-6">
         <article
-          className="mx-auto max-w-[736px] px-4 py-16 sm:px-6 sm:py-20"
+          className="mx-auto max-w-[990px] px-4 py-16 sm:px-6 sm:py-20"
           style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}
         >
         <Link href="/" className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-gray-900">
@@ -76,9 +88,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
         {post.body && post.body.length > 0 ? (
           <div
-            className="prose prose-gray mt-10 max-w-none prose-p:leading-relaxed prose-headings:font-semibold"
+            className="prose prose-gray mt-10 max-w-none prose-p:leading-relaxed prose-p:text-gray-700 prose-headings:font-semibold prose-headings:text-gray-900 prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4 prose-h2:border-b prose-h2:border-gray-100 prose-h2:pb-2 prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3 prose-h4:text-lg prose-h4:mt-6 prose-h4:mb-2 prose-blockquote:border-l-4 prose-blockquote:border-[#016b42] prose-blockquote:pl-6 prose-blockquote:italic prose-blockquote:text-gray-600 prose-blockquote:my-6 prose-ul:my-4 prose-ol:my-4 prose-li:my-1.5"
             style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}
-            dangerouslySetInnerHTML={{ __html: toHTML(post.body as import('@portabletext/types').TypedObject[]) }}
+            dangerouslySetInnerHTML={{ __html: toHTML(post.body as import('@portabletext/types').TypedObject[], { components: portableTextComponents }) }}
           />
         ) : null}
         </article>
