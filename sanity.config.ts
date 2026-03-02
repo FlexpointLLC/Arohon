@@ -14,7 +14,7 @@ export default defineConfig({
   plugins: [structureTool()],
   schema: { types: schemaTypes },
   deployment: {
-    appId: 'v2x8mg63ld1ft19d7ipmzbsx',
+    appId: 'j6h39iv3sfvzyffrypc9zb1z',
     autoUpdates: true,
   },
 });
