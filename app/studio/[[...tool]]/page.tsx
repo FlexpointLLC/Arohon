@@ -1,12 +1,7 @@
-'use client';
+import { redirect } from 'next/navigation';
 
-import { NextStudio } from 'next-sanity/studio';
-import config from '../../../sanity.config';
+const SANITY_PROJECT_ID = 'pfm6u125';
 
 export default function StudioPage() {
-  return (
-    <div className="fixed inset-0 z-50">
-      <NextStudio config={config} />
-    </div>
-  );
+  redirect(`https://www.sanity.io/manage/personal/project/${SANITY_PROJECT_ID}`);
 }
