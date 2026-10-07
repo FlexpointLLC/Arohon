@@ -501,7 +501,7 @@ export function Drive() {
           </p>
           <div className="mt-6 flex flex-wrap items-center gap-5">
             <StoreButton kind="driver" variant="dark" />
-            <Link href="/drive" className="group inline-flex items-center gap-1 text-sm font-medium text-black/50 transition-colors hover:text-black dark:text-[#8A8F98] dark:hover:text-white">
+            <Link href="/driver" className="group inline-flex items-center gap-1 text-sm font-medium text-black/50 transition-colors hover:text-black dark:text-[#8A8F98] dark:hover:text-white">
               How it works <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" />
             </Link>
           </div>
@@ -589,7 +589,7 @@ export function FinalCTA() {
       >
         <StoreBadges className="justify-center" />
       </motion.div>
-      <Link href="/drive" className="group mt-6 inline-flex items-center gap-1 text-sm font-medium text-black/50 transition-colors hover:text-black dark:text-[#8A8F98] dark:hover:text-white">
+      <Link href="/driver" className="group mt-6 inline-flex items-center gap-1 text-sm font-medium text-black/50 transition-colors hover:text-black dark:text-[#8A8F98] dark:hover:text-white">
         Want to drive instead? <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" />
       </Link>
     </section>

@@ -303,7 +303,7 @@ export function AboutPage() {
           {[
             { k: 'Company', v: 'Arohon Limited', c: 'Navana HR Tower 1, Gulshan Link Road, Dhaka', href: '/contact', cta: 'Contact us' },
             { k: 'Careers', v: 'Build it with us', c: 'Engineers, designers and operators who care about Bangladesh.', href: '/join-our-team', cta: 'Open roles' },
-            { k: 'Drivers', v: 'Just 2% commission', c: 'Bring your bike, CNG, car or micro and drive on your hours.', href: '/drive', cta: 'Drive with Arohon' },
+            { k: 'Drivers', v: 'Just 2% commission', c: 'Bring your bike, CNG, car or micro and drive on your hours.', href: '/driver', cta: 'Drive with Arohon' },
           ].map((x, i) => (
             <motion.div key={x.k} {...fade(i * 0.06)} className="flex flex-col bg-[#FDFDFD] p-7 dark:bg-black">
               <p className={`text-[13px] ${muted}`}>{x.k}</p>

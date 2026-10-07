@@ -7,7 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '',
     '/about',
     '/contact',
-    '/drive',
+    '/driver',
     '/ride',
     '/safety',
     '/cities',

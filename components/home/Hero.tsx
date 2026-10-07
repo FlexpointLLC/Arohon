@@ -51,7 +51,7 @@ export function Hero() {
             Request a ride
             <ArrowRight weight="bold" className="transition-transform group-hover:translate-x-1" />
           </a>
-          <a href="/drive" className="w-full rounded-full bg-black/[.05] px-6 py-4 text-center sm:w-auto dark:bg-white/10 text-[15px] font-semibold text-black/70 transition-colors hover:bg-black/5 hover:text-black dark:hover:bg-white/10 dark:text-[#AFAFAF] dark:hover:text-white">
+          <a href="/driver" className="w-full rounded-full bg-black/[.05] px-6 py-4 text-center sm:w-auto dark:bg-white/10 text-[15px] font-semibold text-black/70 transition-colors hover:bg-black/5 hover:text-black dark:hover:bg-white/10 dark:text-[#AFAFAF] dark:hover:text-white">
             Become a driver
           </a>
         </motion.div>

@@ -1155,7 +1155,7 @@ export function SafetyPage() {
           ]}
         />
         <motion.div {...fade(0.1)} className="mt-10">
-          <Link href="/drive" className="inline-flex items-center gap-1.5 text-[14px] font-medium">Drive with Arohon <ArrowRight size={13} /></Link>
+          <Link href="/driver" className="inline-flex items-center gap-1.5 text-[14px] font-medium">Drive with Arohon <ArrowRight size={13} /></Link>
         </motion.div>
       </section>
       <section className="mx-auto max-w-[1280px] px-6 pb-8 md:px-16">
@@ -1284,7 +1284,7 @@ export function CitiesPage() {
         </motion.div>
       </section>
       <Close title="Not on the map yet?" rest="Be the first in your district.">
-        <Link href="/drive" className="inline-flex w-full items-center justify-center gap-1.5 rounded-full bg-black px-6 py-3.5 text-[15px] font-semibold text-white sm:w-auto dark:bg-white dark:text-black">Drive with Arohon <ArrowRight size={14} /></Link>
+        <Link href="/driver" className="inline-flex w-full items-center justify-center gap-1.5 rounded-full bg-black px-6 py-3.5 text-[15px] font-semibold text-white sm:w-auto dark:bg-white dark:text-black">Drive with Arohon <ArrowRight size={14} /></Link>
       </Close>
     </>
   );
@@ -1458,7 +1458,7 @@ export function PartnersPage() {
         <Head label="More ways" title="Already moving?" rest="There’s a place for you." />
         <div className="mt-14 grid gap-px overflow-hidden rounded-2xl border border-black/10 bg-black/10 md:grid-cols-2 dark:border-white/10 dark:bg-white/10">
           {[
-            { k: 'Drive with Arohon', c: 'Just 2% commission. Bring your bike, CNG or car and drive on your own hours.', href: '/drive' },
+            { k: 'Drive with Arohon', c: 'Just 2% commission. Bring your bike, CNG or car and drive on your own hours.', href: '/driver' },
             { k: 'Arohon for Business', c: 'Monthly office rides, team transport and deliveries for your shop.', href: '/services/business' },
           ].map((x, k) => (
             <motion.div key={x.k} {...fade(k * 0.06)} className="bg-[#FDFDFD] dark:bg-black">

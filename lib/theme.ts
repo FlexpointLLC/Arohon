@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from 'react';
 
 // Dark mode is homepage-only until the inner pages are redesigned.
-export const THEMED_PATHS = ['/', '/ride', '/drive', '/services', '/services/business', '/services/parcel', '/services/rental', '/services/food', '/services/ambulance', '/services/airport', '/services/payment', '/safety', '/cities', '/about', '/contact', '/partners', '/join-our-team', '/whats-new', '/blog', '/terms', '/terms-customers', '/terms-promo-code', '/terms-return-refund', '/privacy', '/delete-account', '/terms-parcel', '/terms-food', '/terms-rental', '/terms-rewards', '/terms-merchants', '/community-guidelines'];
+export const THEMED_PATHS = ['/', '/ride', '/driver', '/services', '/services/business', '/services/parcel', '/services/rental', '/services/food', '/services/ambulance', '/services/airport', '/services/payment', '/safety', '/cities', '/about', '/contact', '/partners', '/join-our-team', '/whats-new', '/blog', '/terms', '/terms-customers', '/terms-promo-code', '/terms-return-refund', '/privacy', '/delete-account', '/terms-parcel', '/terms-food', '/terms-rental', '/terms-rewards', '/terms-merchants', '/community-guidelines'];
 
 const prefersDark = () => {
   try {

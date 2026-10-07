@@ -11,7 +11,7 @@ export const SOCIAL = [
 // Linear footer pattern: page-coloured, one hairline, small logo, quiet link columns, tiny legal row
 const GROUPS = [
   { title: 'Ride', links: [['City rides', '/ride'], ['Airport rides', '/services/airport'], ['Ambulance', '/services/ambulance'], ['Payments', '/services/payment'], ['All services', '/services']] },
-  { title: 'Earn', links: [['Become a driver', '/drive'], ['Partners & fleets', '/partners'], ['Join our team', '/join-our-team']] },
+  { title: 'Earn', links: [['Become a driver', '/driver'], ['Partners & fleets', '/partners'], ['Join our team', '/join-our-team']] },
   { title: 'Company', links: [['About', '/about'], ["What's new", '/whats-new'], ['Blog', '/blog'], ['Contact', '/contact']] },
   { title: 'Help', links: [['Safety', '/safety'], ['Refund policy', '/terms-return-refund'], ['Promo terms', '/terms-promo-code'], ['Community guidelines', '/community-guidelines'], ['Delete account', '/delete-account']] },
   { title: 'Connect', links: SOCIAL },

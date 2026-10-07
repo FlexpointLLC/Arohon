@@ -33,7 +33,7 @@ const MEGA_LINKS = [
 
 const LINKS = [
   { label: 'Ride', href: '/ride' },
-  { label: 'Drive', href: '/drive' },
+  { label: 'Driver', href: '/driver' },
   { label: 'Services', href: '/services', menu: true },
   { label: 'Safety', href: '/safety' },
   { label: 'Cities', href: '/cities' },
@@ -104,7 +104,7 @@ export function NavBar({ isBlogSite = false }: { isBlogSite?: boolean }) {
           </div>
 
           <div className="flex items-center gap-1">
-            <Link href={base + '/drive'} className="hidden h-9 items-center whitespace-nowrap rounded-full px-3 text-[14px] font-medium text-black transition-colors hover:bg-black/[.06] dark:text-white dark:hover:bg-white/10 md:flex">
+            <Link href={base + '/driver'} className="hidden h-9 items-center whitespace-nowrap rounded-full px-3 text-[14px] font-medium text-black transition-colors hover:bg-black/[.06] dark:text-white dark:hover:bg-white/10 md:flex">
               Become a driver
             </Link>
             {theme.supported && (
@@ -169,7 +169,7 @@ export function NavBar({ isBlogSite = false }: { isBlogSite?: boolean }) {
                     ))}
                   </ul>
                 </div>
-                <Link href={base + '/drive'} className="group mt-1 flex items-center justify-between rounded-xl px-8 py-4 text-[14px] transition-colors hover:bg-black/[.03] dark:hover:bg-white/[.04]">
+                <Link href={base + '/driver'} className="group mt-1 flex items-center justify-between rounded-xl px-8 py-4 text-[14px] transition-colors hover:bg-black/[.03] dark:hover:bg-white/[.04]">
                   <span>
                     <span className="font-medium text-black dark:text-white">New</span>
                     <span className="ml-2 text-black/50 dark:text-[#8A8F98]">Just 2% commission for drivers</span>

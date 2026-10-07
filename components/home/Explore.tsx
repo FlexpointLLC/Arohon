@@ -136,7 +136,7 @@ export function LifeMoments() {
 const WORK: Item[] = [
   { title: 'Same rider, every day', copy: 'Book your office commute by the month. The same trusted driver picks you up every morning.', v: 'car', href: '/services/business' },
   { title: 'Arohon for business', copy: 'Staff transport, deliveries and every movement in between, managed in one B2B account.', v: 'hiace', href: '/services/business' },
-  { title: 'Hire a driver', copy: 'Have a car but no driver? Post a job on Arohon, drivers apply and you hire the one you like.', v: 'car_plus', href: '/drive' },
+  { title: 'Hire a driver', copy: 'Have a car but no driver? Post a job on Arohon, drivers apply and you hire the one you like.', v: 'car_plus', href: '/driver' },
 ];
 
 export function Work() {

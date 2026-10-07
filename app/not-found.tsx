@@ -19,7 +19,7 @@ const PLACES = [
   ['Home', '/'],
   ['Book a ride', '/ride'],
   ['All services', '/services'],
-  ['Drive with Arohon', '/drive'],
+  ['Drive with Arohon', '/driver'],
   ['Help and contact', '/contact'],
 ];
 

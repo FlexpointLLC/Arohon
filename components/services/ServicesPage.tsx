@@ -90,7 +90,7 @@ const SERVICES: Svc[] = [
   { name: 'Ambulance', v: 'ambulance', copy: 'Emergency transport any hour, booked from the same app.', meta: '24/7', href: '/services/ambulance', tags: ['Medical'] },
   { name: 'Rental', v: 'car', copy: 'A car and driver by the hour, week or month. Drivers bid, you choose.', meta: 'With driver', href: '/services/rental', tags: ['By the hour'] },
   { name: 'Business', v: 'hiace', copy: 'Monthly office rides with the same driver and transport for the team.', meta: 'For teams', href: '/services/business', tags: ['By the hour', 'Travel'] },
-  { name: 'Hire a driver', v: 'car_plus', copy: 'Own a car? Post a job and hire a driver by the hour, week or month.', meta: 'Job posts', href: '/drive', tags: ['By the hour'] },
+  { name: 'Hire a driver', v: 'car_plus', copy: 'Own a car? Post a job and hire a driver by the hour, week or month.', meta: 'Job posts', href: '/driver', tags: ['By the hour'] },
 ];
 const TABS = ['All', 'City', 'Travel', 'Goods', 'Medical', 'By the hour'];
 
