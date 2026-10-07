@@ -18,7 +18,7 @@ export default function TermsCustomersPage() {
           The Company reserves the right to modify, vary and change the Terms of Use or its policies relating to the Service at any time as it deems fit. Such modifications, variations and or changes to the Terms of Use or its policies relating to the Service shall be effective upon the posting of an updated version at Arohon. You agree that it shall be your responsibility to review the Terms of Use regularly whereupon the continued use of the Service after any such changes, whether or not reviewed by you, shall constitute your consent and acceptance to such changes.
         </p>
         <p className="mt-2 text-gray-600">
-          Important – please read these terms carefully. By using the Service (as defined below), you agree that you have read, understood, accepted and agreed with the Terms of Use. You further agree to the representations made by yourself below. If you do not agree to or fall within the Terms of Use of the Service and wish to discontinue using the Service, please do not continue using the Application (as defined below) or the Service.
+          Important, please read these terms carefully. By using the Service (as defined below), you agree that you have read, understood, accepted and agreed with the Terms of Use. You further agree to the representations made by yourself below. If you do not agree to or fall within the Terms of Use of the Service and wish to discontinue using the Service, please do not continue using the Application (as defined below) or the Service.
         </p>
       </section>
 

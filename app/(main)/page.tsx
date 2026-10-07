@@ -1,24 +1,16 @@
-import dynamic from 'next/dynamic';
 import { client, POSTS_QUERY } from '@/lib/sanity';
-import { HeroSection } from '@/components/HeroSection';
-import { TrustedBy } from '@/components/TrustedBy';
-import { ServicesSection } from '@/components/ServicesSection';
-import { SeoContentSection } from '@/components/SeoContentSection';
-
-const ServicesTabsSection = dynamic(() => import('@/components/ServicesTabsSection').then((m) => m.ServicesTabsSection), {
-  ssr: true,
-});
-const AppDownloadCTA = dynamic(() => import('@/components/AppDownloadCTA').then((m) => m.AppDownloadCTA), {
-  ssr: true,
-});
-const BlogSection = dynamic(() => import('@/components/BlogSection').then((m) => m.BlogSection), {
-  ssr: true,
-});
+import { Hero } from '@/components/home/Hero';
+import { Explore, Travel, LifeMoments, Work } from '@/components/home/Explore';
+import { FleetScroll } from '@/components/home/FleetScroll';
+import { BikeSection, EvSection } from '@/components/home/FeatureSections';
+import { Journeys } from '@/components/home/Journeys';
+import { Stats, SafetyStory, Coverage, Rewards, Drive, Faq, FinalCTA } from '@/components/home/Sections';
+import { BlogSection } from '@/components/BlogSection';
 
 export const revalidate = 60; // Revalidate so new blog posts appear on homepage
 
 export const metadata = {
-  title: 'Arohon | Book a Ride in Bangladesh – Dhaka, Sylhet, 64 Districts',
+  title: 'Arohon | Book a Ride in Bangladesh, Dhaka, Sylhet, 64 Districts',
   description:
     'Book a ride, plan your journey, or plan your trip in Bangladesh. Arohon ride sharing: Dhaka, Sylhet, 64 districts. Safe, affordable rides. One tap to ride.',
 };
@@ -37,13 +29,23 @@ export default async function Home() {
 
   return (
     <main className="min-h-screen">
-      <HeroSection />
-      <TrustedBy />
-      <ServicesSection />
-      <SeoContentSection />
-      <ServicesTabsSection />
-      <AppDownloadCTA />
+      <Hero />
+      <Explore />
+      <BikeSection />
+      <Travel />
+      <EvSection />
+      <LifeMoments />
+      <Work />
+      <FleetScroll />
+      <Stats />
+      <Journeys />
+      <SafetyStory />
+      <Coverage />
+      <Rewards />
+      <Drive />
       <BlogSection posts={latestPosts} />
+      <Faq />
+      <FinalCTA />
     </main>
   );
 }

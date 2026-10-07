@@ -5,6 +5,9 @@
 :root {
   --brand-green: #0ABF8B;
   --brand-green-dark: #019157;
+  /* legacy pages reference these */
+  --font-inter: var(--font-sans);
+  --font-instrument: var(--font-sans);
 }
 
 @keyframes badge-dot-pulse {
@@ -45,20 +48,37 @@ html {
 }
 
 body {
-  font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
-  padding: 6px;
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+  background: #FDFDFD;
+  color: #06100C;
 }
 
-@media (min-width: 640px) {
-  body {
-    padding: 8px;
-  }
+@keyframes marquee { to { transform: translateX(-50%); } }
+.animate-marquee { animation: marquee 40s linear infinite; }
+
+@keyframes float-y { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+.animate-float { animation: float-y 6s ease-in-out infinite; }
+
+@keyframes ping-soft { 0% { transform: scale(1); opacity: .6; } 100% { transform: scale(2.6); opacity: 0; } }
+.animate-ping-soft { animation: ping-soft 2.4s cubic-bezier(0,0,.2,1) infinite; }
+
+.grain::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none; opacity: .07; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* Blog post body – matches Sanity rich text formatting */
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee, .animate-float, .animate-ping-soft { animation: none; }
+}
+
+/* Blog post body, matches Sanity rich text formatting */
 .blog-content {
+  --bc-text: rgba(0,0,0,.72);
+  --bc-head: #000;
+  --bc-rule: rgba(0,0,0,.15);
+  font-size: 17px;
   max-width: none;
-  color: #374151;
+  color: var(--bc-text);
   line-height: 1.7;
 }
 
@@ -74,7 +94,7 @@ body {
 
 .blog-content strong {
   font-weight: 600;
-  color: #111827;
+  color: var(--bc-head);
 }
 
 .blog-content em {
@@ -94,7 +114,7 @@ body {
 .blog-content h2 {
   font-size: 1.5rem;
   font-weight: 600;
-  color: #111827;
+  color: var(--bc-head);
   margin-top: 2.5rem;
   margin-bottom: 0.75rem;
   line-height: 1.3;
@@ -107,7 +127,7 @@ body {
 .blog-content h3 {
   font-size: 1.25rem;
   font-weight: 600;
-  color: #111827;
+  color: var(--bc-head);
   margin-top: 2rem;
   margin-bottom: 0.5rem;
   line-height: 1.4;
@@ -116,7 +136,7 @@ body {
 .blog-content h4 {
   font-size: 1.125rem;
   font-weight: 600;
-  color: #111827;
+  color: var(--bc-head);
   margin-top: 1.5rem;
   margin-bottom: 0.5rem;
   line-height: 1.4;
@@ -156,13 +176,13 @@ body {
 .blog-content blockquote {
   margin: 1.5rem 0;
   padding-left: 1.5rem;
-  border-left: 4px solid #016b42;
+  border-left: 2px solid var(--bc-rule);
   font-style: italic;
-  color: #4b5563;
+  color: var(--bc-text);
 }
 
 .blog-content a {
-  color: #016b42;
+  color: var(--bc-head);
   font-weight: 500;
   text-decoration: underline;
   text-underline-offset: 2px;
@@ -171,3 +191,98 @@ body {
 .blog-content a:hover {
   text-decoration-thickness: 2px;
 }
+
+@keyframes drive { from { offset-distance: 0%; } to { offset-distance: 100%; } }
+.backface-visible { backface-visibility: visible; }
+
+/* Type + container scale matched to uber.com (measured at 1440px): h1 52/64, h2 36/44, body 16/24, content 1152px */
+.u-h1 { font-size: 36px; line-height: 44px; font-weight: 700; letter-spacing: -0.01em; }
+.u-h2 { font-size: 28px; line-height: 36px; font-weight: 700; letter-spacing: -0.01em; }
+.u-h3 { font-size: 20px; line-height: 28px; font-weight: 700; }
+@media (min-width: 768px) {
+  .u-h1 { font-size: 52px; line-height: 64px; }
+  .u-h2 { font-size: 36px; line-height: 44px; }
+  .u-h3 { font-size: 24px; line-height: 32px; }
+}
+
+/* Dark mode, Uber palette: #000 page, #292929 surfaces, #AFAFAF secondary text */
+html.dark .blog-content { --bc-text: rgba(255,255,255,.72); --bc-head: #fff; --bc-rule: rgba(255,255,255,.2); }
+.blog-content p { font-size: 17px; line-height: 1.8; }
+.blog-content h2 { scroll-margin-top: 7.5rem; letter-spacing: -0.015em; }
+.blog-content a { color: var(--bc-head); text-decoration: underline; text-decoration-color: var(--bc-rule); text-underline-offset: 3px; }
+
+html.dark body { background: #000000; color: #FFFFFF; }
+
+/* City map palette (CityMap.tsx reads these) */
+:root {
+  --map-ground: #ECEEEF; --map-block: #F7F8F8; --map-park: #DDF3CF; --map-road: #FFFFFF; --map-water: #CFE3F7;
+  --map-route: #0B0F0D; --map-dash: #FFFFFF;
+  --bld-s: #E3E5E8; --bld-n: #EEF0F2; --bld-e: #D2D5DA; --bld-w: #E9EBEE; --bld-roof: #FFFFFF; --bld-roof-in: #F1F2F4;
+  --pin: #0B0F0D; --pin-dot: #FFFFFF;
+  --tree-hi: #B9E89A; --tree-mid: #7CC960; --tree-lo: #5FA948; --tree-top-hi: #CDF2B4; --tree-top-lo: #8BD46E;
+}
+html.dark {
+  --map-ground: #0B0B0B; --map-block: #161616; --map-park: #13261B; --map-road: #2A2A2A; --map-water: #0E1A26;
+  --map-route: #4A4A4A; --map-dash: #FFFFFF; /* muted route with white dashes; the green trip line carries the emphasis */
+  --bld-s: #262626; --bld-n: #2E2E2E; --bld-e: #1C1C1C; --bld-w: #2A2A2A; --bld-roof: #333333; --bld-roof-in: #2B2B2B;
+  --pin: #FFFFFF; --pin-dot: #000000;
+  /* muted, low-glare greens so trees don't glow against black */
+  --tree-hi: #3F6B45; --tree-mid: #2C4F33; --tree-lo: #213C27; --tree-top-hi: #4A7A50; --tree-top-lo: #335C3A;
+}
+
+/* Lit building windows (dark mode only; the grid is display:none in light mode) */
+.win { border-radius: 2px; background: #1B1B1B; }
+.win.on { background: #FFD58A; box-shadow: 0 0 6px rgba(255, 190, 90, .55); }
+.win.flicker { animation: win-flicker 7s steps(1, end) infinite; }
+@keyframes win-flicker { 0%, 62% { background: #FFD58A; } 63%, 78% { background: #1B1B1B; box-shadow: none; } 79%, 100% { background: #FFD58A; } }
+@media (prefers-reduced-motion: reduce) { .win.flicker { animation: none; } }
+
+/* Vehicle tail lights: positioned on the sprite each frame by CityMap */
+.tail { position: absolute; left: 0; top: 0; width: 3px; height: 3px; border-radius: 9999px; background: #FF5A4F; filter: blur(0.8px); box-shadow: 0 0 4px 2px rgba(255, 59, 48, .45), 0 0 9px 3px rgba(255, 40, 30, .2); }
+
+@keyframes fadein { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+/* anchors clear the fixed header and the sticky sub-nav */
+html { scroll-padding-top: 7.5rem; }
+
+/* shop console: cards are dragged column to column (pure CSS, no JS frame loop) */
+@keyframes dragLift {
+  0% { transform: none; box-shadow: 0 1px 2px rgba(0,0,0,.06); }
+  18%, 78% { transform: translateY(-6px) rotate(-2.5deg) scale(1.04); box-shadow: 0 22px 34px -14px rgba(0,0,0,.45); }
+  100% { transform: none; box-shadow: 0 1px 2px rgba(0,0,0,.06); }
+}
+@keyframes dragCursor { 0%, 8% { opacity: 0; transform: translate(6px, 6px); } 18%, 74% { opacity: 1; transform: none; } 90%, 100% { opacity: 0; transform: translate(4px, 4px); } }
+@keyframes cardPop { from { opacity: 0; transform: translateY(-10px) scale(.94); } to { opacity: 1; transform: none; } }
+@keyframes cardClear { to { opacity: 0; transform: translateY(14px) scale(.96); } }
+.drag-lift { animation: dragLift .95s cubic-bezier(.22,1,.36,1) both; }
+.drag-cursor { animation: dragCursor .95s ease both; }
+.card-pop { animation: cardPop .45s cubic-bezier(.22,1,.36,1) both; }
+.card-clear { animation: cardClear .35s ease-in both; }
+
+@keyframes cityPing{from{transform:scale(1);opacity:.9}to{transform:scale(4.5);opacity:0}}
+.city-ping{transform-box:fill-box;transform-origin:center;animation:cityPing 1.4s ease-out forwards}
+
+@keyframes officePing{from{transform:scale(1);opacity:.8}to{transform:scale(3.2);opacity:0}}
+.office-ping{transform-box:fill-box;transform-origin:center;animation:officePing 2s ease-out infinite}
+
+/* legal documents: the policies keep their old gray utility classes, restyled here once for light and dark */
+.legal { --lg-text: rgba(0,0,0,.68); --lg-head: #000; font-size: 16px; line-height: 1.75; }
+html.dark .legal { --lg-text: rgba(255,255,255,.68); --lg-head: #fff; }
+.legal .text-gray-600, .legal p, .legal li { color: var(--lg-text); }
+.legal .text-gray-900, .legal strong { color: var(--lg-head); }
+.legal section > h2 { font-size: 22px; font-weight: 500; letter-spacing: -0.015em; scroll-margin-top: 7.5rem; }
+.legal h3 { font-size: 16px; font-weight: 600; margin-top: 1.5rem; }
+.legal p { margin-top: .75rem; }
+.legal a { color: var(--lg-head); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(127,127,127,.4); }
+
+/* track page: the dot rides from the pickup marker down to the destination and back */
+@keyframes trackCar { 0%, 10% { transform: translateY(0); } 50%, 60% { transform: translateY(34px); } 100% { transform: translateY(0); } }
+.track-car { animation: trackCar 4s ease-in-out infinite; }
+
+/* 404 route: draws to a destination off the map, holds, fades, repeats */
+@keyframes nfRoute { 0% { stroke-dasharray: 0 1; opacity: 1; } 55% { stroke-dasharray: 1 0; opacity: 1; } 85% { stroke-dasharray: 1 0; opacity: 1; } 100% { stroke-dasharray: 1 0; opacity: 0; } }
+.nf-route { animation: nfRoute 4.5s ease-in-out infinite; }
+@keyframes nfEnd { 0%, 50% { opacity: 0; transform-box: fill-box; } 58%, 88% { opacity: 1; } 100% { opacity: 0; } }
+.nf-end { animation: nfEnd 4.5s ease-in-out infinite; }
+@keyframes nfPing { from { transform: scale(1); opacity: .8; } to { transform: scale(3); opacity: 0; } }
+.nf-ping { transform-box: fill-box; transform-origin: center; animation: nfPing 1.5s ease-out infinite; }

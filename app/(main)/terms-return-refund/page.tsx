@@ -50,7 +50,7 @@ export default function ReturnRefundPage() {
       <section>
         <h2 className="text-lg font-semibold text-gray-900">4. HOW TO REQUEST A REFUND</h2>
         <p className="mt-2 text-gray-600">
-          Open the Arohon App, go to your ride history, select the ride in question, and use the &quot;Report a problem&quot; or &quot;Request refund&quot; option. Alternatively, you may contact us through the app&apos;s Help section or our website. Fill in the refund request form with the required details and submit. Our support team will review your request and respond within 7–15 business days.
+          Open the Arohon App, go to your ride history, select the ride in question, and use the &quot;Report a problem&quot; or &quot;Request refund&quot; option. Alternatively, you may contact us through the app&apos;s Help section or our website. Fill in the refund request form with the required details and submit. Our support team will review your request and respond within 7 to 15 business days.
         </p>
       </section>
 
@@ -60,7 +60,7 @@ export default function ReturnRefundPage() {
           You will be refunded only the fare and any applicable fees that you paid to Arohon for the ride in question, in cases where a refund is approved.
         </p>
         <p className="mt-2 text-gray-600">
-          The refund will be processed using the same payment method you used for the ride, where possible. For cash payments, refunds may be issued via mobile wallet or voucher as determined by the Company. The whole refund process may take 7–15 business days depending on the payment method and your bank or payment provider.
+          The refund will be processed using the same payment method you used for the ride, where possible. For cash payments, refunds may be issued via mobile wallet or voucher as determined by the Company. The whole refund process may take 7 to 15 business days depending on the payment method and your bank or payment provider.
         </p>
         <p className="mt-2 text-gray-600">
           If your request is not approved after our review, we will notify you with the reason. We reserve the right to deny refund requests that do not meet our policy criteria or that we reasonably believe to be fraudulent or abusive.

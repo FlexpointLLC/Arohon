@@ -1,6 +1,7 @@
 import { headers } from 'next/headers';
 import { Footer } from '@/components/Footer';
 import { NavBar } from '@/components/NavBar';
+import { Intro } from '@/components/Intro';
 
 export default async function MainLayout({ children }: { children: React.ReactNode }) {
   const headersList = await headers();
@@ -9,6 +10,7 @@ export default async function MainLayout({ children }: { children: React.ReactNo
 
   return (
     <>
+      {!isBlogSite && <Intro />}
       <NavBar isBlogSite={isBlogSite} />
       {children}
       <Footer isBlogSite={isBlogSite} />

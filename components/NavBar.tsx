@@ -1,187 +1,220 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { List, X } from '@phosphor-icons/react';
-import { USER_APP_URL, DRIVER_APP_URL } from '@/lib/app-links';
+import { AnimatePresence, motion } from 'framer-motion';
+import { ArrowRight, CaretDown, List, Moon, Sun, X } from '@phosphor-icons/react';
+import { useTheme } from '@/lib/theme';
+import { USER_APP_URL } from '@/lib/app-links';
 import { SITE_URL } from '@/lib/seo';
+import { PlayIcon } from './StoreButtons';
 
-const BRAND_GREEN = '#016b42';
-const SCROLL_THRESHOLD = 80;
+const SERVICES = [
+  { label: 'City rides', desc: 'Bike, CNG, car, micro', href: '/ride', img: '/icons/car.webp' },
+  { label: 'Intercity & airport', desc: 'All 64 districts, 8 airports', href: '/services/airport', img: '/icons/micro.webp' },
+  { label: 'Ambulance', desc: '24/7 emergency transport', href: '/services/ambulance', img: '/icons/ambulance.webp' },
+  { label: 'Payments', desc: 'Cash for rides, more for food', href: '/services/payment', img: '/icons/bike.webp' },
+];
 
-function GooglePlayIcon({ className }: { className?: string }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-      <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.198l2.807 1.626a1 1 0 0 1 0 1.73l-2.808 1.626L15.206 12l2.492-2.491zM5.864 2.658L16.802 8.99l-2.302 2.302-8.636-8.634z" />
-    </svg>
-  );
-}
+const MEGA = [
+  { label: 'Business', desc: 'Monthly office rides, team transport and deliveries for your shop', href: '/services/business' },
+  { label: 'Parcel', desc: 'Across Dhaka within an hour, or to any district in 1 to 3 days', href: '/services/parcel' },
+  { label: 'Rental', desc: 'A car and a driver by the hour, week or month, drivers bid for you', href: '/services/rental' },
+  { label: 'Food delivery', desc: 'Food and medicine from restaurants and pharmacies near you', href: '/services/food' },
+];
+const MEGA_LINKS = [
+  ['All services', '/services'],
+  ['Book a ride', '/ride'],
+  ['Airport rides', '/services/airport'],
+  ['Ambulance', '/services/ambulance'],
+  ['Payments', '/services/payment'],
+];
+
+const LINKS = [
+  { label: 'Ride', href: '/ride' },
+  { label: 'Drive', href: '/drive' },
+  { label: 'Services', href: '/services', menu: true },
+  { label: 'Safety', href: '/safety' },
+  { label: 'Cities', href: '/cities' },
+  { label: 'About', href: '/about' },
+  { label: 'Blog', href: '/blog' },
+];
 
 export function NavBar({ isBlogSite = false }: { isBlogSite?: boolean }) {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
-
-  const baseUrl = isBlogSite ? SITE_URL : '';
+  const theme = useTheme(pathname);
+  const base = isBlogSite ? SITE_URL : '';
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [menu, setMenu] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setIsScrolled(window.scrollY > SCROLL_THRESHOLD);
+    const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   useEffect(() => {
-    setMobileMenuOpen(false);
+    setOpen(false);
+    setMenu(false);
   }, [pathname]);
 
   useEffect(() => {
-    if (mobileMenuOpen) document.body.style.overflow = 'hidden';
-    else document.body.style.overflow = '';
-    return () => { document.body.style.overflow = ''; };
-  }, [mobileMenuOpen]);
+    document.body.style.overflow = open ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [open]);
 
-  const navItems = [
-    { label: 'Home', href: '/' },
-    { label: 'About', href: '/about' },
-    { label: 'Ride', href: '/ride' },
-    { label: 'Drive', href: '/drive' },
-  ];
+  const isActive = (href: string) => !href.includes('#') && (pathname === href || pathname.startsWith(`${href}/`));
 
   return (
-    <nav className="sticky top-2 z-30 mx-3 mt-3 sm:mx-4 sm:mt-4 md:mx-6 md:mt-6">
-      <div
-        className="relative mx-auto flex items-center justify-between rounded-2xl bg-white pl-3 pr-2 py-2 sm:pl-4 md:transition-[max-width] md:duration-500 md:ease-out"
-        style={{
-          boxShadow: '0px 8px 24px 0px rgba(0, 0, 0, 0.08)',
-          maxWidth: isScrolled ? '992px' : '736px',
-        }}
+    <>
+      {/* Uber-style bar: full width, 64px, logo + links on the left, actions on the right */}
+      <header
+        onMouseLeave={() => setMenu(false)}
+        className={`fixed inset-x-0 top-0 z-50 h-16 bg-white/95 backdrop-blur-xl transition-shadow duration-300 dark:bg-black/90 ${
+          scrolled ? 'shadow-[0_1px_0_rgba(0,0,0,.06),0_8px_24px_-12px_rgba(0,0,0,.15)]' : ''
+        }`}
       >
-        {baseUrl ? (
-          <a href={baseUrl} className="relative flex h-8 w-24 flex-shrink-0 sm:h-9 sm:w-[110px]">
-            <Image
-              src={`${SITE_URL}/logo.png`}
-              alt="Arohon"
-              fill
-              className="object-contain object-left"
-              priority
-              sizes="110px"
-            />
-          </a>
-        ) : (
-          <Link href="/" className="relative flex h-8 w-24 flex-shrink-0 sm:h-9 sm:w-[110px]">
-            <Image
-              src={`${SITE_URL}/logo.png`}
-              alt="Arohon"
-              fill
-              className="object-contain object-left"
-              priority
-              sizes="110px"
-            />
+        <nav className="mx-auto flex h-full max-w-[1280px] items-center justify-between gap-4 px-6 md:px-16">
+          <div className="flex items-center gap-6">
+          <Link href={base + '/'} className="shrink-0 py-1" aria-label="Arohon home">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={`${base}/logo.png`} alt="Arohon" width={1510} height={365} className="h-7 w-auto dark:[filter:brightness(0)_invert(1)]" />
           </Link>
-        )}
-        {/* Desktop nav - hidden on mobile */}
-        <div className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 rounded-full bg-gray-100/90 py-1 pl-1 pr-1 md:flex">
-          {navItems.map((item) => {
-            const isActive = item.href === '/' ? pathname === '/' : pathname === item.href || pathname.startsWith(`${item.href}/`);
-            const href = baseUrl + item.href;
-            const className = `rounded-full px-5 py-2 text-sm font-medium transition-colors ${isActive ? '' : 'text-gray-700 hover:text-gray-900'}`;
-            const style = isActive ? { backgroundColor: `${BRAND_GREEN}20`, color: BRAND_GREEN } : undefined;
-            return baseUrl ? (
-              <a key={item.label} href={href} className={className} style={style}>
-                {item.label}
-              </a>
-            ) : (
-              <Link key={item.label} href={href} className={className} style={style}>
-                {item.label}
-              </Link>
-            );
-          })}
-        </div>
-        <div className="flex items-center gap-2">
-          <a
-            href={USER_APP_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Download User App"
-            className="hidden h-10 w-10 shrink-0 items-center justify-center rounded-xl text-white transition-opacity hover:opacity-95 md:flex"
-            style={{ backgroundColor: BRAND_GREEN }}
-          >
-            <GooglePlayIcon className="h-5 w-5" />
-          </a>
-          <a
-            href={DRIVER_APP_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Download Driver App"
-            className="hidden h-10 w-10 shrink-0 items-center justify-center rounded-xl text-white transition-opacity hover:opacity-95 md:flex"
-            style={{ backgroundColor: 'rgba(15, 20, 28, 1)' }}
-          >
-            <GooglePlayIcon className="h-5 w-5" />
-          </a>
-          <button
-            type="button"
-            aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
-            onClick={() => setMobileMenuOpen((o) => !o)}
-            className="flex h-10 w-10 items-center justify-center rounded-xl text-gray-700 hover:bg-gray-100 md:hidden"
-          >
-            {mobileMenuOpen ? <X size={24} weight="bold" /> : <List size={24} weight="bold" />}
-          </button>
-        </div>
-      </div>
 
-      {/* Mobile menu overlay */}
-      <div
-        className={`fixed inset-0 top-0 z-20 bg-black/20 backdrop-blur-sm transition-opacity md:hidden ${
-          mobileMenuOpen ? 'opacity-100' : 'pointer-events-none opacity-0'
-        }`}
-        onClick={() => setMobileMenuOpen(false)}
-        aria-hidden
-      />
-      <div
-        className={`fixed top-0 right-0 z-20 h-full w-full max-w-[280px] bg-white shadow-xl transition-transform duration-300 ease-out md:hidden ${
-          mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}
-      >
-        <div className="flex flex-col gap-1 p-6 pt-16">
-          {navItems.map((item) => {
-            const isActive = item.href === '/' ? pathname === '/' : pathname === item.href || pathname.startsWith(`${item.href}/`);
-            const href = baseUrl + item.href;
-            const className = `rounded-xl px-4 py-3 text-base font-medium transition-colors ${isActive ? 'bg-green-50 text-[#016b42]' : 'text-gray-700 hover:bg-gray-50'}`;
-            return baseUrl ? (
-              <a key={item.label} href={href} className={className}>
-                {item.label}
-              </a>
-            ) : (
-              <Link key={item.label} href={href} className={className}>
-                {item.label}
-              </Link>
-            );
-          })}
-          <a
-            href={USER_APP_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-4 flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold text-white"
-            style={{ backgroundColor: BRAND_GREEN }}
+          <ul className="hidden items-center gap-1 lg:flex">
+            {LINKS.map((l) => (
+              <li key={l.label} className="relative" onMouseEnter={() => setMenu(!!l.menu)}>
+                <Link
+                  href={base + l.href}
+                  className={`flex h-9 items-center gap-1 rounded-full px-3 text-[14px] font-medium leading-4 transition-colors ${
+                    isActive(l.href) ? 'bg-black/[.06] text-black dark:bg-white/10 dark:text-white' : 'text-black hover:bg-black/[.06] dark:text-white dark:hover:bg-white/10'
+                  }`}
+                >
+                  {l.label}
+                  {l.menu && <CaretDown size={12} weight="bold" className={`transition-transform ${menu ? 'rotate-180' : ''}`} />}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          </div>
+
+          <div className="flex items-center gap-1">
+            <Link href={base + '/drive'} className="hidden h-9 items-center whitespace-nowrap rounded-full px-3 text-[14px] font-medium text-black transition-colors hover:bg-black/[.06] dark:text-white dark:hover:bg-white/10 md:flex">
+              Become a driver
+            </Link>
+            {theme.supported && (
+              <button
+                type="button"
+                onClick={theme.toggle}
+                aria-label={theme.dark ? 'Switch to light mode' : 'Switch to dark mode'}
+                className="flex h-9 w-9 items-center justify-center rounded-full text-black transition-colors hover:bg-black/[.06] dark:text-white dark:hover:bg-white/10"
+              >
+                {theme.dark ? <Sun size={18} weight="bold" /> : <Moon size={18} weight="bold" />}
+              </button>
+            )}
+            <a
+              href={USER_APP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ml-1 flex h-9 items-center gap-2 whitespace-nowrap rounded-full bg-black px-3 text-[14px] font-medium text-white transition-colors hover:bg-[#333] dark:bg-white dark:text-black dark:hover:bg-[#E2E2E2]"
+            >
+              <PlayIcon className="h-4 w-4" />
+              <span className="hidden sm:inline">Get the app</span>
+              <span className="sm:hidden">App</span>
+            </a>
+            <button
+              type="button"
+              aria-label={open ? 'Close menu' : 'Open menu'}
+              aria-expanded={open}
+              onClick={() => setOpen((o) => !o)}
+              className="flex h-9 w-9 items-center justify-center rounded-full text-black hover:bg-black/[.06] dark:text-white dark:hover:bg-white/10 lg:hidden"
+            >
+              {open ? <X size={22} weight="bold" /> : <List size={22} weight="bold" />}
+            </button>
+          </div>
+        </nav>
+
+        {/* Linear-style mega menu: full content width, featured columns, plain links, news bar */}
+        <AnimatePresence>
+          {menu && (
+            <motion.div
+              initial={{ opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.18 }}
+              className="absolute inset-x-0 top-full hidden px-6 pt-2 md:px-16 lg:block"
+            >
+              <div className="mx-auto max-w-[1280px] rounded-2xl border border-black/10 bg-white p-2 shadow-[0_24px_60px_-20px_rgba(0,0,0,.25)] dark:border-white/10 dark:bg-[#0F0F10]">
+                <div className="grid grid-cols-3 rounded-xl border border-black/[.07] bg-black/[.015] dark:border-white/[.07] dark:bg-white/[.025]">
+                  {[MEGA.slice(0, 2), MEGA.slice(2, 4)].map((col, ci) => (
+                    <div key={ci} className="flex flex-col gap-1 border-r border-black/[.07] p-1 dark:border-white/[.07]">
+                      {col.map((m) => (
+                        <Link key={m.label} href={base + m.href} className="group block flex-1 rounded-lg px-7 py-6 transition-colors hover:bg-black/[.04] dark:hover:bg-white/[.06]">
+                          <span className="block text-[15px] font-medium text-black dark:text-white">{m.label}</span>
+                          <span className="mt-1.5 block max-w-[260px] text-[14px] leading-relaxed text-black/50 transition-colors group-hover:text-black/70 dark:text-[#8A8F98] dark:group-hover:text-[#D0D6E0]">{m.desc}</span>
+                        </Link>
+                      ))}
+                    </div>
+                  ))}
+                  <ul className="flex flex-col gap-1 p-1">
+                    {MEGA_LINKS.map(([label, href]) => (
+                      <li key={label}>
+                        <Link href={base + href} className="block rounded-lg px-7 py-[11px] text-[15px] text-black/80 transition-colors hover:bg-black/[.04] hover:text-black dark:text-[#D0D6E0] dark:hover:bg-white/[.06] dark:hover:text-white">{label}</Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <Link href={base + '/drive'} className="group mt-1 flex items-center justify-between rounded-xl px-8 py-4 text-[14px] transition-colors hover:bg-black/[.03] dark:hover:bg-white/[.04]">
+                  <span>
+                    <span className="font-medium text-black dark:text-white">New</span>
+                    <span className="ml-2 text-black/50 dark:text-[#8A8F98]">Just 2% commission for drivers</span>
+                  </span>
+                  <span className="flex items-center gap-1 text-black/50 transition-colors group-hover:text-black dark:text-[#8A8F98] dark:group-hover:text-white">
+                    Learn more <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />
+                  </span>
+                </Link>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </header>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-40 overflow-y-auto bg-white px-6 dark:bg-black pb-10 pt-28 lg:hidden"
           >
-            <GooglePlayIcon className="h-5 w-5 shrink-0" />
-            User App
-          </a>
-          <a
-            href={DRIVER_APP_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold text-white"
-            style={{ backgroundColor: 'rgba(15, 20, 28, 1)' }}
-          >
-            <GooglePlayIcon className="h-5 w-5 shrink-0" />
-            Driver App
-          </a>
-        </div>
-      </div>
-    </nav>
+            <ul className="space-y-1">
+              {LINKS.map((l, i) => (
+                <motion.li key={l.label} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.04 * i }}>
+                  <Link href={base + l.href} onClick={() => setOpen(false)} className="block border-b border-black/10 py-4 dark:border-white/10 dark:text-white text-3xl font-semibold tracking-tight text-black">
+                    {l.label}
+                  </Link>
+                </motion.li>
+              ))}
+            </ul>
+            <div className="mt-8 grid grid-cols-2 gap-2">
+              {SERVICES.map((s) => (
+                <Link key={s.label} href={base + s.href} onClick={() => setOpen(false)} className="rounded-2xl bg-black/[.04] p-4 dark:bg-[#292929]">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={s.img} alt="" className="mb-2 h-12 w-12 object-contain" />
+                  <span className="block text-sm font-semibold text-black dark:text-white">{s.label}</span>
+                  <span className="block text-xs text-black/50 dark:text-[#AFAFAF]">{s.desc}</span>
+                </Link>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
+

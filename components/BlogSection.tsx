@@ -1,11 +1,9 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { CaretRight, Article } from '@phosphor-icons/react';
+import { ArrowRight } from '@phosphor-icons/react';
 import { BLOG_URL } from '@/lib/seo';
-import { appearTransition, appearViewport, fadeUpVariants } from './AnimateIn';
-
-const BRAND_GREEN = '#016b42';
+import { ease, fade } from './motion';
 
 export type BlogPost = {
   _id: string;
@@ -22,82 +20,63 @@ function formatDate(dateStr: string | null) {
   return new Date(dateStr).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 }
 
+// posts without a cover get one of the vehicle line drawings instead of an empty box
+const FALLBACK_ART = ['car', 'cng', 'micro'];
 
+// Linear "Now" pattern: title left, small link right, three borderless posts with cover, title, excerpt, meta
 export function BlogSection({ posts }: { posts: BlogPost[] }) {
   return (
-    <motion.section
-      className="relative flex flex-col items-center px-4 py-16 sm:px-6 sm:py-24 md:py-[100px] lg:py-[150px]"
-      initial="initial"
-      whileInView="animate"
-      viewport={appearViewport}
-      transition={appearTransition}
-      variants={fadeUpVariants}
-      style={{
-        backgroundColor: '#ffffff',
-        backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(0,0,0,0.04) 1px, transparent 0)',
-        backgroundSize: '24px 24px',
-      }}
-    >
-      <div className="w-full max-w-6xl">
-        {/* Header */}
-        <div className="mx-auto mb-12 w-full max-w-[990px]" style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}>
-          <h2
-            className="font-semibold tracking-tight text-gray-900 text-3xl sm:text-4xl lg:text-[48px]"
-            style={{ lineHeight: '100%' }}
-          >
-            From our <span style={{ color: BRAND_GREEN, fontWeight: 800, fontFamily: 'var(--font-instrument), Georgia, serif', fontStyle: 'italic', letterSpacing: '1px' }}>blog</span>
-          </h2>
-          <p className="mt-1 max-w-[600px] text-base leading-relaxed text-gray-600">
-            Tips, updates, and stories about riding safer and smarter across Bangladesh.
-          </p>
+    <section className="mx-auto max-w-[1280px] border-t border-black/10 px-6 py-24 sm:py-32 md:px-16 dark:border-white/10">
+      <motion.div
+        {...fade()}
+        className="flex flex-wrap items-end justify-between gap-4"
+      >
+        <div>
+          <p className="text-[13px] text-black/45 dark:text-[#8A8F98]">Journal</p>
+          <h2 className="mt-3 text-[32px] font-medium leading-[1.05] tracking-[-0.022em] sm:text-[48px]">Stories from the road</h2>
         </div>
+        <a href={BLOG_URL} className="group inline-flex items-center gap-1 text-sm font-medium text-black/50 transition-colors hover:text-black dark:text-[#8A8F98] dark:hover:text-white">
+          View all <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" />
+        </a>
+      </motion.div>
 
-        {/* Post cards */}
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {posts.length === 0 ? (
-            <p className="col-span-full text-center text-gray-500">No posts yet. Add posts in the Sanity Studio.</p>
-          ) : (
-            posts.map((post) => (
-              <a
+      {posts.length === 0 ? (
+        <p className="mt-14 text-[15px] text-black/50 dark:text-[#8A8F98]">New stories are on the way.</p>
+      ) : (
+        <div className="mt-14 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+          {posts.map((post, i) => {
+            const art = FALLBACK_ART[i % FALLBACK_ART.length];
+            return (
+              <motion.a
                 key={post._id}
                 href={`${BLOG_URL}/${post.slug}`}
-                className="group flex flex-col rounded-2xl border border-gray-100 bg-white p-6 transition-all hover:border-gray-200 hover:shadow-lg"
+                {...fade(i * 0.08)}
+                className="group block"
               >
-                <div
-                  className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl"
-                  style={{ backgroundColor: `${BRAND_GREEN}15` }}
-                >
-                  <Article size={24} style={{ color: BRAND_GREEN }} weight="fill" />
+                <div className="relative aspect-[16/10] overflow-hidden rounded-xl border border-black/10 bg-black/[.03] dark:border-white/10 dark:bg-white/[.03]">
+                  {post.mainImage ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={`${post.mainImage}?w=900&auto=format`} alt="" loading="lazy" className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]" />
+                  ) : (
+                    <div className="flex h-full items-center justify-center">
+                      <div
+                        aria-hidden
+                        className="h-[45%] w-[55%] bg-black/30 transition-colors duration-500 group-hover:bg-black/50 dark:bg-white/30 dark:group-hover:bg-white/50"
+                        style={{ WebkitMask: `url(/icons/line_${art}.png) center / contain no-repeat`, mask: `url(/icons/line_${art}.png) center / contain no-repeat` }}
+                      />
+                    </div>
+                  )}
                 </div>
-                <h3 className="font-semibold text-gray-900 transition-colors group-hover:text-[#016b42]" style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif', fontSize: '18px' }}>
-                  {post.title}
-                </h3>
-                {post.excerpt && (
-                  <p className="mt-2 flex-1 text-sm leading-relaxed text-gray-600 line-clamp-3">
-                    {post.excerpt}
-                  </p>
-                )}
-                <div className="mt-4 flex items-center justify-between text-xs text-gray-500">
-                  <span>{formatDate(post.publishedAt)}</span>
-                  {post.readTime != null && <span>{post.readTime} min read</span>}
-                </div>
-              </a>
-            ))
-          )}
+                <h3 className="mt-5 text-[17px] font-medium leading-snug transition-colors group-hover:text-black/70 dark:group-hover:text-white/80">{post.title}</h3>
+                {post.excerpt && <p className="mt-2 line-clamp-2 text-[14px] leading-relaxed text-black/50 dark:text-[#8A8F98]">{post.excerpt}</p>}
+                <p className="mt-4 text-[12px] text-black/40 dark:text-white/35">
+                  {[formatDate(post.publishedAt), post.readTime != null && `${post.readTime} min read`].filter(Boolean).join(', ')}
+                </p>
+              </motion.a>
+            );
+          })}
         </div>
-
-        {/* View all link */}
-        <div className="mt-12 flex justify-center">
-          <a
-            href={BLOG_URL}
-            className="flex w-full items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-95 sm:w-auto"
-            style={{ backgroundColor: BRAND_GREEN }}
-          >
-            View all ride tips and updates
-            <CaretRight size={18} weight="bold" />
-          </a>
-        </div>
-      </div>
-    </motion.section>
+      )}
+    </section>
   );
 }

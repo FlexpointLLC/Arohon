@@ -19,6 +19,9 @@ const nextConfig = {
   },
   async redirects() {
     return [
+      { source: '/services/go-anywhere', destination: '/ride', permanent: true },
+      { source: '/services/ride-more', destination: '/services/airport', permanent: true },
+      { source: '/services/daily', destination: '/services/ambulance', permanent: true },
       {
         source: '/:path*',
         has: [{ type: 'host', value: 'www.arohon.co' }],

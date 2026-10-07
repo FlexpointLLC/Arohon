@@ -7,6 +7,7 @@ export const ORGANIZATION_JSON_LD = {
   name: 'Arohon',
   url: SITE_URL,
   logo: `${SITE_URL}/logo.png`,
+  sameAs: ['https://www.facebook.com/arohonrides/', 'https://www.instagram.com/arohonride/', 'https://www.linkedin.com/company/arohon', 'https://x.com/Arohonride'],
   description:
     'Arohon is Bangladesh\'s trusted ride-sharing platform. Book rides, plan your journey, and travel safely across Dhaka, Sylhet, and 64 districts. One tap to ride.',
   contactPoint: {

@@ -1,145 +1,105 @@
 'use client';
 
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { motion, useScroll, useSpring } from 'framer-motion';
+import { up } from './motion';
 
-const BRAND_GREEN = '#016b42';
+const muted = 'text-black/50 dark:text-[#8A8F98]';
+// labels kept exactly as before the redesign; the first three sit under "Terms of Service"
+const DOCS: { href: string; label: string; group?: boolean; svc?: boolean }[] = [
+  { href: '/terms', label: 'Arohon Rides', group: true },
+  { href: '/terms-customers', label: 'Customers', group: true },
+  { href: '/terms-promo-code', label: 'Promo Code', group: true },
+  { href: '/terms-parcel', label: 'Parcel Policy', svc: true },
+  { href: '/terms-food', label: 'Food and Medicine Orders', svc: true },
+  { href: '/terms-rental', label: 'Rental Policy', svc: true },
+  { href: '/terms-rewards', label: 'Rewards and Missions', svc: true },
+  { href: '/terms-merchants', label: 'Merchant Terms', svc: true },
+  { href: '/community-guidelines', label: 'Community Guidelines' },
+  { href: '/terms-return-refund', label: 'Return and Refund Policy' },
+  { href: '/privacy', label: 'Privacy Policy' },
+  { href: '/delete-account', label: 'Account Deletion' },
+];
+const slug = (t: string) => t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
-export function LegalPageLayout({
-  children,
-  title,
-  lastUpdated,
-  heroTitle = 'Terms and Policies',
-  heroSubtitle = 'Please read these terms carefully.',
-}: {
-  children: React.ReactNode;
-  title: string;
-  lastUpdated?: string;
-  heroTitle?: string;
-  heroSubtitle?: string;
-}) {
+/** One document layout for every policy: policy list left, the document centre, an "On this page" list right that follows your reading. */
+export function LegalPageLayout({ children, title, lastUpdated, heroTitle = 'Terms and Policies', heroSubtitle = 'Please read these terms carefully.' }: { children: React.ReactNode; title: string; lastUpdated?: string; heroTitle?: string; heroSubtitle?: string }) {
   const pathname = usePathname();
+  const doc = useRef<HTMLDivElement>(null);
+  const [toc, setToc] = useState<{ id: string; text: string }[]>([]);
+  const [active, setActive] = useState('');
+  const { scrollYProgress } = useScroll();
+  const progress = useSpring(scrollYProgress, { stiffness: 200, damping: 30 });
+
+  // the policies are hand written JSX, so read their section headings from the page and give each an id
+  useEffect(() => {
+    const hs = Array.from(doc.current?.querySelectorAll('section > h2') ?? []) as HTMLElement[];
+    const used = new Set<string>();
+    const items = hs.map((h, i) => {
+      let id = slug(h.textContent || '') || `section-${i + 1}`;
+      while (used.has(id)) id += '-2';
+      used.add(id);
+      h.id = id;
+      return { id, text: (h.textContent || '').trim() };
+    });
+    setToc(items);
+    setActive(items[0]?.id ?? '');
+    const io = new IntersectionObserver((es) => es.forEach((e) => e.isIntersecting && setActive(e.target.id)), { rootMargin: '-15% 0px -75% 0px' });
+    hs.forEach((h) => io.observe(h));
+    return () => io.disconnect();
+  }, [pathname]);
 
   return (
-    <main className="min-h-screen bg-white" style={{ fontFamily: 'var(--font-inter), system-ui, sans-serif' }}>
-      {/* Hero - content left, image right */}
-      <div className="bg-gray-50 px-4 py-12 sm:px-6 sm:py-16">
-        <div className="mx-auto max-w-5xl">
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between lg:gap-12">
-            <div className="min-w-0 flex-1 lg:order-first">
-              <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                {heroTitle}
-              </h1>
-              <p className="mt-2 text-base text-gray-600">{heroSubtitle}</p>
-            </div>
-            <div className="shrink-0 lg:order-last" aria-hidden>
-              <svg width="160" height="100" viewBox="0 0 120 80" fill="none" className="text-gray-300">
-                <rect x="10" y="20" width="40" height="50" rx="4" stroke="currentColor" strokeWidth="1.5" fill="white" />
-                <rect x="18" y="30" width="24" height="3" rx="1" fill="currentColor" opacity="0.3" />
-                <rect x="18" y="38" width="20" height="3" rx="1" fill="currentColor" opacity="0.2" />
-                <rect x="18" y="46" width="22" height="3" rx="1" fill="currentColor" opacity="0.2" />
-                <circle cx="55" cy="35" r="12" fill="currentColor" opacity="0.15" />
-                <circle cx="55" cy="35" r="6" fill="currentColor" opacity="0.3" />
-                <rect x="70" y="25" width="40" height="45" rx="4" stroke="currentColor" strokeWidth="1.5" fill="white" />
-                <rect x="78" y="35" width="24" height="3" rx="1" fill="currentColor" opacity="0.3" />
-                <rect x="78" y="43" width="20" height="3" rx="1" fill="currentColor" opacity="0.2" />
-              </svg>
-            </div>
-          </div>
-        </div>
-      </div>
+    <main className="min-h-screen bg-[#FDFDFD] dark:bg-black">
+      <motion.div aria-hidden style={{ scaleX: progress }} className="fixed inset-x-0 top-0 z-[60] h-[2px] origin-left bg-[#079A70]" />
 
-      {/* Content */}
-      <div className="px-4 py-10 sm:px-6 sm:py-12">
-        <div className="mx-auto max-w-5xl">
-          <div className="flex flex-col gap-10 lg:flex-row lg:gap-16">
-            <aside className="lg:w-64 lg:shrink-0">
-              <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-gray-500">
-                Terms and Policies
-              </h2>
-            <nav className="space-y-1">
-              <div>
-                <div className="flex items-center gap-2 py-2 text-sm font-medium text-gray-700">
-                  <span>Terms of Service</span>
-                  <svg className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
+      <div className="mx-auto max-w-[1280px] px-6 pb-32 pt-28 sm:pt-36 md:px-16">
+        <header className="max-w-3xl">
+          <motion.p {...up(0.05)} className={`text-[13px] ${muted}`}>{heroTitle}</motion.p>
+          <motion.h1 {...up(0.1)} className="mt-4 text-[40px] font-medium leading-[1.05] tracking-[-0.025em] sm:text-[56px]">{title}</motion.h1>
+          <motion.p {...up(0.2)} className={`mt-5 text-[16px] ${muted}`}>{heroSubtitle}</motion.p>
+          {lastUpdated && <motion.p {...up(0.25)} className={`mt-2 text-[14px] ${muted}`}>Last updated: {lastUpdated}</motion.p>}
+        </header>
+
+        <div className="mt-14 border-t border-black/10 pt-12 lg:grid lg:grid-cols-[220px_1fr] lg:gap-14 xl:grid-cols-[220px_1fr_200px] dark:border-white/10">
+          {/* policy list: chips on phones, a sticky list on desktop */}
+          <nav aria-label="Policies" className="-mx-6 mb-10 flex gap-2 overflow-x-auto px-6 pb-1 lg:sticky lg:top-32 lg:mx-0 lg:mb-0 lg:block lg:space-y-1 lg:self-start lg:overflow-visible lg:px-0">
+            <p className={`hidden text-[12px] lg:mb-3 lg:block ${muted}`}>Terms and Policies</p>
+            {DOCS.map((d, i) => {
+              const on = pathname === d.href;
+              return (
+                <div key={d.href} className="contents lg:block">
+                  {i === 0 && <p className="hidden px-3 pb-1 pt-1 text-[13px] font-medium lg:block">Terms of Service</p>}
+                  {d.svc && !DOCS[i - 1]?.svc && <p className="hidden px-3 pb-1 pt-4 text-[13px] font-medium lg:block">Service Policies</p>}
+                <Link href={d.href} aria-current={on ? 'page' : undefined} className={`shrink-0 whitespace-nowrap rounded-full px-3.5 py-2 text-[13px] transition-colors lg:block lg:whitespace-normal lg:rounded-lg lg:px-3 ${on ? 'bg-black text-white lg:bg-black/[.05] lg:font-medium lg:text-black dark:bg-white dark:text-black dark:lg:bg-white/[.08] dark:lg:text-white' : 'bg-black/[.05] text-black/60 hover:text-black lg:bg-transparent dark:bg-white/[.07] dark:text-white/55 dark:hover:text-white dark:lg:bg-transparent'}`}>
+                  <span className="lg:hidden">{d.group ? `Terms of Service: ${d.label}` : d.label}</span>
+                  <span className={`hidden lg:inline ${d.group || d.svc ? 'lg:pl-3' : ''}`}>{d.label}</span>
+                </Link>
                 </div>
-                <ul className="relative space-y-0.5 border-l border-gray-200 pl-4">
-                  <li>
-                    <Link
-                      href="/terms"
-                      className={`block py-2 text-sm transition-colors ${
-                        pathname === '/terms' ? 'font-semibold' : 'text-gray-600 hover:text-gray-900'
-                      }`}
-                      style={pathname === '/terms' ? { color: BRAND_GREEN } : {}}
-                    >
-                      Arohon Rides
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/terms-customers"
-                      className={`block py-2 text-sm transition-colors ${
-                        pathname === '/terms-customers' ? 'font-semibold' : 'text-gray-600 hover:text-gray-900'
-                      }`}
-                      style={pathname === '/terms-customers' ? { color: BRAND_GREEN } : {}}
-                    >
-                      Customers
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/terms-promo-code"
-                      className={`block py-2 text-sm transition-colors ${
-                        pathname === '/terms-promo-code' ? 'font-semibold' : 'text-gray-600 hover:text-gray-900'
-                      }`}
-                      style={pathname === '/terms-promo-code' ? { color: BRAND_GREEN } : {}}
-                    >
-                      Promo Code
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-              <Link
-                href="/terms-return-refund"
-                className={`block py-2 text-sm transition-colors ${
-                  pathname === '/terms-return-refund' ? 'font-semibold' : 'text-gray-600 hover:text-gray-900'
-                }`}
-                style={pathname === '/terms-return-refund' ? { color: BRAND_GREEN } : {}}
-              >
-                Return and Refund Policy
-              </Link>
-              <Link
-                href="/privacy"
-                className={`block py-2 text-sm transition-colors ${
-                  pathname === '/privacy' ? 'font-semibold' : 'text-gray-600 hover:text-gray-900'
-                }`}
-                style={pathname === '/privacy' ? { color: BRAND_GREEN } : {}}
-              >
-                Privacy Policy
-              </Link>
-              <Link
-                href="/delete-account"
-                className={`block py-2 text-sm transition-colors ${
-                  pathname === '/delete-account' ? 'font-semibold' : 'text-gray-600 hover:text-gray-900'
-                }`}
-                style={pathname === '/delete-account' ? { color: BRAND_GREEN } : {}}
-              >
-                Account Deletion
-              </Link>
-            </nav>
-          </aside>
+              );
+            })}
+          </nav>
 
-          {/* Right content */}
-          <article className="min-w-0 flex-1">
-            <h2 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{title}</h2>
-            {lastUpdated && <p className="mt-2 text-sm text-gray-500">Last updated: {lastUpdated}</p>}
-            <div className="mt-10 space-y-10">{children}</div>
-          </article>
+          <motion.article {...up(0.25)} ref={doc} className="legal min-w-0 max-w-[720px] space-y-12">
+            {children}
+          </motion.article>
+
+          {toc.length > 1 && (
+            <aside className="hidden xl:block">
+              <nav aria-label="On this page" className="sticky top-32 space-y-2 text-[13px]">
+                <p className={muted}>On this page</p>
+                {toc.map((t) => (
+                  <a key={t.id} href={`#${t.id}`} className={`block border-l-2 py-0.5 pl-3 leading-snug transition-colors ${active === t.id ? 'border-black text-black dark:border-white dark:text-white' : 'border-transparent text-black/45 hover:text-black dark:text-white/40 dark:hover:text-white'}`}>
+                    {t.text}
+                  </a>
+                ))}
+              </nav>
+            </aside>
+          )}
         </div>
       </div>
-    </div>
     </main>
   );
 }

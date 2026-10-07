@@ -210,7 +210,7 @@ export function ServicesTabsSection() {
                       <Car size={28} weight="fill" style={{ color: BRAND_GREEN }} />
                     </div>
                     <span className="text-sm font-medium text-gray-500">{activeTabLabel}</span>
-                    <span className="text-xs text-gray-400">Add 1.png–5.png to /public/</span>
+                    <span className="text-xs text-gray-400">Add 1.png to 5.png to /public/</span>
                   </div>
                 ) : (
                   <Image
