@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight } from '@phosphor-icons/react';
 import { BLOG_URL } from '@/lib/seo';
 import { ease, fade } from './motion';
+import { useT, bnDigits } from '@/lib/i18n';
 
 export type BlogPost = {
   _id: string;
@@ -15,8 +16,9 @@ export type BlogPost = {
   readTime: number | null;
 };
 
-function formatDate(dateStr: string | null) {
+function formatDate(dateStr: string | null, bn = false) {
   if (!dateStr) return '';
+  if (bn) return bnDigits(new Date(dateStr).toLocaleDateString('bn-BD', { month: 'short', day: 'numeric', year: 'numeric', numberingSystem: 'latn' }));
   return new Date(dateStr).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 }
 
@@ -25,6 +27,7 @@ const FALLBACK_ART = ['car', 'cng', 'micro'];
 
 // Linear "Now" pattern: title left, small link right, three borderless posts with cover, title, excerpt, meta
 export function BlogSection({ posts }: { posts: BlogPost[] }) {
+  const { t, n, bn } = useT();
   return (
     <section className="mx-auto max-w-[1280px] border-t border-black/10 px-6 py-24 sm:py-32 md:px-16 dark:border-white/10">
       <motion.div
@@ -32,16 +35,16 @@ export function BlogSection({ posts }: { posts: BlogPost[] }) {
         className="flex flex-wrap items-end justify-between gap-4"
       >
         <div>
-          <p className="text-[13px] text-black/45 dark:text-[#8A8F98]">Journal</p>
-          <h2 className="mt-3 text-[32px] font-medium leading-[1.05] tracking-[-0.022em] sm:text-[48px]">Stories from the road</h2>
+          <p className="text-[13px] text-black/45 dark:text-[#8A8F98]">{t('Journal', 'জার্নাল')}</p>
+          <h2 className="mt-3 text-[32px] font-medium leading-[1.05] tracking-[-0.022em] sm:text-[48px]">{t('Stories from the road', 'পথের গল্প')}</h2>
         </div>
         <a href={BLOG_URL} className="group inline-flex items-center gap-1 text-sm font-medium text-black/50 transition-colors hover:text-black dark:text-[#8A8F98] dark:hover:text-white">
-          View all <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" />
+          {t('View all', 'সব দেখুন')} <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" />
         </a>
       </motion.div>
 
       {posts.length === 0 ? (
-        <p className="mt-14 text-[15px] text-black/50 dark:text-[#8A8F98]">New stories are on the way.</p>
+        <p className="mt-14 text-[15px] text-black/50 dark:text-[#8A8F98]">{t('New stories are on the way.', 'নতুন গল্প আসছে শিগগিরই।')}</p>
       ) : (
         <div className="mt-14 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
           {posts.map((post, i) => {
@@ -70,7 +73,7 @@ export function BlogSection({ posts }: { posts: BlogPost[] }) {
                 <h3 className="mt-5 text-[17px] font-medium leading-snug transition-colors group-hover:text-black/70 dark:group-hover:text-white/80">{post.title}</h3>
                 {post.excerpt && <p className="mt-2 line-clamp-2 text-[14px] leading-relaxed text-black/50 dark:text-[#8A8F98]">{post.excerpt}</p>}
                 <p className="mt-4 text-[12px] text-black/40 dark:text-white/35">
-                  {[formatDate(post.publishedAt), post.readTime != null && `${post.readTime} min read`].filter(Boolean).join(', ')}
+                  {[formatDate(post.publishedAt, bn), post.readTime != null && t(`${post.readTime} min read`, `${n(post.readTime)} মিনিটে পড়ুন`)].filter(Boolean).join(', ')}
                 </p>
               </motion.a>
             );

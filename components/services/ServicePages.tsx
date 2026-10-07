@@ -11,6 +11,7 @@ import { BDMap, SafetyStory, DIST_D, MAP, proj } from '../home/Sections';
 import { DISTRICTS } from '@/lib/districts';
 import { FareExplorer } from './ServicesPage';
 import { PayYourWay } from '../ride/RideSections';
+import { useT } from '@/lib/i18n';
 
 const wrap = 'mx-auto max-w-[1280px] border-t border-black/10 px-6 py-24 sm:py-32 md:px-16 dark:border-white/10';
 const h2 = 'text-[32px] font-medium leading-[1.05] tracking-[-0.022em] sm:text-[48px]';
@@ -983,6 +984,7 @@ export function PaymentsPage() {
 /* ═════════════ SAFETY ═════════════ */
 // what a family member sees on a shared trip: the car moves along the route, then "arrived safely"
 function SharedTrip() {
+  const { t, n } = useT();
   const { ref, i } = useLoop(9, 1100);
   const pct = Math.min(i, 7) / 7;
   const arrived = i >= 7;
@@ -991,22 +993,22 @@ function SharedTrip() {
       <div className="flex items-center gap-3">
         <img src={avatar('Nadia')} alt="" className="h-10 w-10 shrink-0 rounded-full bg-[#EDEDED] object-cover" />
         <div className="flex-1">
-          <p className="text-[12px] text-black/45 dark:text-white/45">Nadia shared her trip with you</p>
+          <p className="text-[12px] text-black/45 dark:text-white/45">{t('Nadia shared her trip with you', 'নাদিয়া আপনার সাথে ট্রিপ শেয়ার করেছেন')}</p>
           <div className="relative h-[22px] overflow-hidden">
             <AnimatePresence mode="wait" initial={false}>
               <motion.p key={arrived ? 'a' : 'm'} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.3, ease }} className="absolute inset-0 text-[16px] font-semibold">
-                {arrived ? 'Arrived safely' : `${Math.max(1, 14 - Math.round(pct * 14))} min to Uttara`}
+                {arrived ? t('Arrived safely', 'নিরাপদে পৌঁছেছেন') : t(`${Math.max(1, 14 - Math.round(pct * 14))} min to Uttara`, `উত্তরা আর ${n(Math.max(1, 14 - Math.round(pct * 14)))} মিনিট`)}
               </motion.p>
             </AnimatePresence>
           </div>
         </div>
-        <span className={`rounded-full px-2.5 py-1 text-[11px] font-semibold transition-colors duration-500 ${arrived ? 'bg-[#079A70]/10 text-[#079A70] dark:text-[#0ABF8B]' : 'bg-black/[.05] dark:bg-white/[.08]'}`}>{arrived ? 'Done' : 'Live'}</span>
+        <span className={`rounded-full px-2.5 py-1 text-[11px] font-semibold transition-colors duration-500 ${arrived ? 'bg-[#079A70]/10 text-[#079A70] dark:text-[#0ABF8B]' : 'bg-black/[.05] dark:bg-white/[.08]'}`}>{arrived ? t('Done', 'শেষ') : t('Live', 'লাইভ')}</span>
       </div>
       <div className="mt-6 flex gap-3">
         <RouteMarkers pad="py-[3px]" />
         <div className="flex-1 space-y-3 text-[14px]">
-          <p className="leading-[22px]">Dhanmondi 27</p>
-          <p className="leading-[22px]">Sector 7, Uttara</p>
+          <p className="leading-[22px]">{t('Dhanmondi 27', 'ধানমন্ডি ২৭')}</p>
+          <p className="leading-[22px]">{t('Sector 7, Uttara', 'সেক্টর ৭, উত্তরা')}</p>
         </div>
       </div>
       <div className="relative mt-6 h-1.5 rounded-full bg-black/[.06] dark:bg-white/10">
@@ -1015,28 +1017,30 @@ function SharedTrip() {
       </div>
       <div className="mt-6 flex items-center gap-3 border-t border-black/[.07] pt-4 text-[13px] dark:border-white/[.07]">
         <img src={avatar('Karim')} alt="" className="h-8 w-8 shrink-0 rounded-full bg-[#EDEDED] object-cover" />
-        <span className="flex-1"><span className="font-semibold">Karim</span> <span className="text-black/50 dark:text-white/50">Toyota Axio, DHAKA METRO GA 31 4417</span></span>
-        <span className="flex items-center gap-1 text-black/60 dark:text-white/60"><Star size={11} weight="fill" className="text-[#FF9500]" />4.9</span>
+        <span className="flex-1"><span className="font-semibold">{t('Karim', 'করিম')}</span> <span className="text-black/50 dark:text-white/50">{t('Toyota Axio, DHAKA METRO GA 31 4417', 'টয়োটা এক্সিও, ঢাকা মেট্রো গ ৩১ ৪৪১৭')}</span></span>
+        <span className="flex items-center gap-1 text-black/60 dark:text-white/60"><Star size={11} weight="fill" className="text-[#FF9500]" />{n('4.9')}</span>
       </div>
     </div>
   );
 }
 
 const DOCS = ['National ID', 'Driving licence', 'Vehicle registration', 'Fitness certificate', 'Tax token', 'Profile selfie'];
+const DOCS_BN = ['জাতীয় পরিচয়পত্র', 'ড্রাইভিং লাইসেন্স', 'গাড়ির রেজিস্ট্রেশন', 'ফিটনেস সার্টিফিকেট', 'ট্যাক্স টোকেন', 'প্রোফাইল সেলফি'];
 function DriverCheck() {
+  const { t } = useT();
   const { ref, i } = useLoop(DOCS.length + 3, 700);
   const done = Math.min(i, DOCS.length);
   const ok = i > DOCS.length;
   return (
     <div ref={ref} className={`${panel} p-6 sm:p-8`}>
       <div className="flex items-center justify-between">
-        <p className={`text-[13px] ${muted}`}>Driver application, sample</p>
-        <span className={`rounded-full px-2.5 py-1 text-[11px] font-semibold transition-colors duration-500 ${ok ? 'bg-[#079A70]/10 text-[#079A70] dark:text-[#0ABF8B]' : 'bg-black/[.05] text-black/60 dark:bg-white/[.08] dark:text-white/60'}`}>{ok ? 'Approved to drive' : 'In review'}</span>
+        <p className={`text-[13px] ${muted}`}>{t('Driver application, sample', 'ড্রাইভারের আবেদন, নমুনা')}</p>
+        <span className={`rounded-full px-2.5 py-1 text-[11px] font-semibold transition-colors duration-500 ${ok ? 'bg-[#079A70]/10 text-[#079A70] dark:text-[#0ABF8B]' : 'bg-black/[.05] text-black/60 dark:bg-white/[.08] dark:text-white/60'}`}>{ok ? t('Approved to drive', 'চালানোর অনুমতি পেয়েছেন') : t('In review', 'যাচাই চলছে')}</span>
       </div>
       <ul className="mt-5 divide-y divide-black/[.06] dark:divide-white/[.06]">
         {DOCS.map((d, k) => (
           <li key={d} className="flex items-center justify-between py-3 text-[15px]">
-            {d}
+            {t(d, DOCS_BN[k])}
             <span className={`flex h-5 w-5 items-center justify-center rounded-full transition-all duration-300 ${k < done ? 'scale-100 bg-[#079A70] text-white' : 'scale-90 bg-black/[.06] dark:bg-white/10'}`}>
               {k < done && <Check size={11} weight="bold" />}
             </span>
@@ -1049,7 +1053,9 @@ function DriverCheck() {
 
 // press and hold to send an SOS; it also plays itself while on screen
 const SOS_TO = ['Alerting your emergency contact', 'Alerting the Arohon safety team', 'Sharing your live location'];
+const SOS_TO_BN = ['আপনার জরুরি কন্টাক্টকে জানানো হচ্ছে', 'আরোহন সেফটি টিমকে জানানো হচ্ছে', 'আপনার লাইভ লোকেশন শেয়ার হচ্ছে'];
 function SosDemo() {
+  const { t: tr } = useT();
   const { ref, i } = useLoop(10, 600);
   const [held, setHeld] = useState(false);
   const auto = i >= 2 && i < 5 ? 'hold' : i >= 5 ? 'sent' : 'idle';
@@ -1058,7 +1064,7 @@ function SosDemo() {
     <div ref={ref} className={`${panel} flex flex-col items-center p-8 text-center`}>
       <button
         type="button"
-        aria-label="Hold for SOS"
+        aria-label={tr('Hold for SOS', 'SOS এর জন্য চেপে ধরুন')}
         onPointerDown={() => setHeld(true)}
         onPointerUp={() => setHeld(false)}
         onPointerLeave={() => setHeld(false)}
@@ -1070,14 +1076,14 @@ function SosDemo() {
         </svg>
         SOS
       </button>
-      <p className={`mt-6 text-[13px] ${muted}`}>{state === 'sent' ? 'Help is on the way' : state === 'hold' ? 'Keep holding…' : 'Press and hold for SOS'}</p>
+      <p className={`mt-6 text-[13px] ${muted}`}>{state === 'sent' ? tr('Help is on the way', 'সাহায্য আসছে') : state === 'hold' ? tr('Keep holding…', 'চেপে ধরে রাখুন…') : tr('Press and hold for SOS', 'SOS পাঠাতে চেপে ধরুন')}</p>
       <ul className="mt-5 w-full max-w-[280px] space-y-2 text-left">
         {SOS_TO.map((t, k) => (
           <li key={t} className={`flex items-center gap-3 rounded-xl bg-black/[.03] px-4 py-3 text-[14px] transition-all duration-500 dark:bg-white/[.04] ${state === 'sent' ? 'opacity-100' : 'opacity-40'}`} style={{ transitionDelay: state === 'sent' ? `${k * 0.15}s` : '0s' }}>
             <span className={`flex h-5 w-5 items-center justify-center rounded-full transition-colors duration-500 ${state === 'sent' ? 'bg-[#FF3B30] text-white' : 'bg-black/[.06] dark:bg-white/10'}`} style={{ transitionDelay: state === 'sent' ? `${k * 0.15}s` : '0s' }}>
               {state === 'sent' && <Check size={11} weight="bold" />}
             </span>
-            {t}
+            {tr(t, SOS_TO_BN[k])}
           </li>
         ))}
       </ul>
@@ -1086,40 +1092,43 @@ function SosDemo() {
 }
 
 const REPORT = ['Driver behaviour', 'Vehicle', 'Payment', 'Safety concern', 'Route', 'Other'];
+const REPORT_BN = ['ড্রাইভারের আচরণ', 'গাড়ি', 'পেমেন্ট', 'নিরাপত্তা', 'রুট', 'অন্যান্য'];
 function AfterRide() {
+  const { t } = useT();
   const { ref, i } = useLoop(10, 650);
   const stars = Math.min(i, 5);
   const pick = i >= 6 ? 3 : -1;
   return (
     <div ref={ref} className={`${panel} p-6 sm:p-8`}>
-      <p className={`text-[13px] ${muted}`}>How was your ride with Karim?</p>
+      <p className={`text-[13px] ${muted}`}>{t('How was your ride with Karim?', 'করিমের সাথে রাইড কেমন ছিল?')}</p>
       <div className="mt-3 flex gap-1.5">
         {[0, 1, 2, 3, 4].map((k) => (
           <Star key={k} size={30} weight="fill" className={`transition-all duration-300 ${k < stars ? 'scale-100 text-[#FF9500]' : 'scale-90 text-black/10 dark:text-white/10'}`} />
         ))}
       </div>
-      <p className="mt-7 border-t border-black/10 pt-6 text-[14px] font-medium dark:border-white/10">Something not right? Report it.</p>
+      <p className="mt-7 border-t border-black/10 pt-6 text-[14px] font-medium dark:border-white/10">{t('Something not right? Report it.', 'কিছু ঠিক মনে হয়নি? জানান আমাদের।')}</p>
       <div className="mt-3 flex flex-wrap gap-2">
         {REPORT.map((r, k) => (
-          <span key={r} className={`rounded-full px-3 py-1.5 text-[13px] transition-all duration-300 ${k === pick ? 'bg-black text-white dark:bg-white dark:text-black' : 'bg-black/[.05] dark:bg-white/[.07]'}`}>{r}</span>
+          <span key={r} className={`rounded-full px-3 py-1.5 text-[13px] transition-all duration-300 ${k === pick ? 'bg-black text-white dark:bg-white dark:text-black' : 'bg-black/[.05] dark:bg-white/[.07]'}`}>{t(r, REPORT_BN[k])}</span>
         ))}
       </div>
-      <p className={`mt-4 h-5 text-[13px] transition-opacity duration-500 ${pick >= 0 ? 'opacity-100' : 'opacity-0'} ${muted}`}>Sent to our support team, we’ll get back to you.</p>
+      <p className={`mt-4 h-5 text-[13px] transition-opacity duration-500 ${pick >= 0 ? 'opacity-100' : 'opacity-0'} ${muted}`}>{t('Sent to our support team, we’ll get back to you.', 'সাপোর্ট টিমের কাছে পাঠানো হয়েছে, আমরা শিগগির যোগাযোগ করব।')}</p>
     </div>
   );
 }
 
 export function SafetyPage() {
+  const { t, n, href } = useT();
   return (
     <>
-      <Hero label="Safety" title="Safe from pickup" rest="to drop off." copy="Checked drivers, trips your family can follow, and help one tap away. Safety is built into every Arohon ride, for riders and for drivers.">
+      <Hero label={t('Safety', 'নিরাপত্তা')} title={t('Safe from pickup', 'পিকআপ থেকে')} rest={t('to drop off.', 'ড্রপ অফ পর্যন্ত নিরাপদ।')} copy={t('Checked drivers, trips your family can follow, and help one tap away. Safety is built into every Arohon ride, for riders and for drivers.', 'যাচাই করা ড্রাইভার, পরিবার লাইভ দেখতে পারে আপনার ট্রিপ, আর সাহায্য মাত্র এক ট্যাপে। আরোহনের প্রতিটি রাইডে নিরাপত্তা আছে, যাত্রী আর ড্রাইভার দুজনের জন্যই।')}>
         <SharedTrip />
       </Hero>
       <section className={wrap}>
         <div className="grid items-center gap-12 lg:grid-cols-[1fr_1.15fr] lg:gap-20">
           <div>
-            <Head label="Before you ride" title="Every driver," rest="checked by people." />
-            <motion.p {...fade(0.1)} className={`mt-6 max-w-md text-[16px] leading-relaxed ${muted}`}>Nobody drives with Arohon until our team has reviewed their ID, licence, vehicle papers and photo. Your app shows the driver’s name, photo, car and plate before they arrive.</motion.p>
+            <Head label={t('Before you ride', 'রাইডের আগে')} title={t('Every driver,', 'প্রতিটি ড্রাইভার')} rest={t('checked by people.', 'মানুষের হাতে যাচাই করা।')} />
+            <motion.p {...fade(0.1)} className={`mt-6 max-w-md text-[16px] leading-relaxed ${muted}`}>{t('Nobody drives with Arohon until our team has reviewed their ID, licence, vehicle papers and photo. Your app shows the driver’s name, photo, car and plate before they arrive.', 'আমাদের টিম আইডি, লাইসেন্স, গাড়ির কাগজ আর ছবি যাচাই না করা পর্যন্ত কেউ আরোহনে গাড়ি চালাতে পারেন না। ড্রাইভার পৌঁছানোর আগেই অ্যাপে দেখবেন তার নাম, ছবি, গাড়ি আর নম্বর প্লেট।')}</motion.p>
           </div>
           <DriverCheck />
         </div>
@@ -1127,8 +1136,8 @@ export function SafetyPage() {
       <section className={wrap}>
         <div className="grid items-center gap-12 lg:grid-cols-[1.15fr_1fr] lg:gap-20">
           <div>
-            <Head label="During the ride" title="Help is" rest="one tap away." />
-            <motion.p {...fade(0.1)} className={`mt-6 max-w-md text-[16px] leading-relaxed ${muted}`}>If something feels wrong, press and hold SOS. Your emergency contact and our safety team are alerted with your live location. Add your emergency contact in Profile, Trip safety.</motion.p>
+            <Head label={t('During the ride', 'রাইডের সময়')} title={t('Help is', 'সাহায্য')} rest={t('one tap away.', 'মাত্র এক ট্যাপে।')} />
+            <motion.p {...fade(0.1)} className={`mt-6 max-w-md text-[16px] leading-relaxed ${muted}`}>{t('If something feels wrong, press and hold SOS. Your emergency contact and our safety team are alerted with your live location. Add your emergency contact in Profile, Trip safety.', 'কিছু ঠিক না লাগলে SOS চেপে ধরুন। আপনার জরুরি কন্টাক্ট আর আমাদের সেফটি টিম সাথে সাথে আপনার লাইভ লোকেশনসহ খবর পাবে। জরুরি কন্টাক্ট যোগ করুন প্রোফাইল, ট্রিপ সেফটি থেকে।')}</motion.p>
           </div>
           <div className="lg:order-first">
             <SosDemo />
@@ -1139,32 +1148,32 @@ export function SafetyPage() {
       <section className={wrap}>
         <div className="grid items-center gap-12 lg:grid-cols-[1fr_1.15fr] lg:gap-20">
           <div>
-            <Head label="After the ride" title="Your rating" rest="keeps everyone honest." />
-            <motion.p {...fade(0.1)} className={`mt-6 max-w-md text-[16px] leading-relaxed ${muted}`}>Rate every trip. If something went wrong, report it from the app and our support team reviews every report.</motion.p>
+            <Head label={t('After the ride', 'রাইডের পরে')} title={t('Your rating', 'আপনার রেটিং')} rest={t('keeps everyone honest.', 'সবাইকে সৎ রাখে।')} />
+            <motion.p {...fade(0.1)} className={`mt-6 max-w-md text-[16px] leading-relaxed ${muted}`}>{t('Rate every trip. If something went wrong, report it from the app and our support team reviews every report.', 'প্রতিটি ট্রিপে রেটিং দিন। কোনো সমস্যা হলে অ্যাপ থেকেই জানান, আমাদের সাপোর্ট টিম প্রতিটি রিপোর্ট দেখে।')}</motion.p>
           </div>
           <AfterRide />
         </div>
       </section>
       <section className={wrap}>
-        <Head label="For drivers" title="Drivers are" rest="protected too." copy="Safety works both ways. Drivers get the same tools to stay safe on every trip." />
+        <Head label={t('For drivers', 'ড্রাইভারদের জন্য')} title={t('Drivers are', 'ড্রাইভাররাও')} rest={t('protected too.', 'সুরক্ষিত।')} copy={t('Safety works both ways. Drivers get the same tools to stay safe on every trip.', 'নিরাপত্তা দুই দিকেই। প্রতিটি ট্রিপে নিরাপদ থাকতে ড্রাইভাররাও পান একই সব টুল।')} />
         <Grid
           items={[
-            { icon: Phone, title: 'Emergency contact', copy: 'Drivers add a number that is called when they press the emergency button on a trip.' },
-            { icon: Check, title: 'Report a rider', copy: 'Rider behaviour, payment or safety issues can be reported straight from the app.' },
-            { icon: Star, title: '৳3 safety charge', copy: 'A small charge on each city trip goes toward keeping rides safe.' },
+            { icon: Phone, title: t('Emergency contact', 'জরুরি কন্টাক্ট'), copy: t('Drivers add a number that is called when they press the emergency button on a trip.', 'ড্রাইভাররা একটি নম্বর যোগ করেন, ট্রিপে ইমার্জেন্সি বাটন চাপলেই সেখানে কল যায়।') },
+            { icon: Check, title: t('Report a rider', 'যাত্রীর বিরুদ্ধে রিপোর্ট'), copy: t('Rider behaviour, payment or safety issues can be reported straight from the app.', 'যাত্রীর আচরণ, পেমেন্ট বা নিরাপত্তার সমস্যা সরাসরি অ্যাপ থেকেই জানানো যায়।') },
+            { icon: Star, title: t('৳3 safety charge', `৳${n(3)} সেফটি চার্জ`), copy: t('A small charge on each city trip goes toward keeping rides safe.', 'শহরের প্রতিটি ট্রিপে ছোট্ট একটি চার্জ, যা রাইড নিরাপদ রাখার কাজে লাগে।') },
           ]}
         />
         <motion.div {...fade(0.1)} className="mt-10">
-          <Link href="/driver" className="inline-flex items-center gap-1.5 text-[14px] font-medium">Drive with Arohon <ArrowRight size={13} /></Link>
+          <Link href={href('/driver')} className="inline-flex items-center gap-1.5 text-[14px] font-medium">{t('Drive with Arohon', 'আরোহনে গাড়ি চালান')} <ArrowRight size={13} /></Link>
         </motion.div>
       </section>
       <section className="mx-auto max-w-[1280px] px-6 pb-8 md:px-16">
         <motion.div {...fade()} className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-[#FF3B30]/30 bg-[#FF3B30]/[.06] px-6 py-5">
-          <p className="text-[15px]"><span className="font-semibold text-[#FF3B30]">In immediate danger?</span> Call 999 first, then let us know.</p>
-          <a href="tel:999" className="rounded-full bg-[#FF3B30] px-5 py-2.5 text-[14px] font-semibold text-white max-sm:w-full max-sm:text-center">Call 999</a>
+          <p className="text-[15px]"><span className="font-semibold text-[#FF3B30]">{t('In immediate danger?', 'এখনই বিপদে আছেন?')}</span> {t('Call 999 first, then let us know.', 'আগে ৯৯৯ এ কল করুন, তারপর আমাদের জানান।')}</p>
+          <a href="tel:999" className="rounded-full bg-[#FF3B30] px-5 py-2.5 text-[14px] font-semibold text-white max-sm:w-full max-sm:text-center">{t('Call 999', '৯৯৯ এ কল করুন')}</a>
         </motion.div>
       </section>
-      <Close title="Ride with peace of mind." rest="Every time." />
+      <Close title={t('Ride with peace of mind.', 'নিশ্চিন্তে চলুন।')} rest={t('Every time.', 'প্রতিবার।')} />
     </>
   );
 }

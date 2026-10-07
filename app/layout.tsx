@@ -19,7 +19,7 @@ const signature = Mrs_Saint_Delafield({
 
 const bangla = Hind_Siliguri({
   subsets: ['bengali'],
-  weight: ['500', '600'],
+  weight: ['300', '400', '500', '600'],
   variable: '--font-bangla',
 });
 
@@ -106,7 +106,7 @@ export default function RootLayout({
         {/* Apply dark mode before first paint (no flash). Only the redesigned homepage supports it for now. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{var t=localStorage.getItem('theme');var d=t?t==='dark':matchMedia('(prefers-color-scheme: dark)').matches;if(d&&(['/', '/ride', '/driver', '/services', '/services/business', '/services/parcel', '/services/rental', '/services/food', '/services/ambulance', '/services/airport', '/services/payment', '/safety', '/cities', '/about', '/contact', '/partners', '/join-our-team', '/whats-new', '/blog', '/terms', '/terms-customers', '/terms-promo-code', '/terms-return-refund', '/privacy', '/delete-account', '/terms-parcel', '/terms-food', '/terms-rental', '/terms-rewards', '/terms-merchants', '/community-guidelines'].includes(location.pathname)||location.pathname.indexOf('/blog/')===0||location.pathname.indexOf('/track/')===0||location.hostname.indexOf('blogs.')===0))document.documentElement.classList.add('dark')}catch(e){}`,
+            __html: `try{var lp=location.pathname;if(lp==='/bn'||lp.indexOf('/bn/')===0){document.documentElement.lang='bn';lp=lp.slice(3)||'/'}var t=localStorage.getItem('theme');var d=t?t==='dark':matchMedia('(prefers-color-scheme: dark)').matches;if(d&&(['/', '/ride', '/driver', '/services', '/services/business', '/services/parcel', '/services/rental', '/services/food', '/services/ambulance', '/services/airport', '/services/payment', '/safety', '/cities', '/about', '/contact', '/partners', '/join-our-team', '/whats-new', '/blog', '/terms', '/terms-customers', '/terms-promo-code', '/terms-return-refund', '/privacy', '/delete-account', '/terms-parcel', '/terms-food', '/terms-rental', '/terms-rewards', '/terms-merchants', '/community-guidelines'].includes(lp)||location.pathname.indexOf('/blog/')===0||location.pathname.indexOf('/track/')===0||location.hostname.indexOf('blogs.')===0))document.documentElement.classList.add('dark')}catch(e){}`,
           }}
         />
         <link rel="preload" as="image" href="/hero.png" fetchPriority="high" />

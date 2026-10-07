@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import DHAKA from '@/lib/dhakaDots.json';
+import { useT } from '@/lib/i18n';
 
 // Dotted Dhaka, one block per thana (geoBoundaries ADM3, rasterised with a one-dot gutter).
 // The chosen vehicle drives from the rider to the destination, drawing a white trail behind it.
@@ -9,6 +10,7 @@ const MAP = DHAKA as unknown as { w: number; h: number; thanas: Record<string, [
 const D = Object.fromEntries(Object.entries(MAP.thanas).map(([k, pts]) => [k, pts.map(([x, y]) => `M${x} ${y}h0`).join('')]));
 const FROM = 'Tejgaon';
 const LABELS = ['Uttara', 'Mirpur', 'Gulshan', 'Dhanmondi', 'Motijheel', 'Mohammadpur', 'Badda', 'Biman Bandar'];
+const BN: Record<string, string> = { Tejgaon: 'তেজগাঁও', Uttara: 'উত্তরা', Mirpur: 'মিরপুর', Gulshan: 'গুলশান', Dhanmondi: 'ধানমন্ডি', Motijheel: 'মতিঝিল', Mohammadpur: 'মোহাম্মদপুর', Badda: 'বাড্ডা', Kalabagan: 'কলাবাগান', 'Biman Bandar': 'বিমানবন্দর' };
 const DEMO = ['Gulshan', 'Biman Bandar', 'Dhanmondi', 'Motijheel', 'Uttara', 'Mirpur'];
 
 function arc(a: [number, number], b: [number, number]) {
@@ -22,6 +24,8 @@ function arc(a: [number, number], b: [number, number]) {
 }
 
 export function DhakaMap({ to, vehicle }: { to: string | null; vehicle: string }) {
+  const { t } = useT();
+  const name = (k: string) => t(k === 'Biman Bandar' ? 'Airport' : k, BN[k] ?? k);
   const trail = useRef<SVGPathElement>(null);
   const car = useRef<SVGImageElement>(null);
   const [dest, setDest] = useState(to ?? DEMO[0]);
@@ -80,7 +84,7 @@ export function DhakaMap({ to, vehicle }: { to: string | null; vehicle: string }
   const [fx, fy] = MAP.centers[FROM];
   const [tx, ty] = MAP.centers[dest];
   return (
-    <svg viewBox={`-30 -20 ${MAP.w + 60} ${MAP.h + 40}`} className="w-full overflow-visible" role="img" aria-label={`Route from Tejgaon to ${dest}, Dhaka`}>
+    <svg viewBox={`-30 -20 ${MAP.w + 60} ${MAP.h + 40}`} className="w-full overflow-visible" role="img" aria-label={t(`Route from Tejgaon to ${dest}, Dhaka`, `তেজগাঁও থেকে ${BN[dest] ?? dest}, ঢাকা যাওয়ার পথ`)}>
       {Object.entries(D).map(([k, d]) => (
         <path
           key={k}
@@ -92,7 +96,7 @@ export function DhakaMap({ to, vehicle }: { to: string | null; vehicle: string }
       ))}
       {LABELS.filter((l) => l !== dest).map((l) => (
         <text key={l} x={MAP.centers[l][0]} y={MAP.centers[l][1]} textAnchor="middle" fontSize="11" className="fill-black/35 dark:fill-white/30">
-          {l === 'Biman Bandar' ? 'Airport' : l}
+          {name(l)}
         </text>
       ))}
 
@@ -105,14 +109,14 @@ export function DhakaMap({ to, vehicle }: { to: string | null; vehicle: string }
         <animate attributeName="r" values="7;18" dur="2s" repeatCount="indefinite" />
         <animate attributeName="opacity" values=".6;0" dur="2s" repeatCount="indefinite" />
       </circle>
-      <text x={fx - 10} y={fy + 4} textAnchor="end" fontSize="12" fontWeight="600" className="fill-black dark:fill-white">You</text>
+      <text x={fx - 10} y={fy + 4} textAnchor="end" fontSize="12" fontWeight="600" className="fill-black dark:fill-white">{t('You', 'আপনি')}</text>
 
       <g className="transition-opacity duration-500" style={{ opacity: arrived ? 1 : 0.35 }}>
         {/* destination: red circle with white centre, as in the app */}
         <circle cx={tx} cy={ty} r="7" fill="#FF3B30" />
         <circle cx={tx} cy={ty} r="2.5" fill="#fff" />
         <text x={tx + 24} y={ty + 4} fontSize="13" fontWeight="600" className="fill-black dark:fill-white">
-          {dest === 'Biman Bandar' ? 'Airport' : dest}
+          {name(dest)}
         </text>
       </g>
 

@@ -13,6 +13,7 @@ export const metadata = {
   title: 'Arohon | Book a Ride in Bangladesh, Dhaka, Sylhet, 64 Districts',
   description:
     'Book a ride, plan your journey, or plan your trip in Bangladesh. Arohon ride sharing: Dhaka, Sylhet, 64 districts. Safe, affordable rides. One tap to ride.',
+  alternates: { canonical: '/', languages: { en: '/', bn: '/bn' } },
 };
 
 export default async function Home() {

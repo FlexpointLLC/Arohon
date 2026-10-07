@@ -7,25 +7,27 @@ import { USER_APP_URL } from '@/lib/app-links';
 import { DhakaMap } from './DhakaMap';
 import { ease, up } from '../motion';
 import { RouteMarkers } from '../RouteMarkers';
+import { useT } from '@/lib/i18n';
 
 // Arohon's own take: a trip composer floating on our isometric city; your choices drive the map
 const PRODUCTS = [
-  { v: 'bike', label: 'Bike', seats: 1, base: 3 },
-  { v: 'cng', label: 'CNG', seats: 3, base: 4 },
-  { v: 'car', label: 'Car', seats: 4, base: 5 },
-  { v: 'car_plus', label: 'Car Plus', seats: 4, base: 6 },
-  { v: 'micro', label: 'Micro', seats: 7, base: 8 },
+  { v: 'bike', label: 'Bike', bn: 'বাইক', seats: 1, base: 3 },
+  { v: 'cng', label: 'CNG', bn: 'সিএনজি', seats: 3, base: 4 },
+  { v: 'car', label: 'Car', bn: 'কার', seats: 4, base: 5 },
+  { v: 'car_plus', label: 'Car Plus', bn: 'কার প্লাস', seats: 4, base: 6 },
+  { v: 'micro', label: 'Micro', bn: 'মাইক্রো', seats: 7, base: 8 },
 ];
 const PLACES = [
-  { name: 'Hazrat Shahjalal International Airport', thana: 'Biman Bandar', area: 'Kurmitola' },
-  { name: 'Gulshan 2 Circle', thana: 'Gulshan', area: 'Gulshan' },
-  { name: 'Dhanmondi 27', thana: 'Dhanmondi', area: 'Dhanmondi' },
-  { name: 'Bashundhara City', thana: 'Kalabagan', area: 'Panthapath' },
-  { name: 'Kamalapur Railway Station', thana: 'Motijheel', area: 'Motijheel' },
+  { name: 'Hazrat Shahjalal International Airport', thana: 'Biman Bandar', area: 'Kurmitola', bnName: 'হযরত শাহজালাল আন্তর্জাতিক বিমানবন্দর', bnArea: 'কুর্মিটোলা' },
+  { name: 'Gulshan 2 Circle', thana: 'Gulshan', area: 'Gulshan', bnName: 'গুলশান ২ সার্কেল', bnArea: 'গুলশান' },
+  { name: 'Dhanmondi 27', thana: 'Dhanmondi', area: 'Dhanmondi', bnName: 'ধানমন্ডি ২৭', bnArea: 'ধানমন্ডি' },
+  { name: 'Bashundhara City', thana: 'Kalabagan', area: 'Panthapath', bnName: 'বসুন্ধরা সিটি', bnArea: 'পান্থপথ' },
+  { name: 'Kamalapur Railway Station', thana: 'Motijheel', area: 'Motijheel', bnName: 'কমলাপুর রেলস্টেশন', bnArea: 'মতিঝিল' },
 ];
 
 
 function Composer({ vehicle, setVehicle, to, setTo }: { vehicle: string; setVehicle: (v: string) => void; to: number | null; setTo: (i: number) => void }) {
+  const { t, n } = useT();
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [tick, setTick] = useState(0);
@@ -34,12 +36,12 @@ function Composer({ vehicle, setVehicle, to, setTo }: { vehicle: string; setVehi
   useEffect(() => {
     if (to === null) return;
     setLoading(true);
-    const t = setTimeout(() => setLoading(false), 700);
-    return () => clearTimeout(t);
+    const id = setTimeout(() => setLoading(false), 700);
+    return () => clearTimeout(id);
   }, [to]);
   useEffect(() => {
-    const t = setInterval(() => setTick((s) => s + 1), 4000);
-    return () => clearInterval(t);
+    const id = setInterval(() => setTick((s) => s + 1), 4000);
+    return () => clearInterval(id);
   }, []);
   const etas = useMemo(() => PRODUCTS.map((p) => Math.max(2, p.base + ((tick * 5 + p.base) % 3) - 1)), [tick]);
 
@@ -51,9 +53,9 @@ function Composer({ vehicle, setVehicle, to, setTo }: { vehicle: string; setVehi
         <div className="flex gap-3">
           <RouteMarkers />
           <div className="min-w-0 flex-1 space-y-1">
-            <div className="flex h-10 items-center rounded-xl px-3 text-[14px] text-black/55 dark:text-white/55">Current location</div>
+            <div className="flex h-10 items-center rounded-xl px-3 text-[14px] text-black/55 dark:text-white/55">{t('Current location', 'বর্তমান লোকেশন')}</div>
             <button type="button" onClick={() => setOpen((o) => !o)} className="flex h-10 w-full items-center rounded-xl bg-black/[.04] px-3 text-left transition-colors hover:bg-black/[.07] dark:bg-white/[.06] dark:hover:bg-white/10">
-              <span className={`min-w-0 flex-1 truncate text-[14px] ${to === null ? 'text-black/45 dark:text-white/40' : 'font-medium'}`}>{to === null ? 'Where to?' : PLACES[to].name}</span>
+              <span className={`min-w-0 flex-1 truncate text-[14px] ${to === null ? 'text-black/45 dark:text-white/40' : 'font-medium'}`}>{to === null ? t('Where to?', 'কোথায় যাবেন?') : t(PLACES[to].name, PLACES[to].bnName)}</span>
             </button>
           </div>
         </div>
@@ -73,8 +75,8 @@ function Composer({ vehicle, setVehicle, to, setTo }: { vehicle: string; setVehi
                   >
                     <MapPin size={16} weight="fill" className="shrink-0 text-black/40 dark:text-white/40" />
                     <span className="min-w-0">
-                      <span className="block truncate text-[13px] font-medium">{p.name}</span>
-                      <span className="block text-[11px] text-black/45 dark:text-white/45">{p.area}, Dhaka</span>
+                      <span className="block truncate text-[13px] font-medium">{t(p.name, p.bnName)}</span>
+                      <span className="block text-[11px] text-black/45 dark:text-white/45">{t(`${p.area}, Dhaka`, `${p.bnArea}, ঢাকা`)}</span>
                     </span>
                   </button>
                 </li>
@@ -97,7 +99,7 @@ function Composer({ vehicle, setVehicle, to, setTo }: { vehicle: string; setVehi
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={`/icons/${p.v}.webp`} alt="" className="h-8 w-11 object-contain" />
-              <span className={`mt-0.5 text-[11px] ${vehicle === p.v ? 'font-semibold' : 'text-black/55 dark:text-white/55'}`}>{p.label}</span>
+              <span className={`mt-0.5 text-[11px] ${vehicle === p.v ? 'font-semibold' : 'text-black/55 dark:text-white/55'}`}>{t(p.label, p.bn)}</span>
             </button>
           ))}
         </div>
@@ -108,14 +110,14 @@ function Composer({ vehicle, setVehicle, to, setTo }: { vehicle: string; setVehi
             return (
               <>
                 <span className="flex items-center gap-1.5 font-medium">
-                  {p.label}
-                  <span className="flex items-center gap-0.5 text-[11px] font-normal text-black/45 dark:text-white/45"><User size={10} weight="fill" />{p.seats}</span>
+                  {t(p.label, p.bn)}
+                  <span className="flex items-center gap-0.5 text-[11px] font-normal text-black/45 dark:text-white/45"><User size={10} weight="fill" />{n(p.seats)}</span>
                 </span>
                 {loading ? (
                   <span className="h-2.5 w-20 animate-pulse rounded bg-black/10 dark:bg-white/10" />
                 ) : (
                   <motion.span key={vehicle + etas[i]} initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-1.5 text-black/60 dark:text-white/60">
-                    {etas[i]} min away
+                    {t(`${etas[i]} min away`, `${n(etas[i])} মিনিট দূরে`)}
                   </motion.span>
                 )}
               </>
@@ -126,15 +128,16 @@ function Composer({ vehicle, setVehicle, to, setTo }: { vehicle: string; setVehi
 
       <div className="p-3 pt-1">
         <a href={USER_APP_URL} target="_blank" rel="noopener noreferrer" className="flex w-full items-center justify-center gap-2 rounded-xl bg-black py-3 text-[14px] font-semibold text-white transition-opacity hover:opacity-90 dark:bg-white dark:text-black">
-          Book {PRODUCTS.find((p) => p.v === vehicle)?.label} in the app <ArrowRight size={14} />
+          {(() => { const p = PRODUCTS.find((x) => x.v === vehicle); return t(`Book ${p?.label} in the app`, `অ্যাপে ${p?.bn} বুক করুন`); })()} <ArrowRight size={14} />
         </a>
-        <p className="mt-2 text-center text-[11px] text-black/40 dark:text-white/35">Your exact fare is shown in the app before you confirm.</p>
+        <p className="mt-2 text-center text-[11px] text-black/40 dark:text-white/35">{t('Your exact fare is shown in the app before you confirm.', 'কনফার্ম করার আগেই অ্যাপে দেখবেন আপনার ঠিক ভাড়া।')}</p>
       </div>
     </div>
   );
 }
 
 export function RideIntro() {
+  const { t } = useT();
   const [vehicle, setVehicle] = useState('car');
   const [to, setTo] = useState<number | null>(null);
 
@@ -142,12 +145,12 @@ export function RideIntro() {
     <section className="relative overflow-hidden bg-[#FDFDFD] pb-24 pt-28 dark:bg-black sm:pt-32">
       <div className="mx-auto grid max-w-[1280px] items-start gap-12 px-6 md:px-16 lg:grid-cols-[400px_1fr] lg:gap-16">
         <div>
-          <motion.p {...up(0.1)} className="text-[13px] text-black/45 dark:text-[#8A8F98]">Ride with Arohon</motion.p>
+          <motion.p {...up(0.1)} className="text-[13px] text-black/45 dark:text-[#8A8F98]">{t('Ride with Arohon', 'আরোহনে চলুন')}</motion.p>
           <motion.h1 {...up(0.2)} className="mt-4 u-h1 text-black dark:text-white">
-            Where to?
+            {t('Where to?', 'কোথায় যাবেন?')}
           </motion.h1>
           <motion.p {...up(0.3)} className="mt-5 text-base leading-relaxed text-black/55 dark:text-[#AFAFAF]">
-            Pick a place and a ride, and watch your trip across Dhaka.
+            {t('Pick a place and a ride, and watch your trip across Dhaka.', 'জায়গা আর রাইড বেছে নিন, ঢাকার বুকে দেখুন আপনার যাত্রা।')}
           </motion.p>
           <motion.div {...up(0.4)} className="mt-8">
             <Composer vehicle={vehicle} setVehicle={setVehicle} to={to} setTo={setTo} />

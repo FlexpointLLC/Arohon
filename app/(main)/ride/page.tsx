@@ -8,6 +8,7 @@ import { Coverage, SafetyStory, Faq, FinalCTA } from '@/components/home/Sections
 export const metadata: Metadata = {
   title: 'Book a Ride | City, Intercity & Airport Rides in Bangladesh',
   description: 'Book a bike, CNG, car, micro or Hiace in Bangladesh. Upfront fares, verified drivers and live tracking across all 64 districts.',
+  alternates: { canonical: '/ride', languages: { en: '/ride', bn: '/bn/ride' } },
 };
 
 export default function RidePage() {

@@ -4,6 +4,7 @@ import { DriveHero, Commission, WhyDrive, Requirements, DriverJobs, DriverSafety
 export const metadata: Metadata = {
   title: 'Drive with Arohon | Just 2% commission',
   description: 'Drive with Arohon for just 2% commission. Go online when you want, keep your cash fares, cash out to bKash and find driver jobs from car owners.',
+  alternates: { canonical: '/driver', languages: { en: '/driver', bn: '/bn/driver' } },
 };
 
 export default function DrivePage() {

@@ -16,7 +16,8 @@ const prefersDark = () => {
 
 export function useTheme(pathname: string) {
   // blog posts live at /blog/slug locally and at /slug on blogs.arohon.co
-  const supported = THEMED_PATHS.includes(pathname) || pathname.startsWith('/blog/') || pathname.startsWith('/track/') || (typeof location !== 'undefined' && location.hostname.startsWith('blogs.'));
+  const base = pathname === '/bn' ? '/' : pathname.startsWith('/bn/') ? pathname.slice(3) : pathname;
+  const supported = THEMED_PATHS.includes(base) || pathname.startsWith('/blog/') || pathname.startsWith('/track/') || (typeof location !== 'undefined' && location.hostname.startsWith('blogs.'));
   const [dark, setDark] = useState(false);
 
   useEffect(() => {

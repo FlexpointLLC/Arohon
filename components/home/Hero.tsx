@@ -8,9 +8,11 @@ import { StoreBadges } from '../StoreButtons';
 import { ease, up } from '../motion';
 import { CityMap, useTripProgress } from './CityMap';
 import { RIDES, RideStack } from './RideStack';
+import { useT } from '@/lib/i18n';
 
 
 export function Hero() {
+  const { t, href } = useT();
   const { progress, restart } = useTripProgress(16);
   const [active, setActive] = useState(0);
   const last = useRef(0);
@@ -31,15 +33,15 @@ export function Hero() {
       <div className="relative z-10 mx-auto max-w-[1280px] px-6 md:px-16">
         <motion.p {...up(0.1)} className="flex items-center gap-2 text-base font-medium text-black dark:text-white">
           <MapPin size={18} weight="fill" />
-          Dhaka, BD
+          {t('Dhaka, BD', 'ঢাকা, বাংলাদেশ')}
         </motion.p>
         <motion.h1 {...up(0.2)} className="mt-6 u-h1 text-black dark:text-white">
-          Go anywhere,
+          {t('Go anywhere,', 'যেখানে খুশি যান,')}
           <br />
-          ride the way you want
+          {t('ride the way you want', 'যেভাবে খুশি চলুন')}
         </motion.h1>
         <motion.p {...up(0.35)} className="mt-6 max-w-xl text-base leading-relaxed text-black/55 dark:text-[#AFAFAF]">
-          Book a bike, CNG, car or micro in minutes and get there safely and affordably, across Dhaka and all of Bangladesh.
+          {t('Book a bike, CNG, car or micro in minutes and get there safely and affordably, across Dhaka and all of Bangladesh.', 'মিনিটেই বুক করুন বাইক, সিএনজি, কার বা মাইক্রো। ঢাকাসহ সারা বাংলাদেশে পৌঁছে যান নিরাপদে, সাশ্রয়ে।')}
         </motion.p>
         <motion.div {...up(0.5)} className="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
           <a
@@ -48,11 +50,11 @@ export function Hero() {
             rel="noopener noreferrer"
             className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-black px-7 py-4 sm:w-auto text-[15px] font-semibold text-white shadow-[0_14px_30px_-10px_rgba(0,0,0,.55)] transition-all hover:-translate-y-0.5 hover:shadow-[0_20px_40px_-12px_rgba(0,0,0,.6)] dark:bg-white dark:text-black"
           >
-            Request a ride
+            {t('Request a ride', 'রাইড নিন')}
             <ArrowRight weight="bold" className="transition-transform group-hover:translate-x-1" />
           </a>
-          <a href="/driver" className="w-full rounded-full bg-black/[.05] px-6 py-4 text-center sm:w-auto dark:bg-white/10 text-[15px] font-semibold text-black/70 transition-colors hover:bg-black/5 hover:text-black dark:hover:bg-white/10 dark:text-[#AFAFAF] dark:hover:text-white">
-            Become a driver
+          <a href={href('/driver')} className="w-full rounded-full bg-black/[.05] px-6 py-4 text-center sm:w-auto dark:bg-white/10 text-[15px] font-semibold text-black/70 transition-colors hover:bg-black/5 hover:text-black dark:hover:bg-white/10 dark:text-[#AFAFAF] dark:hover:text-white">
+            {t('Become a driver', 'ড্রাইভার হোন')}
           </a>
         </motion.div>
         <motion.div {...up(0.6)}>
@@ -69,7 +71,7 @@ export function Hero() {
       </div>
 
       <motion.div {...up(0.4)} className="relative -mt-6 sm:-mt-10">
-        <CityMap progress={progress} riderV={ride.v} dest={ride.dest} />
+        <CityMap progress={progress} riderV={ride.v} dest={t(ride.dest, ride.destBn)} />
 
       </motion.div>
     </section>
