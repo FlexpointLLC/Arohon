@@ -4,6 +4,7 @@ import { RentalPage } from '@/components/services/ServicePages';
 export const metadata: Metadata = {
   title: 'Rental | Car and driver by the hour, week or month',
   description: 'Rent a car, micro, Hiace or bus with a driver by the hour, week or month. Post your request and drivers bid.',
+  alternates: { canonical: '/services/rental', languages: { en: '/services/rental', bn: '/bn/services/rental' } },
 };
 
 export default function Page() {

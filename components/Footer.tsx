@@ -69,7 +69,7 @@ export function Footer({ isBlogSite = false }: { isBlogSite?: boolean }) {
                   ['English', base + enPath, !bn],
                   ['বাংলা', base + bnPath, bn],
                 ].map(([label, to, on]) => (
-                  <a key={String(label)} href={String(to)} lang={label === 'বাংলা' ? 'bn' : 'en'} className={`flex items-center justify-between rounded-lg px-3 py-2 ${on ? 'bg-black/[.05] text-black dark:bg-white/[.08] dark:text-white' : 'hover:bg-black/[.04] hover:text-black dark:hover:bg-white/[.06] dark:hover:text-white'}`}>
+                  <a key={String(label)} href={String(to)} lang={label === 'বাংলা' ? 'bn' : 'en'} onClick={() => { document.cookie = `lang=${label === 'বাংলা' ? 'bn' : 'en'};path=/;max-age=31536000;samesite=lax`; }} className={`flex items-center justify-between rounded-lg px-3 py-2 ${on ? 'bg-black/[.05] text-black dark:bg-white/[.08] dark:text-white' : 'hover:bg-black/[.04] hover:text-black dark:hover:bg-white/[.06] dark:hover:text-white'}`}>
                     {label} {on && <span aria-hidden>✓</span>}
                   </a>
                 ))}

@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowRight } from '@phosphor-icons/react';
 import { up } from '@/components/motion';
 import DHAKA from '@/lib/dhakaDots.json';
+import { useT } from '@/lib/i18n';
 
 const MAP = DHAKA as unknown as { w: number; h: number; thanas: Record<string, [number, number][]>; centers: Record<string, [number, number]> };
 const DOTS = Object.fromEntries(Object.entries(MAP.thanas).map(([k, pts]) => [k, pts.map(([x, y]) => `M${x} ${y}h0`).join('')]));
@@ -16,16 +17,17 @@ const ROUTE = `M${FROM[0]} ${FROM[1]} C ${FROM[0] + 60} ${FROM[1] - 10}, 230 250
 
 const muted = 'text-black/50 dark:text-[#8A8F98]';
 const PLACES = [
-  ['Home', '/'],
-  ['Book a ride', '/ride'],
-  ['All services', '/services'],
-  ['Drive with Arohon', '/driver'],
-  ['Help and contact', '/contact'],
+  ['Home', 'হোম', '/'],
+  ['Book a ride', 'রাইড বুক করুন', '/ride'],
+  ['All services', 'সব সার্ভিস', '/services'],
+  ['Drive with Arohon', 'আরোহনে গাড়ি চালান', '/driver'],
+  ['Help and contact', 'সাহায্য ও যোগাযোগ', '/contact'],
 ];
 
 /** 404: a route leaves Tejgaon and ends off the map, then "rerouting" offers real pages. */
 export default function NotFound() {
   const path = usePathname();
+  const { t, n, href } = useT();
   const [rerouted, setRerouted] = useState(false);
   useEffect(() => {
     // follow the visitor's light or dark setting, this page sits outside the themed layout
@@ -39,21 +41,21 @@ export default function NotFound() {
 
   return (
     <main className="flex min-h-screen flex-col items-center bg-[#FDFDFD] px-6 py-10 text-black dark:bg-black dark:text-white">
-      <Link href="/" aria-label="Arohon home">
+      <Link href={href('/')} aria-label={t('Arohon home', 'আরোহন হোম')}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/logo.png" alt="Arohon" className="h-7 w-auto dark:[filter:brightness(0)_invert(1)]" />
+        <img src="/logo.png" alt={t('Arohon', 'আরোহন')} className="h-7 w-auto dark:[filter:brightness(0)_invert(1)]" />
       </Link>
 
       <div className="grid w-full max-w-[1000px] flex-1 items-center gap-12 py-12 md:grid-cols-[1fr_1fr] md:gap-16">
         <div>
-          <motion.p {...up(0.05)} className={`font-mono text-[13px] ${muted}`}>404</motion.p>
+          <motion.p {...up(0.05)} className={`font-mono text-[13px] ${muted}`}>{n(404)}</motion.p>
           <motion.h1 {...up(0.1)} className="mt-3 text-[44px] font-medium leading-[1.03] tracking-[-0.025em] sm:text-[60px]">
-            Wrong turn.
+            {t('Wrong turn.', 'ভুল মোড়।')}
             <br />
-            <span className="text-black/45 dark:text-[#8A8F98]">This road ends here.</span>
+            <span className="text-black/45 dark:text-[#8A8F98]">{t('This road ends here.', 'এই রাস্তা এখানেই শেষ।')}</span>
           </motion.h1>
           <motion.p {...up(0.2)} className={`mt-6 max-w-sm text-[17px] leading-relaxed ${muted}`}>
-            We couldn’t find <span className="break-all font-mono text-[14px] text-black/70 dark:text-white/70">{path}</span>. The page may have moved, or the link may be old.
+            {t('We couldn’t find ', '')}<span className="break-all font-mono text-[14px] text-black/70 dark:text-white/70">{path}</span>{t('. The page may have moved, or the link may be old.', ' পেজটি খুঁজে পাইনি। হয়তো সরে গেছে, অথবা লিংকটা পুরনো।')}
           </motion.p>
 
           <motion.div {...up(0.3)} className="mt-10">
@@ -62,16 +64,16 @@ export default function NotFound() {
               <span className="relative h-5 w-40 overflow-hidden">
                 <AnimatePresence mode="wait" initial={false}>
                   <motion.span key={String(rerouted)} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} className="absolute inset-0 font-medium">
-                    {rerouted ? 'New routes found' : 'Rerouting…'}
+                    {rerouted ? t('New routes found', 'নতুন রুট পাওয়া গেছে') : t('Rerouting…', 'রুট বদলানো হচ্ছে…')}
                   </motion.span>
                 </AnimatePresence>
               </span>
             </div>
             <ul className="mt-4 divide-y divide-black/10 border-y border-black/10 dark:divide-white/10 dark:border-white/10">
-              {PLACES.map(([label, href], i) => (
-                <motion.li key={href} initial={{ opacity: 0, x: -8 }} animate={rerouted ? { opacity: 1, x: 0 } : { opacity: 0.25, x: 0 }} transition={{ duration: 0.4, delay: rerouted ? i * 0.07 : 0 }}>
-                  <Link href={href} className="group flex items-center justify-between py-3.5 text-[15px]">
-                    {label}
+              {PLACES.map(([label, labelBn, to], i) => (
+                <motion.li key={to} initial={{ opacity: 0, x: -8 }} animate={rerouted ? { opacity: 1, x: 0 } : { opacity: 0.25, x: 0 }} transition={{ duration: 0.4, delay: rerouted ? i * 0.07 : 0 }}>
+                  <Link href={href(to)} className="group flex items-center justify-between py-3.5 text-[15px]">
+                    {t(label, labelBn)}
                     <ArrowRight size={14} className="text-black/30 transition-transform group-hover:translate-x-1 group-hover:text-black dark:text-white/30 dark:group-hover:text-white" />
                   </Link>
                 </motion.li>
@@ -97,7 +99,7 @@ export default function NotFound() {
               <circle r="10" className="nf-ping fill-none stroke-[#FF3B30]" strokeWidth="2" />
               <circle r="10" fill="#FF3B30" />
               <circle r="3.5" fill="#fff" />
-              <text x="0" y="-22" textAnchor="middle" fontSize="14" fontWeight="600" className="fill-[#FF3B30] font-mono">404</text>
+              <text x="0" y="-22" textAnchor="middle" fontSize="14" fontWeight="600" className="fill-[#FF3B30] font-mono">{n(404)}</text>
             </g>
           </svg>
         </motion.div>

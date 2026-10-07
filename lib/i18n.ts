@@ -5,7 +5,8 @@ import { usePathname } from 'next/navigation';
 // Bangla lives under /bn on the same site. Copy stays next to its English in each component: t('Where to?', 'কোথায় যাবেন?').
 export type Lang = 'en' | 'bn';
 /** pages that have a Bangla version; links from Bangla pages to anything else stay English */
-export const BN_PATHS = ['/', '/ride', '/driver', '/services', '/safety'];
+export { BN_PATHS } from './langPaths';
+import { BN_PATHS } from './langPaths';
 const BN_DIGITS = '০১২৩৪৫৬৭৮৯';
 
 export const langOf = (path: string): Lang => (path === '/bn' || path.startsWith('/bn/') ? 'bn' : 'en');
