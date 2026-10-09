@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next';
+import Script from 'next/script';
 import { Plus_Jakarta_Sans, Hind_Siliguri, Mrs_Saint_Delafield } from 'next/font/google';
 import { SITE_URL, ORGANIZATION_JSON_LD, WEBSITE_JSON_LD, LOCAL_BUSINESS_JSON_LD } from '@/lib/seo';
 import './globals.css';
@@ -106,7 +107,7 @@ export default function RootLayout({
         {/* Apply dark mode before first paint (no flash). Only the redesigned homepage supports it for now. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{var lp=location.pathname;if(lp==='/bn'||lp.indexOf('/bn/')===0){document.documentElement.lang='bn';lp=lp.slice(3)||'/'}var t=localStorage.getItem('theme');var d=t?t==='dark':matchMedia('(prefers-color-scheme: dark)').matches;if(d&&(['/', '/ride', '/driver', '/services', '/services/business', '/services/parcel', '/services/rental', '/services/food', '/services/ambulance', '/services/airport', '/services/payment', '/safety', '/cities', '/about', '/contact', '/partners', '/join-our-team', '/whats-new', '/blog', '/terms', '/terms-customers', '/terms-promo-code', '/terms-return-refund', '/privacy', '/delete-account', '/terms-parcel', '/terms-food', '/terms-rental', '/terms-rewards', '/terms-merchants', '/community-guidelines'].includes(lp)||location.pathname.indexOf('/blog/')===0||location.pathname.indexOf('/track/')===0||location.hostname.indexOf('blogs.')===0))document.documentElement.classList.add('dark')}catch(e){}`,
+            __html: `try{var lp=location.pathname;if(lp==='/bn'||lp.indexOf('/bn/')===0){document.documentElement.lang='bn';lp=lp.slice(3)||'/'}var t=localStorage.getItem('theme');var d=t?t==='dark':matchMedia('(prefers-color-scheme: dark)').matches;if(d&&(['/', '/ride', '/driver', '/services', '/services/business', '/services/parcel', '/services/rental', '/services/food', '/services/ambulance', '/services/airport', '/services/payment', '/safety', '/cities', '/about', '/contact', '/partners', '/join-our-team', '/whats-new', '/blog', '/terms', '/terms-customers', '/terms-promo-code', '/terms-return-refund', '/privacy', '/delete-account', '/terms-parcel', '/terms-food', '/terms-rental', '/terms-rewards', '/terms-merchants', '/community-guidelines', '/promotion'].includes(lp)||location.pathname.indexOf('/blog/')===0||location.pathname.indexOf('/track/')===0||lp.indexOf('/promotion/')===0||location.hostname.indexOf('blogs.')===0))document.documentElement.classList.add('dark')}catch(e){}`,
           }}
         />
         <link rel="preload" as="image" href="/hero.png" fetchPriority="high" />
@@ -116,6 +117,8 @@ export default function RootLayout({
         <JsonLd data={WEBSITE_JSON_LD} />
         <JsonLd data={LOCAL_BUSINESS_JSON_LD} />
         {children}
+        {/* Linquo chat widget, loaded once here so it shows on every page */}
+        <Script id="linquo" src="https://admin.linquo.app/widget.js?id=c179a709-20ec-477c-a167-8ab243bcdac2" strategy="afterInteractive" />
       </body>
     </html>
   );

@@ -9,7 +9,7 @@ const BOT = /bot|crawl|spider|slurp|facebookexternalhit|whatsapp|preview|lightho
  *  (lang cookie), we never redirect again. Crawlers are never redirected, hreflang tells Google about both versions. */
 function bangladeshDefault(request: NextRequest, local: boolean) {
   const p = request.nextUrl.pathname;
-  if (!BN_PATHS.includes(p) || request.cookies.has('lang')) return null;
+  if (!(BN_PATHS.includes(p) || p.startsWith('/promotion/')) || request.cookies.has('lang')) return null;
   if (BOT.test(request.headers.get('user-agent') ?? '')) return null;
   // Vercel adds the visitor's country; locally you can test with ?country=BD
   const country = request.headers.get('x-vercel-ip-country') ?? (local ? request.nextUrl.searchParams.get('country') : null);

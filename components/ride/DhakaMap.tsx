@@ -41,7 +41,8 @@ export function DhakaMap({ to, vehicle }: { to: string | null; vehicle: string }
     let raf = 0;
     let hold: ReturnType<typeof setTimeout> | undefined;
     let cancelled = false;
-    const path = trail.current!;
+    const path = trail.current;
+    if (!path) return;
     path.setAttribute('d', arc(MAP.centers[FROM], MAP.centers[dest]));
     const L = path.getTotalLength();
     const DUR = 1800 + L * 6;

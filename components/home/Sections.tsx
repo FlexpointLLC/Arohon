@@ -184,18 +184,21 @@ function Lane({ delay, first }: { delay: number; first?: [string, string] }) {
 
   useEffect(() => {
     let raf = 0;
+    let wait: ReturnType<typeof setTimeout> | undefined;
     let cancelled = false;
     const run = (from: string, to: string) => {
       const a = proj(DISTRICTS[from]);
       const b = proj(DISTRICTS[to]);
-      const path = trail.current!;
+      // the map can unmount mid trip (route change, hot reload), so every frame checks the elements still exist
+      const path = trail.current;
+      if (cancelled || !path) return;
       path.setAttribute('d', arc(a, b));
       const L = path.getTotalLength();
       setTrip({ from, to, phase: 'fly' });
       const FLY = 1200 + L * 2;
       const t0 = performance.now();
       const tick = (now: number) => {
-        if (cancelled) return;
+        if (cancelled || !path.isConnected) return;
         const t = Math.min(1, (now - t0) / FLY);
         const e = Math.sin((t * Math.PI) / 2) * 0.35 + t * 0.65; // mostly steady glide, eases into the stop without hanging
         const head = e * L;
@@ -208,21 +211,23 @@ function Lane({ delay, first }: { delay: number; first?: [string, string] }) {
       raf = requestAnimationFrame(tick);
     };
     const land = (b: readonly [number, number], from: string, to: string) => {
+      const r = ring.current;
+      if (cancelled || !r) return;
       setTrip({ from, to, phase: 'land' });
-      const r = ring.current!;
       r.setAttribute('cx', String(b[0]));
       r.setAttribute('cy', String(b[1]));
       const t0 = performance.now();
       const burst = (now: number) => {
-        if (cancelled) return;
+        const path = trail.current;
+        if (cancelled || !path || !r.isConnected) return;
         const t = Math.min(1, (now - t0) / 1400);
         r.setAttribute('r', String(6 + Math.sin(t * Math.PI) * 3));
         r.style.opacity = String(0.5 * Math.sin(t * Math.PI));
-        trail.current!.style.opacity = String(0.9 * (1 - t * t));
+        path.style.opacity = String(0.9 * (1 - t * t));
         if (t < 1) raf = requestAnimationFrame(burst);
         else {
           setTrip({ from, to, phase: 'fade' });
-          setTimeout(next, 500);
+          wait = setTimeout(next, 500);
         }
       };
       raf = requestAnimationFrame(burst);
@@ -239,7 +244,7 @@ function Lane({ delay, first }: { delay: number; first?: [string, string] }) {
       run(from, to);
     };
     const start = setTimeout(() => (first ? run(first[0], first[1]) : next()), delay);
-    return () => { cancelled = true; clearTimeout(start); cancelAnimationFrame(raf); };
+    return () => { cancelled = true; clearTimeout(start); clearTimeout(wait); cancelAnimationFrame(raf); };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

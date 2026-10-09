@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from 'react';
 
 // Dark mode is homepage-only until the inner pages are redesigned.
-export const THEMED_PATHS = ['/', '/ride', '/driver', '/services', '/services/business', '/services/parcel', '/services/rental', '/services/food', '/services/ambulance', '/services/airport', '/services/payment', '/safety', '/cities', '/about', '/contact', '/partners', '/join-our-team', '/whats-new', '/blog', '/terms', '/terms-customers', '/terms-promo-code', '/terms-return-refund', '/privacy', '/delete-account', '/terms-parcel', '/terms-food', '/terms-rental', '/terms-rewards', '/terms-merchants', '/community-guidelines'];
+export const THEMED_PATHS = ['/', '/ride', '/driver', '/services', '/services/business', '/services/parcel', '/services/rental', '/services/food', '/services/ambulance', '/services/airport', '/services/payment', '/safety', '/cities', '/about', '/contact', '/partners', '/join-our-team', '/whats-new', '/blog', '/terms', '/terms-customers', '/terms-promo-code', '/terms-return-refund', '/privacy', '/delete-account', '/terms-parcel', '/terms-food', '/terms-rental', '/terms-rewards', '/terms-merchants', '/community-guidelines', '/promotion'];
 
 const prefersDark = () => {
   try {
@@ -17,7 +17,7 @@ const prefersDark = () => {
 export function useTheme(pathname: string) {
   // blog posts live at /blog/slug locally and at /slug on blogs.arohon.co
   const base = pathname === '/bn' ? '/' : pathname.startsWith('/bn/') ? pathname.slice(3) : pathname;
-  const supported = THEMED_PATHS.includes(base) || pathname.startsWith('/blog/') || pathname.startsWith('/track/') || (typeof location !== 'undefined' && location.hostname.startsWith('blogs.'));
+  const supported = THEMED_PATHS.includes(base) || pathname.startsWith('/blog/') || pathname.startsWith('/track/') || base.startsWith('/promotion/') || (typeof location !== 'undefined' && location.hostname.startsWith('blogs.'));
   const [dark, setDark] = useState(false);
 
   useEffect(() => {

@@ -30,6 +30,7 @@ const MEGA_LINKS: [string, string, string][] = [
   ['Airport rides', '/services/airport', 'এয়ারপোর্ট রাইড'],
   ['Ambulance', '/services/ambulance', 'অ্যাম্বুলেন্স'],
   ['Payments', '/services/payment', 'পেমেন্ট'],
+  ['Promotions', '/promotion', 'প্রোমোশন'],
 ];
 
 const LINKS = [

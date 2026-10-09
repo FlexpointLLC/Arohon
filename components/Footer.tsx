@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { SITE_URL } from '@/lib/seo';
-import { BN_PATHS, langOf, stripBn, toBn } from '@/lib/i18n';
+import { langOf, stripBn, toBn } from '@/lib/i18n';
 
 export const SOCIAL: string[][] = [
   ['Facebook', 'https://www.facebook.com/arohonrides/'],
@@ -16,7 +16,7 @@ export const SOCIAL: string[][] = [
 const GROUPS = [
   { title: 'Ride', bn: 'রাইড', links: [['City rides', '/ride', 'শহরে রাইড'], ['Airport rides', '/services/airport', 'এয়ারপোর্ট রাইড'], ['Ambulance', '/services/ambulance', 'অ্যাম্বুলেন্স'], ['Payments', '/services/payment', 'পেমেন্ট'], ['All services', '/services', 'সব সেবা']] },
   { title: 'Earn', bn: 'আয় করুন', links: [['Become a driver', '/driver', 'চালক হোন'], ['Partners & fleets', '/partners', 'পার্টনার'], ['Join our team', '/join-our-team', 'আমাদের টিমে যোগ দিন']] },
-  { title: 'Company', bn: 'কোম্পানি', links: [['About', '/about', 'আমাদের কথা'], ["What's new", '/whats-new', 'নতুন কী'], ['Blog', '/blog', 'ব্লগ'], ['Contact', '/contact', 'যোগাযোগ']] },
+  { title: 'Company', bn: 'কোম্পানি', links: [['About', '/about', 'আমাদের কথা'], ["What's new", '/whats-new', 'নতুন কী'], ['Blog', '/blog', 'ব্লগ'], ['Promotions', '/promotion', 'প্রোমোশন'], ['Contact', '/contact', 'যোগাযোগ']] },
   { title: 'Help', bn: 'সাহায্য', links: [['Safety', '/safety', 'নিরাপত্তা'], ['Refund policy', '/terms-return-refund', 'রিফান্ড নীতি'], ['Promo terms', '/terms-promo-code', 'প্রোমো শর্তাবলি'], ['Community guidelines', '/community-guidelines', 'কমিউনিটি নির্দেশিকা'], ['Delete account', '/delete-account', 'অ্যাকাউন্ট মুছুন']] },
   { title: 'Connect', bn: 'যুক্ত থাকুন', links: SOCIAL },
 ];
@@ -29,7 +29,7 @@ export function Footer({ isBlogSite = false }: { isBlogSite?: boolean }) {
   const href = (h: string) => (h.startsWith('http') ? h : base + (bn ? toBn(h) : h));
   // the same page in the other language; pages without a Bangla twin go to the Bangla home
   const enPath = stripBn(pathname);
-  const bnPath = BN_PATHS.includes(enPath) ? toBn(enPath) : '/bn';
+  const bnPath = toBn(enPath) !== enPath ? toBn(enPath) : '/bn';
   return (
     <footer className="border-t border-black/10 bg-[#FDFDFD] dark:border-white/10 dark:bg-black">
       <div className="mx-auto max-w-[1280px] px-6 pb-10 pt-16 md:px-16">

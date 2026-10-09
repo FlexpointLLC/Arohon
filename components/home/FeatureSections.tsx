@@ -22,6 +22,7 @@ type Feature = {
   metasBn: string[];
   links: string[];
   linksBn: string[];
+  linkHrefs: string[];
 };
 
 // Linear feature-section pattern: title left, copy right, one big product panel, then a "Features" link row.
@@ -40,6 +41,7 @@ const SECTIONS: Feature[] = [
     metasBn: ['হেলমেটসহ', 'সবচেয়ে দ্রুত রুট', 'সাথে পার্সেল'],
     links: ['Helmet for every rider', 'Lowest city fare', 'Parcel by bike', 'Live trip sharing'],
     linksBn: ['প্রত্যেক রাইডারের হেলমেট', 'শহরের সবচেয়ে কম ভাড়া', 'বাইকে পার্সেল', 'লাইভ ট্রিপ শেয়ারিং'],
+    linkHrefs: ['/safety', '/ride', '/services/parcel', '/safety'],
   },
   {
     title: ['Electric rides', 'quiet and clean'],
@@ -55,6 +57,7 @@ const SECTIONS: Feature[] = [
     metasBn: ['শূন্য নির্গমন', 'নিঃশব্দ রাইড', 'ফুল চার্জ'],
     links: ['Zero emissions', 'Silent ride', 'Short city hops', 'Same upfront fares'],
     linksBn: ['শূন্য নির্গমন', 'নিঃশব্দ রাইড', 'শহরের ছোট দূরত্ব', 'একই আগাম ভাড়া'],
+    linkHrefs: ['/ride', '/ride', '/ride', '/services/payment'],
   },
 ];
 
@@ -148,8 +151,10 @@ function FeatureSection({ s }: { s: Feature }) {
         <p className="text-[13px] text-black/40 dark:text-white/35">{t('Features', 'ফিচার')}</p>
         <ul className="grid grid-cols-2 gap-x-8 gap-y-2 text-[13px] text-black/70 dark:text-[#D0D6E0]">
           {s.links.map((l, k) => (
-            <li key={l} className="flex items-center gap-1">
-              {t(l, s.linksBn[k])} <ArrowRight size={11} className="text-black/30 dark:text-white/30" />
+            <li key={l}>
+              <Link href={href(s.linkHrefs[k])} className="group inline-flex items-center gap-1 transition-colors hover:text-black dark:hover:text-white">
+                {t(l, s.linksBn[k])} <ArrowRight size={11} className="text-black/30 transition-transform group-hover:translate-x-0.5 group-hover:text-black dark:text-white/30 dark:group-hover:text-white" />
+              </Link>
             </li>
           ))}
         </ul>

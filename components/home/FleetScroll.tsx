@@ -46,7 +46,7 @@ export function FleetScroll() {
 
       <div
         ref={track}
-        className="mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth px-6 pb-4 [scrollbar-width:none] md:px-16 xl:px-[calc((100vw_-_1280px)/2_+_64px)] xl:scroll-px-[calc((100vw_-_1280px)/2_+_64px)] scroll-px-6 md:scroll-px-16 [&::-webkit-scrollbar]:hidden"
+        className="mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto overflow-y-hidden pt-2 overscroll-x-contain scroll-smooth px-6 pb-4 [scrollbar-width:none] md:px-16 xl:px-[calc((100vw_-_1280px)/2_+_64px)] xl:scroll-px-[calc((100vw_-_1280px)/2_+_64px)] scroll-px-6 md:scroll-px-16 [&::-webkit-scrollbar]:hidden"
       >
         {FLEET.map((v, i) => (
           <motion.div

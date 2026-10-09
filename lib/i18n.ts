@@ -15,7 +15,7 @@ export const stripBn = (path: string) => (langOf(path) === 'bn' ? path.slice(3) 
 /** the Bangla address of an English path, when one exists */
 export const toBn = (path: string) => {
   const [p, hash = ''] = path.split('#');
-  if (!BN_PATHS.includes(p)) return path;
+  if (!BN_PATHS.includes(p) && !p.startsWith('/promotion/')) return path;
   return (p === '/' ? '/bn' : `/bn${p}`) + (hash ? `#${hash}` : '');
 };
 export const bnDigits = (v: string | number) => String(v).replace(/[0-9]/g, (d) => BN_DIGITS[+d]);
