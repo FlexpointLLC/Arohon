@@ -29,9 +29,13 @@ export function PromoCard() {
       </motion.div>
       <motion.div {...fade(0.1)}>
         <Link href={href(`/promotion/${c.slug}`)} className="group mt-14 grid overflow-hidden rounded-2xl border border-black/10 bg-gradient-to-b from-black/[.02] to-transparent transition-colors hover:border-black/20 md:grid-cols-[1.2fr_1fr] dark:border-white/10 dark:from-white/[.03] dark:hover:border-white/20">
-          <div className="overflow-hidden bg-[#EDEDED]">
+          <div className="overflow-hidden bg-[#EDEDED] dark:bg-black">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={c.img} alt="" loading="lazy" className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]" />
+            <img src={c.img} alt="" loading="lazy" className={`h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03] ${c.imgDark ? "dark:hidden" : ""}`} />
+                {c.imgDark && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={c.imgDark} alt="" loading="lazy" className="hidden h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03] dark:block" />
+                )}
           </div>
           <div className="flex flex-col justify-center p-8 sm:p-10">
             <p className="text-[13px] text-black/50 dark:text-[#8A8F98]">{t('Live now', 'চলছে এখন')}</p>

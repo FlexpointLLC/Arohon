@@ -49,9 +49,13 @@ export function PromotionList() {
         {CAMPAIGNS.map((c, i) => (
           <motion.div key={c.slug} {...fade(i * 0.06)}>
             <Link href={href(`/promotion/${c.slug}`)} className="group block">
-              <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-black/10 bg-[#EDEDED] dark:border-white/10">
+              <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-black/10 bg-[#EDEDED] dark:border-white/10 dark:bg-black">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={c.img} alt="" className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]" />
+                <img src={c.img} alt="" className={`h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03] ${c.imgDark ? "dark:hidden" : ""}`} />
+                {c.imgDark && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={c.imgDark} alt="" className="hidden h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03] dark:block" />
+                )}
               </div>
               <p className={`mt-5 text-[13px] ${muted}`}><Status c={c} />, {period(c)}</p>
               <h2 className="mt-1.5 text-[20px] font-medium leading-snug tracking-tight transition-colors group-hover:text-black/70 dark:group-hover:text-white/80">{l(c.name)}</h2>
@@ -126,12 +130,14 @@ export function PromotionDetail({ slug }: { slug: string }) {
         </motion.div>
         <div className="mt-10 grid items-center gap-12 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
           <div>
-            {/* Linear-style eyebrow: quiet text, no pill */}
-            <motion.p {...up(0.05)} className={`text-[13px] ${muted}`}>
-              {l(c.badge)}, <Status c={c} />
-            </motion.p>
+            {/* same badge as the homepage "New" pill, without the comet */}
+            <motion.div {...up(0.05)}>
+              <span className="inline-flex items-center gap-2 rounded-full border border-black/10 py-1 pl-1 pr-3 text-[13px] text-black/70 dark:border-white/[.12] dark:text-[#D0D6E0]">
+                <span className="rounded-full bg-black px-2 py-0.5 text-[11px] font-semibold text-white dark:bg-white dark:text-black">{isLive(c) ? t('Live now', 'চলছে এখন') : t('Ended', 'শেষ হয়েছে')}</span>
+                {l(c.badge)}
+              </span>
+            </motion.div>
             <motion.h1 {...up(0.1)} className="mt-5 text-[36px] font-medium leading-[1.1] tracking-[-0.025em] sm:text-[52px]">{l(c.headline)}</motion.h1>
-            <motion.p {...up(0.2)} className={`mt-6 max-w-xl text-[17px] leading-relaxed ${muted}`}>{l(c.sub)}</motion.p>
             <motion.p {...up(0.25)} className="mt-5 text-[14px]">
               <span className={muted}>{t('Campaign period', 'ক্যাম্পেইনের সময়')}: </span>
               <span className="font-medium">{period(c)}</span>
@@ -142,9 +148,13 @@ export function PromotionDetail({ slug }: { slug: string }) {
               </button>
             </motion.div>
           </div>
-          <motion.div {...up(0.35)} className="overflow-hidden rounded-[24px] border border-black/10 bg-[#EDEDED] dark:border-white/10">
+          <motion.div {...up(0.35)} className="overflow-hidden rounded-[24px] border border-black/10 bg-[#EDEDED] dark:border-white/10 dark:bg-black">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={c.img} alt="" className="w-full" />
+            <img src={c.img} alt="" className={`w-full ${c.imgDark ? "dark:hidden" : ""}`} />
+                {c.imgDark && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={c.imgDark} alt="" className="hidden w-full dark:block" />
+                )}
           </motion.div>
         </div>
       </section>
