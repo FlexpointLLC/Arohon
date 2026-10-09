@@ -50,7 +50,7 @@ function FounderRide() {
       <p className="mt-3 text-[18px] leading-[1.7] text-black/80 dark:text-white/80">{t('I answer every message myself. Want to talk about Arohon, design or Bangladesh? The ride is on me.', 'প্রতিটি মেসেজের উত্তর আমি নিজেই দিই। আরোহন, ডিজাইন বা বাংলাদেশ নিয়ে কথা বলতে চান? রাইডটা আমার পক্ষ থেকে।')}</p>
       <div className="group mt-6 rounded-[24px] bg-white p-6 shadow-[0_24px_60px_-20px_rgba(0,0,0,.3)] ring-1 ring-black/5 dark:bg-[#1C1C1E] dark:ring-white/10">
         <div className="flex items-center gap-2 text-[13px]">
-          <span className={`h-2 w-2 rounded-full ${step === 0 ? 'animate-pulse bg-black/40 dark:bg-white/40' : 'bg-[#079A70]'}`} />
+          <span className={`h-2 w-2 rounded-full ${step === 0 ? 'bg-black/40 dark:bg-white/40' : 'bg-[#079A70]'}`} />
           <span className="relative h-5 flex-1 overflow-hidden">
             <AnimatePresence mode="wait" initial={false}>
               <motion.span key={step} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.25, ease }} className="absolute inset-0 font-medium">{status}</motion.span>

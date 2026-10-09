@@ -19,17 +19,17 @@ export type Campaign = {
 
 export const CAMPAIGNS: Campaign[] = [
   {
-    slug: 'rider-income',
-    name: ['Riders earn too', 'যাত্রীদের ইনকাম'],
-    badge: ['A new era of ride sharing 🚀', 'নতুন যুগের রাইড শেয়ারিং বিপ্লব 🚀'],
-    headline: ['Why should only drivers earn? Arohon brings income to riders.', 'শুধু ড্রাইভাররাই কেন ইনকাম করবেন? যাত্রীদের ইনকাম নিয়ে আসছে আরোহন!'],
+    slug: 'passenger-income',
+    name: ['Passengers earn too', 'যাত্রীদের ইনকাম'],
+    badge: ['A new era of ride sharing', 'নতুন যুগের রাইড শেয়ারিং বিপ্লব'],
+    headline: ['Why should only drivers earn? Now passengers earn too, with Arohon.', 'শুধু ড্রাইভাররাই কেন ইনকাম করবেন? যাত্রীদের ইনকাম নিয়ে আসছে আরোহন!'],
     sub: [
       'Ride sharing is no longer just travel costs and traffic fatigue. From now on, every trip and every referral earns you something back with Arohon.',
       'রাইড শেয়ারিং মানেই শুধু যাতায়াত খরচ আর ট্রাফিকের ক্লান্তি নয়। এবার থেকে যাতায়াতের পাশাপাশি আপনার প্রতিটি ট্রিপ এবং রেফারেল থেকে নিশ্চিত আয় হবে আরোহনের সাথে।',
     ],
     start: '2026-10-10',
     cta: ['Join today', 'আজই যুক্ত হোন'],
-    img: '/img/promo-rider-income.webp',
+    img: '/img/promo-passenger-income.webp',
     howTitle: ['Start earning in 3 simple steps', 'খুব সহজ ৩টি ধাপে আপনার উপার্জন শুরু করুন'],
     steps: [
       { title: ['Sign up', 'রেজিস্ট্রেশন করুন'], copy: ['Open your account in the Arohon app, or log in to the one you already have.', 'আরোহন অ্যাপে আপনার অ্যাকাউন্ট ওপেন করুন অথবা বর্তমান অ্যাকাউন্টে লগইন করুন।'] },
@@ -44,7 +44,7 @@ export const CAMPAIGNS: Campaign[] = [
       { k: ['Terms', 'শর্ত'], v: ['Arohon may change or end the campaign. Promo code and rewards terms apply.', 'আরোহন ক্যাম্পেইন পরিবর্তন বা বন্ধ করতে পারে। প্রোমো কোড ও রিওয়ার্ডের শর্ত প্রযোজ্য।'] },
     ],
     faq: [
-      { q: ['How do riders earn?', 'যাত্রীরা কীভাবে ইনকাম করবেন?'], a: ['During the campaign period, you earn points or cashback from your rides, referrals and activity on the platform, which you can redeem later.', 'নির্দিষ্ট ক্যাম্পেইন পিরিয়ডে রাইড নেওয়ার পাশাপাশি রেফারেল এবং প্ল্যাটফর্ম অ্যাক্টিভিটির মাধ্যমে পয়েন্ট বা ক্যাশব্যাক অর্জিত হবে, যা পরবর্তীতে রিডিম করা যাবে।'] },
+      { q: ['How do passengers earn?', 'যাত্রীরা কীভাবে ইনকাম করবেন?'], a: ['During the campaign period, you earn points or cashback from your rides, referrals and activity on the platform, which you can redeem later.', 'নির্দিষ্ট ক্যাম্পেইন পিরিয়ডে রাইড নেওয়ার পাশাপাশি রেফারেল এবং প্ল্যাটফর্ম অ্যাক্টিভিটির মাধ্যমে পয়েন্ট বা ক্যাশব্যাক অর্জিত হবে, যা পরবর্তীতে রিডিম করা যাবে।'] },
       { q: ['Is this offer open to everyone?', 'এই অফার কি সবার জন্য উন্মুক্ত?'], a: ['Yes. Anyone can join while the campaign is running, just by using the Arohon app.', 'হ্যাঁ, ক্যাম্পেইন চলাকালীন সময়ে যে কেউ আরোহন অ্যাপ ব্যবহার করে এই অফারে যুক্ত হতে পারবেন।'] },
     ],
   },

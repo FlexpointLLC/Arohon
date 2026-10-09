@@ -44,7 +44,7 @@ export default function TrackPage() {
         {/* the trip, drawn live: a car travels between the route markers while the app opens */}
         <motion.div {...up(0.2)} className="mt-8 rounded-[24px] bg-white p-6 shadow-[0_24px_60px_-20px_rgba(0,0,0,.3)] ring-1 ring-black/5 dark:bg-[#1C1C1E] dark:ring-white/10">
           <div className="flex items-center gap-2 text-[13px]">
-            <span className={`h-2 w-2 rounded-full ${tried ? 'bg-[#FF9500]' : 'animate-pulse bg-[#079A70]'}`} />
+            <span className={`h-2 w-2 rounded-full ${tried ? 'bg-[#FF9500]' : 'bg-[#079A70]'}`} />
             <span className="font-medium">{tried ? 'Open it in the Arohon app' : 'Opening in the Arohon app…'}</span>
           </div>
           <div className="mt-5 flex gap-3">

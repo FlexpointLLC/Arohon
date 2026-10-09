@@ -27,13 +27,8 @@ function useCopy() {
 
 function Status({ c }: { c: Campaign }) {
   const { t } = useT();
-  const live = isLive(c);
-  return (
-    <span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold ${live ? 'bg-[#079A70]/10 text-[#079A70] dark:text-[#0ABF8B]' : 'bg-black/[.05] text-black/50 dark:bg-white/[.08] dark:text-white/50'}`}>
-      {live && <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#079A70]" />}
-      {live ? t('Live now', 'চলছে এখন') : t('Ended', 'শেষ হয়েছে')}
-    </span>
-  );
+  // plain Linear-style label, no dot and no coloured badge
+  return <span className="text-[13px] text-black/50 dark:text-[#8A8F98]">{isLive(c) ? t('Live now', 'চলছে এখন') : t('Ended', 'শেষ হয়েছে')}</span>;
 }
 
 /* ═════════════ /promotion: one card per campaign ═════════════ */
@@ -57,9 +52,8 @@ export function PromotionList() {
               <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-black/10 bg-[#EDEDED] dark:border-white/10">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={c.img} alt="" className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]" />
-                <span className="absolute left-3 top-3"><Status c={c} /></span>
               </div>
-              <p className={`mt-5 text-[13px] ${muted}`}>{period(c)}</p>
+              <p className={`mt-5 text-[13px] ${muted}`}><Status c={c} />, {period(c)}</p>
               <h2 className="mt-1.5 text-[20px] font-medium leading-snug tracking-tight transition-colors group-hover:text-black/70 dark:group-hover:text-white/80">{l(c.name)}</h2>
               <p className={`mt-2 line-clamp-2 text-[14px] leading-relaxed ${muted}`}>{l(c.sub)}</p>
               <span className="mt-4 inline-flex items-center gap-1.5 text-[14px] font-medium">
@@ -132,10 +126,10 @@ export function PromotionDetail({ slug }: { slug: string }) {
         </motion.div>
         <div className="mt-10 grid items-center gap-12 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
           <div>
-            <motion.div {...up(0.05)} className="flex flex-wrap items-center gap-2">
-              <span className="rounded-full bg-black/[.05] px-3 py-1.5 text-[12px] font-medium dark:bg-white/[.08]">{l(c.badge)}</span>
-              <Status c={c} />
-            </motion.div>
+            {/* Linear-style eyebrow: quiet text, no pill */}
+            <motion.p {...up(0.05)} className={`text-[13px] ${muted}`}>
+              {l(c.badge)}, <Status c={c} />
+            </motion.p>
             <motion.h1 {...up(0.1)} className="mt-5 text-[36px] font-medium leading-[1.1] tracking-[-0.025em] sm:text-[52px]">{l(c.headline)}</motion.h1>
             <motion.p {...up(0.2)} className={`mt-6 max-w-xl text-[17px] leading-relaxed ${muted}`}>{l(c.sub)}</motion.p>
             <motion.p {...up(0.25)} className="mt-5 text-[14px]">

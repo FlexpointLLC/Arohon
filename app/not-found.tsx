@@ -60,7 +60,7 @@ export default function NotFound() {
 
           <motion.div {...up(0.3)} className="mt-10">
             <div className="flex items-center gap-2 text-[13px]">
-              <span className={`h-2 w-2 rounded-full ${rerouted ? 'bg-[#079A70]' : 'animate-pulse bg-[#FF9500]'}`} />
+              <span className={`h-2 w-2 rounded-full ${rerouted ? 'bg-[#079A70]' : 'bg-[#FF9500]'}`} />
               <span className="relative h-5 w-40 overflow-hidden">
                 <AnimatePresence mode="wait" initial={false}>
                   <motion.span key={String(rerouted)} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} className="absolute inset-0 font-medium">

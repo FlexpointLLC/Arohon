@@ -8,7 +8,10 @@ import { StoreBadges } from '../StoreButtons';
 import { ease, up } from '../motion';
 import { CityMap, useTripProgress } from './CityMap';
 import { RIDES, RideStack } from './RideStack';
+import { CometBorder } from './CometBorder';
 import { useT } from '@/lib/i18n';
+import { CAMPAIGNS, isLive } from '@/lib/campaigns';
+import Link from 'next/link';
 
 
 export function Hero() {
@@ -27,6 +30,7 @@ export function Hero() {
     restart();
   };
   const ride = RIDES[active];
+  const promo = CAMPAIGNS.find((c) => isLive(c));
 
   return (
     <section className="relative overflow-hidden bg-[#FDFDFD] pt-28 dark:bg-black sm:pt-32">
@@ -35,7 +39,21 @@ export function Hero() {
           <MapPin size={18} weight="fill" />
           {t('Dhaka, BD', 'ঢাকা, বাংলাদেশ')}
         </motion.p>
-        <motion.h1 {...up(0.2)} className="mt-6 u-h1 text-black dark:text-white">
+        {/* the announcement pill belongs to the headline, so it sits right on top of it */}
+        {/* Linear-style announcement pill for the live campaign, gone when nothing is running */}
+        {promo && (
+          <motion.div {...up(0.15)} className="mt-6">
+            <Link href={href(`/promotion/${promo.slug}`)} className="group relative inline-flex rounded-full">
+              <CometBorder />
+              <span className="inline-flex items-center gap-2 rounded-full py-[5px] pl-[5px] pr-[13px] text-[13px] text-black/70 transition-colors group-hover:text-black dark:text-[#D0D6E0] dark:group-hover:text-white">
+                <span className="rounded-full bg-black px-2 py-0.5 text-[11px] font-semibold text-white dark:bg-white dark:text-black">{t('New', 'নতুন')}</span>
+                {t(promo.name[0], promo.name[1])}
+                <ArrowRight size={12} className="text-black/40 transition-transform group-hover:translate-x-0.5 dark:text-white/40" />
+              </span>
+            </Link>
+          </motion.div>
+        )}
+        <motion.h1 {...up(0.2)} className={`${promo ? 'mt-3' : 'mt-6'} u-h1 text-black dark:text-white`}>
           {t('Go anywhere,', 'যেখানে খুশি যান,')}
           <br />
           {t('ride the way you want', 'যেভাবে খুশি চলুন')}

@@ -293,3 +293,8 @@ html[lang='bn'] body :is(h1, h2, h3, p, span, a, li, button) { font-family: var(
 /* Bangla script has tall vowel signs above and below, so it needs more line height than Latin */
 html[lang='bn'] :is(h1, h2, h3, .u-h1) { line-height: 1.3 !important; letter-spacing: 0 !important; }
 html[lang='bn'] p { line-height: 1.75; }
+
+/* hero "New" badge comet: the outline is 100 units long and every layer moves 100 units every 4s, so speed and size never change */
+@keyframes cometLap { to { stroke-dashoffset: -100; } }
+.comet { animation: cometLap 4s linear infinite; }
+@media (prefers-reduced-motion: reduce) { .comet { animation: none; opacity: 0; } }

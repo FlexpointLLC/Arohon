@@ -20,6 +20,8 @@ const nextConfig = {
   async redirects() {
     return [
       { source: '/drive', destination: '/driver', permanent: true },
+      { source: '/promotion/rider-income', destination: '/promotion/passenger-income', permanent: true },
+      { source: '/bn/promotion/rider-income', destination: '/bn/promotion/passenger-income', permanent: true },
       { source: '/services/go-anywhere', destination: '/ride', permanent: true },
       { source: '/services/ride-more', destination: '/services/airport', permanent: true },
       { source: '/services/daily', destination: '/services/ambulance', permanent: true },

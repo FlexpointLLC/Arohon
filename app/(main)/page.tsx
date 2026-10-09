@@ -6,6 +6,7 @@ import { BikeSection, EvSection } from '@/components/home/FeatureSections';
 import { Journeys } from '@/components/home/Journeys';
 import { Stats, SafetyStory, Coverage, Rewards, Drive, Faq, FinalCTA } from '@/components/home/Sections';
 import { BlogSection } from '@/components/BlogSection';
+import { PromoCard } from '@/components/home/PromoCard';
 
 export const revalidate = 60; // Revalidate so new blog posts appear on homepage
 
@@ -43,6 +44,7 @@ export default async function Home() {
       <SafetyStory />
       <Coverage />
       <Rewards />
+      <PromoCard />
       <Drive />
       <BlogSection posts={latestPosts} />
       <Faq />

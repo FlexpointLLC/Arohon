@@ -209,7 +209,7 @@ export function AirportBoard() {
             <span className="hidden text-white/60 sm:block"><Flap text={r.flight} /></span>
             <span className="tabular-nums">{n(r.time)}</span>
             <span className={`text-right text-[12px] uppercase tracking-wider sm:text-[13px] ${r.status === 'Driver waiting' ? 'text-[#0ABF8B]' : r.status === 'Driver confirmed' ? 'text-white' : 'text-white/40'}`}>
-              {r.status === 'Driver waiting' && <span className="mr-2 inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-[#0ABF8B] align-middle" />}
+              {r.status === 'Driver waiting' && <span className="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-[#0ABF8B] align-middle" />}
               {t(r.status, r.status === 'Driver waiting' ? 'ড্রাইভার অপেক্ষায়' : r.status === 'Driver confirmed' ? 'ড্রাইভার কনফার্মড' : 'শিডিউলড')}
             </span>
           </div>

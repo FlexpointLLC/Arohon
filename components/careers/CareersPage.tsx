@@ -40,7 +40,7 @@ function ShipLog() {
       <div className="flex items-center justify-between">
         <p className="text-[13px] font-medium">{L.t('Shipped', 'শিপ হয়েছে')}</p>
         <span className="flex items-center gap-1.5 text-[12px] text-black/45 dark:text-white/45">
-          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#079A70]" /> {L.t('Arohon team', 'আরোহন টিম')}
+          <span className="h-1.5 w-1.5 rounded-full bg-[#079A70]" /> {L.t('Arohon team', 'আরোহন টিম')}
         </span>
       </div>
       <ul className="relative mt-4 h-[248px] overflow-hidden">
