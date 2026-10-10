@@ -162,11 +162,11 @@ function CommissionBars() {
 
 const TEAM = [
   { n: 'Ashik Prottoy', nBn: 'আশিক প্রত্যয়', r: 'Co-founder and CEO', rBn: 'কো-ফাউন্ডার ও সিইও', v: 'cng', ride: 'CNG', rideBn: 'সিএনজি' },
+  { n: 'Momen Sarkar', nBn: 'মোমেন সরকার', r: 'Co-founder and Business Analyst', rBn: 'কো-ফাউন্ডার ও বিজনেস অ্যানালিস্ট', v: 'micro', ride: 'Micro', rideBn: 'মাইক্রো' },
   { n: 'Sabbir Hossain', nBn: 'সাব্বির হোসেন', r: 'Co-founder and Head of Engineering', rBn: 'কো-ফাউন্ডার ও হেড অব ইঞ্জিনিয়ারিং', v: 'bike', ride: 'Bike', rideBn: 'বাইক' },
   { n: 'Ashiquzzaman', nBn: 'আশিকুজ্জামান', r: 'Head of Operations', rBn: 'হেড অব অপারেশনস', v: 'car_plus', ride: 'Car Plus', rideBn: 'কার প্লাস' },
   { n: 'Md Nazim', nBn: 'মোঃ নাজিম', r: 'Head of Driver Experience', rBn: 'হেড অব ড্রাইভার এক্সপেরিয়েন্স', v: 'pickup', ride: 'Pickup, full of T-shirts', rideBn: 'পিকআপ, টি-শার্টে ঠাসা' },
   { n: 'Symoon Haque Siam', nBn: 'সাইমুন হক সিয়াম', r: 'Marketing Lead', rBn: 'মার্কেটিং লিড', v: 'ev_bike', ride: 'EV bike', rideBn: 'ইভি বাইক' },
-  { n: 'Momen Sarkar', nBn: 'মোমেন সরকার', r: 'Business Analyst', rBn: 'বিজনেস অ্যানালিস্ট', v: 'micro', ride: 'Micro', rideBn: 'মাইক্রো' },
 ];
 /** Hover (or tap) a person and their usual ride drives into the tile. */
 function Team() {
