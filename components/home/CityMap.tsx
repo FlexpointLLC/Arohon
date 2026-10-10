@@ -247,7 +247,18 @@ function Vehicles({ stageRef, planeRef, progress, spin, tilt, riderV }: {
           // headlight beam + tail glow lie flat on the road, turned to the direction of travel (dark mode only)
           const lights = lightEls.current[i];
           if (lights) {
-            const [nx, ny] = LIGHT_NUDGE[vOf(mv)] ? toPlane(LIGHT_NUDGE[vOf(mv)]) : [0, 0];
+            let [nx, ny] = LIGHT_NUDGE[vOf(mv)] ? toPlane(LIGHT_NUDGE[vOf(mv)]) : [0, 0];
+            // active CNG only: its sideways nudge is tuned for left/right travel, so fade it out as the CNG turns
+            // to face up or down the screen, otherwise the beam slides off to one side on those stretches
+            // facing up or down the screen it needs 12px to the right instead
+            if (mv.rider && vOf(mv) === 'cng') {
+              const r = (deg * Math.PI) / 180;
+              const side = Math.abs(Math.sin(r));
+              const vert = Math.abs(Math.cos(r));
+              // the start of the trip, through the first turn, sits 4px further left
+              const first = at <= CENTRED[0][1] + LANE_EASE ? -4 : 0;
+              [nx, ny] = toPlane([LIGHT_NUDGE.cng[0] * side + 12 * vert + first, LIGHT_NUDGE.cng[1] * side]);
+            }
             lights.style.transform = `translate(${x + nx}px, ${y + ny}px) rotate(${(Math.atan2(b.y - c.y, b.x - c.x) * 180) / Math.PI}deg)`;
             const beam = lights.firstElementChild as HTMLElement | null;
             // the active ride (green route) keeps the car's tuned start; traffic starts at its own front bumper
