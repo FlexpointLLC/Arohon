@@ -57,3 +57,15 @@ export const campaignBySlug = (slug: string) => CAMPAIGNS.find((c) => c.slug ===
 /** live until the end date passes; no end date means ongoing */
 // dates are Bangladesh days, so compare in Dhaka time (UTC+6) whatever the visitor's clock says
 export const isLive = (c: Campaign, now = new Date()) => new Date(`${c.start}T00:00:00+06:00`) <= now && (!c.end || new Date(`${c.end}T23:59:59+06:00`) >= now);
+
+/* Public promo codes from the admin panel (personal referral codes like RW578E053 are left out).
+   A code shows while today (Dhaka time) is on or before its last day, then moves to "Past offers". */
+export type PromoCode = { code: string; pct: number; scope: L; vehicles: L; until: string };
+export const PROMO_CODES: PromoCode[] = [
+  { code: 'SEP50', pct: 50, scope: ['City rides', 'শহরের রাইড'], vehicles: ['Bike, CNG, Car and EV bike', 'বাইক, সিএনজি, কার ও ইভি বাইক'], until: '2026-11-30' },
+  { code: 'FIRST50', pct: 20, scope: ['City rides', 'শহরের রাইড'], vehicles: ['Bike, Car and CNG', 'বাইক, কার ও সিএনজি'], until: '2026-10-30' },
+  { code: 'AUG30', pct: 30, scope: ['City rides', 'শহরের রাইড'], vehicles: ['Every vehicle type', 'সব ধরনের গাড়ি'], until: '2026-09-30' },
+];
+export const codeLive = (p: PromoCode, now = new Date()) => new Date(`${p.until}T23:59:59+06:00`) >= now;
+/** whole days left until the code's last day, counted in Dhaka time */
+export const daysLeft = (p: PromoCode, now = new Date()) => Math.max(0, Math.ceil((new Date(`${p.until}T23:59:59+06:00`).getTime() - now.getTime()) / 86400000));
