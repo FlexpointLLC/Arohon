@@ -174,10 +174,8 @@ function CommuteLog() {
                   const isDone = work && n < done;
                   const isNext = work && n === done;
                   return (
-                    <motion.span
+                    <span
                       key={t}
-                      animate={{ scale: isNext ? [1, 1.35, 1] : 1 }}
-                      transition={{ duration: 1.2, repeat: isNext ? Infinity : 0 }}
                       className={`h-2 w-2 rounded-full transition-colors duration-300 ${!work ? 'bg-black/[.06] dark:bg-white/[.06]' : isNext ? 'bg-[#0ABF8B]' : isDone ? 'bg-black dark:bg-white' : 'bg-black/15 dark:bg-white/15'}`}
                     />
                   );
@@ -232,55 +230,469 @@ function MerchantConsole() {
   );
 }
 
-const AUDIENCE = [
-  { v: 'car', title: 'Offices', copy: 'A monthly ride for staff who need to be at their desk on time, with the same driver every day.', titleBn: 'অফিস', copyBn: 'সময়মতো ডেস্কে পৌঁছাতে হয় এমন স্টাফদের জন্য মাসিক রাইড, প্রতিদিন একই ড্রাইভার।' },
-  { v: 'hiace', title: 'Event days', copy: 'Off-sites, trainings and dinners: a micro, Hiace or bus moves the whole team together.', titleBn: 'ইভেন্টের দিন', copyBn: 'অফসাইট, ট্রেনিং বা ডিনার, মাইক্রো, হায়েস বা বাসে পুরো টিম যায় একসাথে।' },
-  { v: 'bike', title: 'Online shops', copy: 'Book pickups and send orders across town or to any district from your shop console.', titleBn: 'অনলাইন শপ', copyBn: 'শপ কনসোল থেকেই পিকআপ বুক করুন, অর্ডার পাঠান শহরজুড়ে বা যেকোনো জেলায়।' },
-  { v: 'car_plus', title: 'Guests and clients', copy: 'A Car Plus with a top-rated driver to meet visitors at the airport or the office.', titleBn: 'অতিথি ও ক্লায়েন্ট', copyBn: 'এয়ারপোর্ট বা অফিসে অতিথিদের রিসিভ করতে টপ রেটেড ড্রাইভারসহ কার প্লাস।' },
+
+
+/* Industry solutions: what each kind of business gets, no partner names */
+const INDUSTRIES: { id: string; k: [string, string]; pain: [string, string]; lead: [string, string]; items: [string, string][] }[] = [
+  {
+    id: 'ecommerce',
+    k: ['E-commerce', 'ই-কমার্স'],
+    pain: ['Hiring riders, sale day rushes and slow deliveries to other districts hold online stores back.', 'রাইডার রাখা, সেলের দিনের চাপ আর অন্য জেলায় ধীর ডেলিভারি, এগুলোই অনলাইন স্টোরকে পিছিয়ে দেয়।'],
+    lead: ['A delivery fleet you do not have to build.', 'নিজের ফ্লিট না বানিয়েই পুরো ডেলিভারি।'],
+    items: [
+      ['Managed last-mile delivery fleet', 'ম্যানেজড লাস্ট মাইল ডেলিভারি ফ্লিট'],
+      ['Extra riders for sale days and surges', 'সেল আর ভিড়ের দিনে বাড়তি রাইডার'],
+      ['Same-day delivery across Dhaka', 'ঢাকাজুড়ে সেম ডে ডেলিভারি'],
+      ['City to city shipments to all 64 districts', '৬৪ জেলায় শহর থেকে শহরে শিপমেন্ট'],
+      ['Returns collected from your customers', 'কাস্টমারের কাছ থেকে রিটার্ন কালেকশন'],
+      ['Overflow capacity when your own fleet is full', 'নিজের ফ্লিট ভরে গেলে বাড়তি ক্যাপাসিটি'],
+    ],
+  },
+  {
+    id: 'retail',
+    k: ['Retail and supershops', 'রিটেইল ও সুপারশপ'],
+    pain: ['Home delivery orders and branch restocking compete for the same few vans.', 'হোম ডেলিভারি আর ব্রাঞ্চে মাল পাঠানো, দুটোই একই কয়েকটা গাড়ির ওপর।'],
+    lead: ['From your store to every home and branch.', 'আপনার স্টোর থেকে প্রতিটি ঘরে আর ব্রাঞ্চে।'],
+    items: [
+      ['Store to home grocery delivery', 'স্টোর থেকে ঘরে গ্রোসারি ডেলিভারি'],
+      ['Branch to branch stock replenishment', 'ব্রাঞ্চ থেকে ব্রাঞ্চে স্টক রিপ্লেনিশমেন্ট'],
+      ['Route based distribution to retailers', 'রুট ধরে রিটেইলারদের কাছে ডিস্ট্রিবিউশন'],
+      ['Dedicated riders for busy hours', 'ব্যস্ত সময়ের জন্য ডেডিকেটেড রাইডার'],
+    ],
+  },
+  {
+    id: 'pharmacy',
+    k: ['Pharmacies', 'ফার্মেসি'],
+    pain: ['Medicine cannot wait, and every handoff needs to be right.', 'ওষুধ অপেক্ষা করতে পারে না, আর প্রতিটি হ্যান্ডঅফ ঠিক হতে হয়।'],
+    lead: ['Medicine delivered with care, on time.', 'যত্ন নিয়ে, সময়মতো ওষুধ পৌঁছে দেওয়া।'],
+    items: [
+      ['Medicine delivery with careful handling', 'যত্নের সাথে ওষুধ ডেলিভারি'],
+      ['Scheduled deliveries for regular customers', 'নিয়মিত কাস্টমারের জন্য শিডিউলড ডেলিভারি'],
+      ['A recorded handoff for every order', 'প্রতিটি অর্ডারের হ্যান্ডঅফ রেকর্ড'],
+      ['Clear escalation when no one is home', 'বাসায় কেউ না থাকলে স্পষ্ট এসকেলেশন'],
+    ],
+  },
+  {
+    id: 'electronics',
+    k: ['Electronics', 'ইলেকট্রনিক্স'],
+    pain: ['Dealers, branches and customers all need stock moved, fast and without damage.', 'ডিলার, ব্রাঞ্চ আর কাস্টমার, সবারই দ্রুত আর নিরাপদে মাল দরকার।'],
+    lead: ['Gadgets and appliances, moved safely.', 'গ্যাজেট আর অ্যাপ্লায়েন্স, নিরাপদে।'],
+    items: [
+      ['Deliveries to dealers and retailers', 'ডিলার আর রিটেইলারদের কাছে ডেলিভারি'],
+      ['Small appliance transfers', 'ছোট অ্যাপ্লায়েন্স ট্রান্সফার'],
+      ['Inter branch transfers', 'এক ব্রাঞ্চ থেকে আরেক ব্রাঞ্চে ট্রান্সফার'],
+      ['Express same-day orders', 'এক্সপ্রেস সেম ডে অর্ডার'],
+      ['Returns and replacement pickups', 'রিটার্ন আর রিপ্লেসমেন্ট পিকআপ'],
+    ],
+  },
+  {
+    id: 'offices',
+    k: ['Corporate offices', 'কর্পোরেট অফিস'],
+    pain: ['Staff commutes, airport runs and branch documents eat up your admin team’s day.', 'কর্মীদের যাতায়াত, এয়ারপোর্ট আর ব্রাঞ্চের কাগজপত্রে অ্যাডমিন টিমের পুরো দিন চলে যায়।'],
+    lead: ['Your people and papers, moved every day.', 'আপনার মানুষ আর কাগজপত্র, প্রতিদিন।'],
+    items: [
+      ['Employee commute and shift pickup and drop off', 'কর্মীদের অফিস যাতায়াত আর শিফট পিকআপ ড্রপ'],
+      ['Staff airport transfers', 'স্টাফদের এয়ারপোর্ট ট্রান্সফার'],
+      ['Document transfers between branches, following your security rules', 'আপনার নিরাপত্তা নিয়ম মেনে ব্রাঞ্চের মধ্যে ডকুমেন্ট ট্রান্সফার'],
+      ['Monthly service contracts with one invoice', 'এক ইনভয়েসে মাসিক সার্ভিস কন্ট্রাক্ট'],
+    ],
+  },
+  {
+    id: 'hotels',
+    k: ['Hotels and travel', 'হোটেল ও ট্রাভেল'],
+    pain: ['A guest waiting at arrivals is the first review of your hotel.', 'অ্যারাইভালে অপেক্ষা করা অতিথিই আপনার হোটেলের প্রথম রিভিউ।'],
+    lead: ['Every guest picked up on time.', 'প্রতিটি অতিথিকে সময়মতো পিকআপ।'],
+    items: [
+      ['Guest airport pickups and drops', 'অতিথিদের এয়ারপোর্ট পিকআপ ও ড্রপ'],
+      ['Resort and hotel transfers', 'রিসোর্ট আর হোটেল ট্রান্সফার'],
+      ['Group and event transport', 'গ্রুপ আর ইভেন্ট ট্রান্সপোর্ট'],
+      ['Pre-booked ground transport with agreed service levels', 'নির্দিষ্ট সার্ভিস লেভেলে আগে থেকে বুক করা যাতায়াত'],
+    ],
+  },
 ];
-function WhoFor() {
-  const { t } = useT();
+/* ═════════════ industry graphics: one live product card each, same card language as the commute log ═════════════ */
+const chip = 'rounded-full px-2 py-0.5 text-[11px] font-medium transition-colors duration-300';
+const chipDone = 'bg-black text-white dark:bg-white dark:text-black';
+const chipNow = 'border border-black/25 text-black dark:border-white/30 dark:text-white';
+const chipWait = 'bg-black/[.05] text-black/45 dark:bg-white/[.07] dark:text-white/45';
+
+// Retail: one van restocks three branches from the main store, stop by stop
+const STOPS: { en: string; bn: string; crates: number; at: [string, string] }[] = [
+  { en: 'Banani branch', bn: 'বনানী ব্রাঞ্চ', crates: 24, at: ['10:05 AM', 'সকাল ১০:০৫'] },
+  { en: 'Gulshan 2 branch', bn: 'গুলশান ২ ব্রাঞ্চ', crates: 18, at: ['10:40 AM', 'সকাল ১০:৪০'] },
+  { en: 'Uttara branch', bn: 'উত্তরা ব্রাঞ্চ', crates: 30, at: ['11:30 AM', 'সকাল ১১:৩০'] },
+];
+function RestockRun() {
+  const { t, n } = useT();
+  const { ref, i } = useLoop(STOPS.length * 2 + 3, 1100);
+  const reached = Math.min(Math.floor(i / 2), STOPS.length); // stops delivered
+  const moving = i % 2 === 0 && reached < STOPS.length; // van between stops
   return (
-    <section className={wrap}>
-      <Head label={t('Who it’s for', 'কাদের জন্য')} title={t('Built for teams', 'ছোট বড়')} rest={t('of every size.', 'সব টিমের জন্য।')} />
-      <div className="mt-14 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        {AUDIENCE.map((a, i) => (
-          <motion.div key={a.title} {...fade(i * 0.06)} className={`${panel} group p-6`}>
-            <RentalArt v={a.v} />
-            <p className="mt-4 text-[16px] font-medium">{t(a.title, a.titleBn)}</p>
-            <p className={`mt-1.5 text-[14px] leading-relaxed ${muted}`}>{t(a.copy, a.copyBn)}</p>
-          </motion.div>
+    <div ref={ref} className={`${card} p-6`}>
+      <div className="flex items-center justify-between">
+        <p className="text-[12px] text-black/45 dark:text-white/45">{t('Restock run, sample', 'রিস্টক রান, নমুনা')}</p>
+        <span className="rounded-full border border-black/10 px-2.5 py-0.5 text-[11px] text-black/60 dark:border-white/15 dark:text-white/60">{t('Route 3', 'রুট ৩')}</span>
+      </div>
+      <div className="mt-5 flex items-center gap-3">
+        <span className="flex h-4 w-4 items-center justify-center rounded-[3px] bg-black dark:bg-white"><span className="h-[5px] w-[5px] rounded-[1px] bg-white dark:bg-black" /></span>
+        <p className="text-[15px] font-medium">{t('Main store, Tejgaon', 'মেইন স্টোর, তেজগাঁও')}</p>
+        <span className="ml-auto text-[12px] tabular-nums text-black/45 dark:text-white/45">{t('72 crates', `${n(72)} ক্রেট`)}</span>
+      </div>
+      <ol className="relative mt-2 pl-[7px]">
+        <span aria-hidden className="absolute bottom-4 left-[7px] top-1 w-px bg-black/10 dark:bg-white/10" />
+        {STOPS.map((st, k) => {
+          const done = k < reached;
+          const now = k === reached && reached < STOPS.length;
+          return (
+            <li key={st.en} className="relative flex items-center gap-3 py-3 pl-5">
+              <span className={`absolute left-[-4px] top-1/2 h-[9px] w-[9px] -translate-y-1/2 rounded-full border-2 transition-colors duration-300 ${done ? 'border-black bg-black dark:border-white dark:bg-white' : now ? 'border-black bg-[#FDFDFD] dark:border-white dark:bg-[#1C1C1E]' : 'border-black/20 bg-[#FDFDFD] dark:border-white/20 dark:bg-[#1C1C1E]'}`} />
+              <span className="flex-1">
+                <span className={`block text-[14px] ${done || now ? 'font-medium' : 'text-black/50 dark:text-white/45'}`}>{t(st.en, st.bn)}</span>
+                <span className="text-[12px] text-black/45 dark:text-white/45">{t(`${st.crates} crates`, `${n(st.crates)} ক্রেট`)}{done ? `, ${t(st.at[0], st.at[1])}` : ''}</span>
+              </span>
+              <span className={`${chip} ${done ? chipDone : now ? chipNow : chipWait}`}>
+                {done ? t('Delivered', 'ডেলিভারড') : now ? (moving ? t('On the way', 'পথে') : t('Unloading', 'আনলোড হচ্ছে')) : t('Next', 'পরের')}
+              </span>
+            </li>
+          );
+        })}
+      </ol>
+      <div className="mt-3 flex items-center gap-3 border-t border-black/[.07] pt-4 dark:border-white/[.07]">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/icons/pickup.webp" alt="" className="h-8 w-12 shrink-0 object-contain" />
+        <p className="flex-1 text-[13px]"><span className="font-semibold">{t('Pickup, 1 ton', 'পিকআপ, ১ টন')}</span><span className="text-black/50 dark:text-white/50">{t(' · Habib', ' · হাবিব')}</span></p>
+        <span className="text-[12px] tabular-nums text-black/50 dark:text-white/50">{t(`${reached}/3 stops`, `${n(reached)}/${n(3)} স্টপ`)}</span>
+      </div>
+      <div className="mt-3 h-[3px] overflow-hidden rounded-full bg-black/[.07] dark:bg-white/10">
+        <motion.div className="h-full rounded-full bg-black dark:bg-white" animate={{ width: `${((reached + (moving ? 0.5 : 0)) / STOPS.length) * 100}%` }} transition={{ duration: 0.5 }} />
+      </div>
+    </div>
+  );
+}
+
+// Pharmacy: one prescription order, every handoff recorded, ending with the customer's signature
+const RX_STEPS: [string, string, string, string][] = [
+  ['Packed at the pharmacy', 'ফার্মেসিতে প্যাক হয়েছে', '3:34 PM', 'বিকেল ৩:৩৪'],
+  ['Picked up by rider', 'রাইডার নিয়েছেন', '3:41 PM', 'বিকেল ৩:৪১'],
+  ['Handed to the customer', 'কাস্টমারের হাতে', '4:12 PM', 'বিকেল ৪:১২'],
+];
+function MedicineHandoff() {
+  const { t, n } = useT();
+  const { ref, i } = useLoop(RX_STEPS.length + 3, 1300);
+  const at = Math.min(i, RX_STEPS.length);
+  const signed = at >= RX_STEPS.length;
+  return (
+    <div ref={ref} className={`${card} p-6`}>
+      <div className="flex items-center justify-between">
+        <p className="text-[12px] text-black/45 dark:text-white/45">{t('Medicine order, sample', 'ওষুধের অর্ডার, নমুনা')}</p>
+        <span className="font-mono text-[11px] text-black/45 dark:text-white/45">RX 2047</span>
+      </div>
+      <ul className="mt-4 space-y-1.5 text-[14px]">
+        {[
+          [t('Paracetamol 500 mg', 'প্যারাসিটামল ৫০০ মি.গ্রা.'), t('2 strips', `${n(2)} পাতা`)],
+          [t('Omeprazole 20 mg', 'ওমিপ্রাজল ২০ মি.গ্রা.'), t('1 strip', `${n(1)} পাতা`)],
+          [t('Prescription attached', 'প্রেসক্রিপশন সংযুক্ত'), '✓'],
+        ].map(([a, b]) => (
+          <li key={String(a)} className="flex justify-between"><span>{a}</span><span className="text-black/50 dark:text-white/50">{b}</span></li>
+        ))}
+      </ul>
+      <ol className="mt-5 space-y-3 border-t border-black/[.07] pt-5 dark:border-white/[.07]">
+        {RX_STEPS.map(([en, bn, te, tb], k) => {
+          const done = k < at;
+          return (
+            <li key={en} className="flex items-center gap-3 text-[14px]">
+              <span className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full transition-colors duration-300 ${done ? 'bg-black text-white dark:bg-white dark:text-black' : 'border border-black/15 dark:border-white/20'}`}>
+                {done && <Check size={11} weight="bold" />}
+              </span>
+              <span className={`flex-1 transition-colors duration-300 ${done ? '' : 'text-black/40 dark:text-white/35'}`}>{t(en, bn)}</span>
+              <span className={`text-[12px] tabular-nums transition-opacity duration-300 ${done ? 'text-black/50 opacity-100 dark:text-white/50' : 'opacity-0'}`}>{t(te, tb)}</span>
+            </li>
+          );
+        })}
+      </ol>
+      {/* the handoff record: the customer's signature writes itself once the order is handed over */}
+      <div className="mt-5 rounded-xl bg-black/[.03] p-4 dark:bg-white/[.04]">
+        <div className="flex items-center justify-between text-[12px] text-black/50 dark:text-white/50">
+          <span>{t('Handoff record', 'হ্যান্ডঅফ রেকর্ড')}</span>
+          <span>{signed ? t('Received by Nadia', 'গ্রহণ করেছেন নাদিয়া') : t('Waiting', 'অপেক্ষায়')}</span>
+        </div>
+        <svg viewBox="0 0 220 44" className="mt-2 h-11 w-full" aria-hidden>
+          <motion.path
+            d="M6 30 C 18 6, 30 6, 30 26 S 46 40, 54 22 S 70 4, 78 24 S 92 38, 104 20 C 112 8, 122 10, 124 26 S 140 34, 152 18 S 172 12, 178 28 L 214 24"
+            fill="none"
+            strokeWidth="2"
+            strokeLinecap="round"
+            className="stroke-black dark:stroke-white"
+            initial={false}
+            animate={{ pathLength: signed ? 1 : 0, opacity: signed ? 1 : 0 }}
+            transition={{ duration: signed ? 1.1 : 0.2, ease: 'easeInOut' }}
+          />
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+// Electronics: a dispatch manifest where each item moves from packed to delivered, fragile items flagged
+const MANIFEST: { en: string; bn: string; to: [string, string]; tag?: [string, string] }[] = [
+  { en: '43 inch Smart TV', bn: '৪৩ ইঞ্চি স্মার্ট টিভি', to: ['Mirpur dealer', 'মিরপুর ডিলার'], tag: ['Fragile', 'ভঙ্গুর'] },
+  { en: 'Refrigerator, 252 L', bn: 'রেফ্রিজারেটর, ২৫২ লি.', to: ['Uttara showroom', 'উত্তরা শোরুম'], tag: ['Fragile', 'ভঙ্গুর'] },
+  { en: 'Phones, 20 units', bn: 'ফোন, ২০টি', to: ['Bashundhara branch', 'বসুন্ধরা ব্রাঞ্চ'], tag: ['Express', 'এক্সপ্রেস'] },
+  { en: 'Replacement unit', bn: 'রিপ্লেসমেন্ট ইউনিট', to: ['Customer, Mohammadpur', 'কাস্টমার, মোহাম্মদপুর'] },
+];
+const D_STATES: [string, string][] = [['Packed', 'প্যাকড'], ['On the way', 'পথে'], ['Delivered', 'ডেলিভারড']];
+function DealerDispatch() {
+  const { t, n } = useT();
+  const { ref, i } = useLoop(MANIFEST.length + D_STATES.length + 2, 900);
+  // each row starts one beat after the one above it
+  const stateOf = (k: number) => Math.max(-1, Math.min(D_STATES.length - 1, i - k - 1));
+  const delivered = MANIFEST.filter((_, k) => stateOf(k) === D_STATES.length - 1).length;
+  return (
+    <div ref={ref} className={`${card} p-6`}>
+      <div className="flex items-center justify-between">
+        <p className="text-[12px] text-black/45 dark:text-white/45">{t('Dispatch list, sample', 'ডিসপ্যাচ লিস্ট, নমুনা')}</p>
+        <span className="text-[12px] tabular-nums text-black/50 dark:text-white/50">{t(`${delivered} of 4 delivered`, `${n(4)}টির ${n(delivered)}টি ডেলিভারড`)}</span>
+      </div>
+      <ul className="mt-4 divide-y divide-black/[.06] dark:divide-white/[.06]">
+        {MANIFEST.map((m, k) => {
+          const st = stateOf(k);
+          return (
+            <li key={m.en} className="flex items-center gap-3 py-3">
+              <span className="min-w-0 flex-1">
+                <span className="flex items-center gap-2 text-[14px] font-medium">
+                  <span className="truncate">{t(m.en, m.bn)}</span>
+                  {m.tag && <span className="shrink-0 rounded border border-black/15 px-1.5 text-[10px] font-semibold uppercase tracking-wide text-black/55 dark:border-white/20 dark:text-white/55">{t(m.tag[0], m.tag[1])}</span>}
+                </span>
+                <span className="block truncate text-[12px] text-black/45 dark:text-white/45">{t(m.to[0], m.to[1])}</span>
+              </span>
+              <span className={`${chip} shrink-0 ${st === 2 ? chipDone : st >= 0 ? chipNow : chipWait}`}>
+                {st >= 0 ? t(D_STATES[st][0], D_STATES[st][1]) : t('Queued', 'লাইনে')}
+              </span>
+            </li>
+          );
+        })}
+      </ul>
+      <div className="mt-2 h-[3px] overflow-hidden rounded-full bg-black/[.07] dark:bg-white/10">
+        <motion.div className="h-full rounded-full bg-black dark:bg-white" animate={{ width: `${(delivered / MANIFEST.length) * 100}%` }} transition={{ duration: 0.4 }} />
+      </div>
+    </div>
+  );
+}
+
+// Hotels: an arrivals board, each guest's driver waiting at the gate before they walk out
+const GUESTS: { name: [string, string]; flight: string; from: [string, string]; driver: [string, string] }[] = [
+  { name: ['Mr. Tanaka', 'মি. তানাকা'], flight: 'EK 582', from: ['Dubai', 'দুবাই'], driver: ['Kamal', 'কামাল'] },
+  { name: ['Ms. Rahman', 'মিসেস রহমান'], flight: 'SQ 446', from: ['Singapore', 'সিঙ্গাপুর'], driver: ['Faruk', 'ফারুক'] },
+  { name: ['Mr. Okafor', 'মি. ওকাফর'], flight: 'QR 638', from: ['Doha', 'দোহা'], driver: ['Sohel', 'সোহেল'] },
+];
+const G_STATES: [string, string][] = [['Landed', 'ল্যান্ড করেছে'], ['Driver at gate', 'চালক গেটে'], ['Picked up', 'পিকআপ হয়েছে'], ['To hotel', 'হোটেলের পথে']];
+function ArrivalsBoard() {
+  const { t } = useT();
+  const { ref, i } = useLoop(GUESTS.length + G_STATES.length + 2, 1000);
+  const stateOf = (k: number) => Math.max(-1, Math.min(G_STATES.length - 1, i - k - 1));
+  return (
+    <div ref={ref} className={`${card} p-6`}>
+      <div className="flex items-center justify-between">
+        <p className="text-[12px] text-black/45 dark:text-white/45">{t('Guest arrivals, sample', 'অতিথিদের আগমন, নমুনা')}</p>
+        <span className="font-mono text-[12px] font-semibold tracking-wider">DAC</span>
+      </div>
+      <ul className="mt-4 space-y-2">
+        {GUESTS.map((g, k) => {
+          const st = stateOf(k);
+          return (
+            <li key={g.flight} className="rounded-xl bg-black/[.03] p-3.5 dark:bg-white/[.04]">
+              <div className="flex items-center gap-3">
+                <img src={avatar(g.driver[0])} alt="" className="h-8 w-8 shrink-0 rounded-full bg-[#EDEDED] object-cover" />
+                <span className="min-w-0 flex-1">
+                  <span className="block truncate text-[14px] font-semibold">{t(g.name[0], g.name[1])}</span>
+                  <span className="block truncate text-[12px] text-black/50 dark:text-white/50">
+                    <span className="font-mono">{g.flight}</span>{t(` from ${g.from[0]}, driver ${g.driver[0]}`, `, ${g.from[1]} থেকে, চালক ${g.driver[1]}`)}
+                  </span>
+                </span>
+                <span className={`${chip} shrink-0 ${st >= 2 ? chipDone : st >= 0 ? chipNow : chipWait}`}>
+                  {st >= 0 ? t(G_STATES[st][0], G_STATES[st][1]) : t('In the air', 'আকাশে')}
+                </span>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+      <p className="mt-4 text-center text-[12px] text-black/45 dark:text-white/40">{t('Every driver is at the gate before the guest walks out.', 'অতিথি বের হওয়ার আগেই প্রত্যেক চালক গেটে।')}</p>
+    </div>
+  );
+}
+
+/** One industry: the problem, then what Arohon runs for you, numbered. With `art`, the copy and list share one
+ *  column and the live graphic takes the other, flipping sides down the page. Extra demos go in as children. */
+function IndustryBlock({ ind, art, flip, children }: { ind: (typeof INDUSTRIES)[number]; art?: React.ReactNode; flip?: boolean; children?: React.ReactNode }) {
+  const { t, n } = useT();
+  const list = (
+    <motion.ul {...fade(0.1)} className={`${panel} divide-y divide-black/[.06] self-start px-7 dark:divide-white/[.06]`}>
+      {ind.items.map(([en, b], k) => (
+        <li key={en} className="flex items-start gap-4 py-4 text-[15px]">
+          <span className={`mt-0.5 font-mono text-[12px] ${muted}`}>{n(String(k + 1).padStart(2, '0'))}</span>
+          {t(en, b)}
+        </li>
+      ))}
+    </motion.ul>
+  );
+  const head = (
+    <motion.div {...fade()}>
+      <p className={`text-[13px] ${muted}`}>{t(ind.k[0], ind.k[1])}</p>
+      <h2 className={`mt-3 ${h2}`}>{t(ind.lead[0], ind.lead[1])}</h2>
+      <p className={`mt-6 max-w-md text-[16px] leading-relaxed ${muted}`}>{t(ind.pain[0], ind.pain[1])}</p>
+    </motion.div>
+  );
+  return (
+    <section id={ind.id} className={`${wrap} scroll-mt-4`}>
+      {art ? (
+        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
+          <div className={flip ? 'lg:order-last' : ''}>
+            {head}
+            <div className="mt-10">{list}</div>
+          </div>
+          <motion.div {...fade(0.15)}>{art}</motion.div>
+        </div>
+      ) : (
+        <div className="grid gap-12 lg:grid-cols-[1fr_1.15fr] lg:gap-20">
+          {head}
+          {list}
+        </div>
+      )}
+      {children}
+    </section>
+  );
+}
+
+/** Sticky industry bar under the nav: jump to any industry, and the one you are reading stays highlighted. */
+function IndustryIndex() {
+  const { t } = useT();
+  const [active, setActive] = useState(INDUSTRIES[0].id);
+  useEffect(() => {
+    // the last section whose top has passed 40% of the screen is the one being read
+    const onScroll = () => {
+      const line = window.innerHeight * 0.4;
+      let cur = INDUSTRIES[0].id;
+      for (const x of INDUSTRIES) {
+        const el = document.getElementById(x.id);
+        if (el && el.getBoundingClientRect().top <= line) cur = x.id;
+      }
+      setActive(cur);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+  return (
+    <div className="sticky top-16 z-30 border-y border-black/10 bg-[#FDFDFD]/90 backdrop-blur-xl dark:border-white/10 dark:bg-black/85">
+      <div className="mx-auto flex max-w-[1280px] items-center gap-4 px-6 py-3 md:px-16">
+        <p className={`hidden shrink-0 text-[13px] lg:block ${muted}`}>{t('Solutions by industry', 'ইন্ডাস্ট্রি অনুযায়ী সলিউশন')}</p>
+        <nav aria-label={t('Industries', 'ইন্ডাস্ট্রি')} className="-mx-6 flex gap-1.5 overflow-x-auto px-6 [scrollbar-width:none] lg:mx-0 lg:ml-auto lg:px-0 [&::-webkit-scrollbar]:hidden">
+          {INDUSTRIES.map((x) => (
+            <a
+              key={x.id}
+              href={`#${x.id}`}
+              aria-current={active === x.id ? 'true' : undefined}
+              className={`shrink-0 whitespace-nowrap rounded-full px-3.5 py-1.5 text-[13px] transition-colors ${active === x.id ? 'bg-black text-white dark:bg-white dark:text-black' : 'text-black/60 hover:bg-black/[.05] hover:text-black dark:text-white/55 dark:hover:bg-white/[.07] dark:hover:text-white'}`}
+            >
+              {t(x.k[0], x.k[1])}
+            </a>
+          ))}
+        </nav>
+      </div>
+    </div>
+  );
+}
+
+/* Business parcels: every delivery speed, picked or auto-cycling, with what it is good for at work */
+const B_USE = [
+  { en: 'Signed contracts, cheques for the bank, a forgotten laptop charger', bn: 'সই করা চুক্তি, ব্যাংকের চেক, ভুলে যাওয়া ল্যাপটপ চার্জার' },
+  { en: 'Customer orders and samples across Dhaka the same afternoon', bn: 'একই বিকেলে ঢাকাজুড়ে কাস্টমারের অর্ডার আর স্যাম্পল' },
+  { en: 'Bigger city runs to branches and warehouses, done by tonight', bn: 'ব্রাঞ্চ আর গুদামে বড় শহুরে ডেলিভারি, আজ রাতের মধ্যেই' },
+  { en: 'Stock and orders to customers in any of the 64 districts', bn: '৬৪ জেলার যেকোনো কাস্টমারের কাছে স্টক আর অর্ডার' },
+];
+function BusinessParcels() {
+  const { t } = useT();
+  const { ref, i } = useLoop(SPEEDS.length, 2600);
+  const [pick, setPick] = useState<number | null>(null);
+  const on = pick ?? i;
+  return (
+    <div ref={ref} className="mt-14 grid gap-3 lg:grid-cols-[1.1fr_1fr]">
+      <div className="grid gap-2 sm:grid-cols-2">
+        {SPEEDS.map((sp, k) => (
+          <button key={sp.name} type="button" onClick={() => setPick(k)} className={`${panel} p-5 text-left transition-colors ${k === on ? '!border-black/40 dark:!border-white/40' : 'hover:border-black/20 dark:hover:border-white/20'}`}>
+            <p className={`text-[13px] ${muted}`}>{t(sp.name, sp.bn.name)}</p>
+            <p className="mt-2 text-[24px] font-medium tracking-tight">{t(sp.promise, sp.bn.promise)}</p>
+          </button>
         ))}
       </div>
-    </section>
+      <div className={`${panel} flex flex-col justify-between p-7`}>
+        <div>
+          <p className={`text-[13px] ${muted}`}>{t('Good for', 'যেসব কাজে')}</p>
+          <AnimatePresence mode="wait">
+            <motion.p key={on} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} transition={{ duration: 0.25 }} className="mt-3 text-[20px] font-medium leading-snug tracking-tight">
+              {t(B_USE[on].en, B_USE[on].bn)}
+            </motion.p>
+          </AnimatePresence>
+        </div>
+        <ul className={`mt-8 space-y-2 text-[14px] ${muted}`}>
+          {[
+            [t('A rider collects from your office or shop', 'রাইডার আপনার অফিস বা দোকান থেকে নিয়ে যাবে'), Check],
+            [t('Live tracking you can share with your customer', 'লাইভ ট্র্যাকিং, কাস্টমারের সাথেও শেয়ার করা যায়'), Check],
+            [t('Up to 8 kg per parcel, bigger loads by pickup', 'প্রতি পার্সেল ৮ কেজি পর্যন্ত, বড় মালামাল পিকআপে'), Check],
+          ].map(([txt]) => (
+            <li key={String(txt)} className="flex items-start gap-2"><Check size={15} weight="bold" className="mt-0.5 shrink-0 text-black/60 dark:text-white/60" />{txt as string}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
   );
 }
 
 export function BusinessPage() {
   const { t, n, href } = useT();
+  const [ecom, retail, pharmacy, electronics, offices, hotels] = INDUSTRIES;
+  const talk = (
+    <Link href={href('/contact')} className="inline-flex items-center gap-2 rounded-xl bg-black px-6 py-3.5 text-[15px] font-semibold text-white max-sm:w-full max-sm:justify-center dark:bg-white dark:text-black">{t('Talk to our team', 'আমাদের টিমের সাথে কথা বলুন')} <ArrowRight size={15} /></Link>
+  );
   return (
     <>
+      {/* hero leads with the e-commerce problem, our first priority */}
       <Hero
         label={t('Arohon for Business', 'আরোহন বিজনেস')}
-        title={t('Move your team.', 'আপনার টিমকে পৌঁছে দিন।')}
-        rest={t('Every working day.', 'প্রতিটি কর্মদিবসে।')}
-        copy={t('Monthly office rides with the same driver, transport for the whole team on event days, and same-day deliveries for your shop.', 'একই ড্রাইভারের সাথে মাসিক অফিস রাইড, ইভেন্টের দিনে পুরো টিমের যাতায়াত, আর আপনার দোকানের জন্য সেম ডে ডেলিভারি।')}
-        cta={<Link href={href('/contact')} className="inline-flex items-center gap-2 rounded-xl bg-black px-6 py-3.5 text-[15px] font-semibold text-white max-sm:w-full max-sm:justify-center dark:bg-white dark:text-black">{t('Talk to our team', 'আমাদের টিমের সাথে কথা বলুন')} <ArrowRight size={15} /></Link>}
+        title={t('Orders piling up?', 'অর্ডার জমে যাচ্ছে?')}
+        rest={t('We deliver every one.', 'প্রতিটি পৌঁছে দেব আমরা।')}
+        copy={t('Arohon runs your delivery fleet: same-day across Dhaka, all 64 districts in 1 to 3 days, extra riders for sale days and returns collected. No riders to hire, no vans to buy.', 'আপনার ডেলিভারি ফ্লিট চালাবে আরোহন, ঢাকায় সেম ডে, ৬৪ জেলায় ১ থেকে ৩ দিনে, সেলের দিনে বাড়তি রাইডার, আর রিটার্নও আমরা নিয়ে আসব। রাইডার রাখার ঝামেলা নেই, গাড়ি কেনারও না।')}
+        cta={talk}
       >
-        <CommuteLog />
+        <ParcelTracker />
       </Hero>
-      <section className={wrap}>
-        <Head label={t('Office commute', 'অফিস যাতায়াত')} title={t('One driver.', 'একজন ড্রাইভার।')} rest={t('One monthly price.', 'মাসে একটাই দাম।')} copy={t('Book a daily office ride by the month or the week. The same trusted driver picks you up in the morning and takes you home in the evening, with every trip logged.', 'মাসিক বা সাপ্তাহিক ভিত্তিতে প্রতিদিনের অফিস রাইড বুক করুন। একই বিশ্বস্ত ড্রাইভার সকালে নিয়ে যাবেন, সন্ধ্যায় বাসায় পৌঁছে দেবেন, আর প্রতিটি ট্রিপের হিসাব থাকবে।')} />
-        <Grid
-          items={[
-            { icon: User, title: t('Same driver, every day', 'প্রতিদিন একই ড্রাইভার'), copy: t('No new faces at the gate each morning. You ride with one driver you know.', 'রোজ সকালে গেটে নতুন মুখ নয়। চলবেন চেনা একজন ড্রাইভারের সাথে।') },
-            { icon: Clock, title: t('Fixed monthly fare', 'নির্দিষ্ট মাসিক ভাড়া'), copy: t('One price for the month, with no daily surprises. Weekly plans are there too.', 'পুরো মাসের জন্য একটাই দাম, রোজকার কোনো চমক নেই। সাপ্তাহিক প্ল্যানও আছে।') },
-            { icon: Check, title: t('Every trip logged', 'প্রতিটি ট্রিপের হিসাব'), copy: t('Each workday’s pickup and drop is recorded, Saturday to Friday.', 'শনি থেকে শুক্র, প্রতিটি কর্মদিবসের পিকআপ আর ড্রপ রেকর্ড থাকে।') },
-          ]}
-        />
-      </section>
-      <section className={wrap}>
-        <Head label={t('Team transport', 'টিম ট্রান্সপোর্ট')} title={t('The whole office,', 'পুরো অফিস,')} rest={t('in one booking.', 'এক বুকিংয়ে।')} copy={t('Off-sites, training days and events: book a micro, a Hiace or a bus for the group, with a driver, by the hour, the day or across districts.', 'অফসাইট, ট্রেনিং বা ইভেন্ট, পুরো দলের জন্য ড্রাইভারসহ মাইক্রো, হায়েস বা বাস বুক করুন, ঘণ্টা বা দিন হিসেবে, এমনকি এক জেলা থেকে আরেক জেলায়।')} />
+      <IndustryIndex />
+
+      <IndustryBlock ind={ecom}>
+        <BusinessParcels />
+        <div className="mt-20">
+          <Head label={t('Delivery console', 'ডেলিভারি কনসোল')} title={t('Every parcel,', 'প্রতিটি পার্সেল,')} rest={t('in one place.', 'এক জায়গায়।')} inline copy={t('Book pickups, follow every parcel from pickup to doorstep and see what has been delivered or returned.', 'পিকআপ বুক করুন, পিকআপ থেকে দরজা পর্যন্ত প্রতিটি পার্সেল দেখুন, আর জানুন কোনটা ডেলিভারি হলো বা ফেরত এলো।')} />
+          <div className="mt-14">
+            <MerchantConsole />
+          </div>
+        </div>
+      </IndustryBlock>
+
+      <IndustryBlock ind={retail} art={<RestockRun />} />
+      <IndustryBlock ind={pharmacy} art={<MedicineHandoff />} flip />
+      <IndustryBlock ind={electronics} art={<DealerDispatch />} />
+
+      <IndustryBlock ind={offices}>
+        <div className="mt-20 grid items-center gap-12 lg:grid-cols-[1fr_1fr] lg:gap-20">
+          <div>
+            <Head label={t('Office commute', 'অফিস যাতায়াত')} title={t('One driver.', 'একজন ড্রাইভার।')} rest={t('One monthly price.', 'মাসে একটাই দাম।')} />
+            <motion.p {...fade(0.1)} className={`mt-6 max-w-md text-[16px] leading-relaxed ${muted}`}>{t('The same trusted driver picks your staff up in the morning and takes them home in the evening, by the month or the week, with every trip logged.', 'মাসিক বা সাপ্তাহিক ভিত্তিতে একই বিশ্বস্ত ড্রাইভার সকালে কর্মীদের নিয়ে যাবেন, সন্ধ্যায় পৌঁছে দেবেন, প্রতিটি ট্রিপের হিসাবসহ।')}</motion.p>
+          </div>
+          <motion.div {...fade(0.1)}>
+            <CommuteLog />
+          </motion.div>
+        </div>
         <motion.div {...fade(0.1)} className="mt-14 grid grid-cols-3 gap-3">
           {[['micro', t('Micro', 'মাইক্রো'), t('7 seats', `${n(7)} সিট`)], ['hiace', t('Hiace', 'হায়েস'), t('12 seats', `${n(12)} সিট`)], ['car_plus', t('Car Plus', 'কার প্লাস'), t('For guests', 'অতিথিদের জন্য')]].map(([v, nm, m]) => (
             <div key={v} className={`${panel} group p-5`}>
@@ -291,14 +703,7 @@ export function BusinessPage() {
             </div>
           ))}
         </motion.div>
-      </section>
-      <section className={wrap}>
-        <Head label={t('Business deliveries', 'বিজনেস ডেলিভারি')} title={t('Sell online?', 'অনলাইনে বিক্রি করেন?')} rest={t('We deliver it.', 'ডেলিভারি আমাদের।')} inline copy={t('Shops get their own delivery console: book pickups, follow every parcel from pickup to doorstep and see what has been delivered or returned.', 'দোকানের জন্য আলাদা ডেলিভারি কনসোল, পিকআপ বুক করুন, পিকআপ থেকে দরজা পর্যন্ত প্রতিটি পার্সেল দেখুন, আর জানুন কোনটা ডেলিভারি হলো বা ফেরত এলো।')} />
-        <div className="mt-14">
-          <MerchantConsole />
-        </div>
-      </section>
-      <WhoFor />
+      </IndustryBlock>
       <FareExplorer
         label={t('Team trips', 'টিম ট্রিপ')}
         title={t('Planning an off-site?', 'অফসাইটের প্ল্যান?')}
@@ -307,8 +712,15 @@ export function BusinessPage() {
         vehicles={['micro', 'hiace']}
         seats={{ micro: 7, hiace: 12 }}
       />
+
+      <IndustryBlock ind={hotels} art={<ArrivalsBoard />} flip>
+        <motion.div {...fade(0.1)} className="mt-10">
+          <Link href={href('/services/airport')} className="inline-flex items-center gap-1.5 text-[14px] font-medium">{t('See airport rides', 'এয়ারপোর্ট রাইড দেখুন')} <ArrowRight size={13} /></Link>
+        </motion.div>
+      </IndustryBlock>
+
       <Close title={t('Let’s move', 'চলুন এগিয়ে নিই')} rest={t('your business.', 'আপনার ব্যবসা।')}>
-        <Link href={href('/contact')} className="inline-flex items-center gap-2 rounded-xl bg-black px-6 py-3.5 text-[15px] font-semibold text-white dark:bg-white dark:text-black">{t('Talk to our team', 'আমাদের টিমের সাথে কথা বলুন')} <ArrowRight size={15} /></Link>
+        {talk}
       </Close>
     </>
   );
