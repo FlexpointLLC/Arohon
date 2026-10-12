@@ -31,6 +31,39 @@ function Status({ c }: { c: Campaign }) {
   return <span className="text-[13px] text-black/50 dark:text-[#8A8F98]">{isLive(c) ? t('Live now', 'চলছে এখন') : t('Ended', 'শেষ হয়েছে')}</span>;
 }
 
+
+/** Campaign image with its poster copy set in HTML over the empty left side (crisp, bilingual, scales with the tile). */
+export function CampaignArt({ c, imgClass = '' }: { c: Campaign; imgClass?: string }) {
+  const { t } = useT();
+  return (
+    <div className="relative h-full w-full [container-type:inline-size]">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={c.img} alt="" className={`h-full w-full object-cover ${imgClass} ${c.imgDark ? 'dark:hidden' : ''}`} />
+      {c.imgDark && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={c.imgDark} alt="" className={`hidden h-full w-full object-cover ${imgClass} dark:block`} />
+      )}
+      {c.art && (
+        <>
+          {/* poster lockup, same style as the festive bus campaign: yellow highlight shapes, bold brand green type, a dashed rule */}
+          <div className="pointer-events-none absolute left-[5%] top-1/2 flex -translate-y-1/2 flex-col items-start font-[family-name:var(--font-bangla)]">
+            <span className="-rotate-2 rounded-[1.6cqw] bg-[#FFD43B] px-[2cqw] py-[0.6cqw] text-[3.4cqw] font-bold leading-[1.25] text-[#05704F] shadow-[0_0.6cqw_0_rgba(0,0,0,0.06)]">{t(c.art.kicker[0], c.art.kicker[1])}</span>
+            <span className="mt-[1.2cqw] flex w-[46cqw] items-center gap-[1cqw]" aria-hidden>
+              <span className="h-0 flex-1 border-t-[0.35cqw] border-dashed border-[#079A70]" />
+            </span>
+            <span className="mt-[0.8cqw] text-[7cqw] font-bold leading-[1.15] text-[#05704F] [text-shadow:0_0.3cqw_0_rgba(255,255,255,0.7)]">
+              {t(c.art.big[0], c.art.big[1]).split(', ').map((part, i, all) => (
+                <span key={i} className="block">{part}{i < all.length - 1 ? ',' : ''}</span>
+              ))}
+            </span>
+            <span className="mt-[1.4cqw] rounded-[1.4cqw] bg-[#FFD43B] px-[2cqw] py-[0.7cqw] text-[2.6cqw] font-bold leading-[1.3] text-[#05704F]">{t(c.art.foot[0], c.art.foot[1])}</span>
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
 /* ═════════════ /promotion: a bento of live campaigns and promo codes ═════════════ */
 function CodeCopy({ code }: { code: string }) {
   const { t } = useT();
@@ -101,12 +134,7 @@ export function PromotionList() {
           <motion.div key={c.slug} {...fade(0.05)} className={i === 0 ? 'lg:col-span-2 lg:row-span-2' : 'lg:col-span-2'}>
             <Link href={href(`/promotion/${c.slug}`)} className={`${panel} group flex h-full flex-col overflow-hidden transition-colors hover:border-black/20 dark:hover:border-white/20`}>
               <div className="relative aspect-[16/9] overflow-hidden bg-[#EDEDED] dark:bg-black">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={c.img} alt="" className={`h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03] ${c.imgDark ? 'dark:hidden' : ''}`} />
-                {c.imgDark && (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={c.imgDark} alt="" className="hidden h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03] dark:block" />
-                )}
+                <CampaignArt c={c} imgClass="transition-transform duration-700 ease-out group-hover:scale-[1.03]" />
               </div>
               <div className="flex flex-1 flex-col p-7">
                 <p className={`text-[13px] ${muted}`}><Status c={c} />, {period(c)}</p>
@@ -242,12 +270,7 @@ export function PromotionDetail({ slug }: { slug: string }) {
             </motion.div>
           </div>
           <motion.div {...up(0.35)} className="overflow-hidden rounded-[24px] border border-black/10 bg-[#EDEDED] dark:border-white/10 dark:bg-black">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={c.img} alt="" className={`w-full ${c.imgDark ? "dark:hidden" : ""}`} />
-                {c.imgDark && (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={c.imgDark} alt="" className="hidden w-full dark:block" />
-                )}
+            <div className="aspect-[16/9]"><CampaignArt c={c} /></div>
           </motion.div>
         </div>
       </section>

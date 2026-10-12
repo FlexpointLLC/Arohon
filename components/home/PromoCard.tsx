@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight } from '@phosphor-icons/react';
 import { CAMPAIGNS, isLive } from '@/lib/campaigns';
 import { useT } from '@/lib/i18n';
+import { CampaignArt } from '../promotion/Promotion';
 import { fade } from '../motion';
 
 /** Linear-style feature row for the live campaign: image left, story right. Renders nothing when no campaign is live. */
@@ -30,15 +31,20 @@ export function PromoCard() {
       <motion.div {...fade(0.1)}>
         <Link href={href(`/promotion/${c.slug}`)} className="group mt-14 grid overflow-hidden rounded-2xl border border-black/10 bg-gradient-to-b from-black/[.02] to-transparent transition-colors hover:border-black/20 md:grid-cols-[1.2fr_1fr] dark:border-white/10 dark:from-white/[.03] dark:hover:border-white/20">
           <div className="overflow-hidden bg-[#EDEDED] dark:bg-black">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={c.img} alt="" loading="lazy" className={`h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03] ${c.imgDark ? "dark:hidden" : ""}`} />
-                {c.imgDark && (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={c.imgDark} alt="" loading="lazy" className="hidden h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03] dark:block" />
-                )}
+            <div className="aspect-[16/9] h-full"><CampaignArt c={c} imgClass="transition-transform duration-700 ease-out group-hover:scale-[1.03]" /></div>
           </div>
-          <div className="flex flex-col justify-center p-8 sm:p-10">
-            <p className="text-[13px] text-black/50 dark:text-[#8A8F98]">{t('Live now', 'চলছে এখন')}</p>
+          <div className="flex flex-col justify-between p-8 sm:p-10">
+            {/* badge and headline pinned to the top, the link to the bottom */}
+            <div>
+            <span className="inline-flex w-fit items-center gap-2 rounded-full border border-black/10 py-1 pl-1 pr-3 text-[13px] text-black/70 dark:border-white/[.12] dark:text-[#D0D6E0]">
+              <span className="rounded-full bg-black px-2 py-0.5 text-[11px] font-semibold text-white dark:bg-white dark:text-black">{t('Live now', 'চলছে এখন')}</span>
+              {t(c.name[0], c.name[1])}
+            </span>
+            <p className="mt-5 text-[24px] font-medium leading-snug tracking-tight sm:text-[28px]">{t(c.headline[0], c.headline[1])}</p>
+            </div>
+            <span className="mt-8 inline-flex items-center gap-1.5 text-[14px] font-medium">
+              {t('See how it works', 'কীভাবে কাজ করে দেখুন')} <ArrowRight size={13} className="transition-transform group-hover:translate-x-1" />
+            </span>
           </div>
         </Link>
       </motion.div>

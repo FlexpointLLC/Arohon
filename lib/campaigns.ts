@@ -13,6 +13,8 @@ export type Campaign = {
   img: string;
   /** same visual for dark mode */
   imgDark?: string;
+  /** poster copy laid over the empty left side of the image */
+  art?: { kicker: L; big: L; foot: L };
   howTitle: L;
   steps: { title: L; copy: L }[];
   details: { k: L; v: L }[];
@@ -31,8 +33,9 @@ export const CAMPAIGNS: Campaign[] = [
     ],
     start: '2026-10-10',
     cta: ['Join today', 'আজই যুক্ত হোন'],
-    img: '/img/promo-passenger-income.webp',
-    imgDark: '/img/promo-passenger-income-dark.webp',
+    // a photo reads well on both themes, so no separate dark version
+    img: '/img/promo-passenger-photo.webp',
+    // poster copy is designed into the image itself
     howTitle: ['Start earning in 3 simple steps', 'খুব সহজ ৩টি ধাপে আপনার উপার্জন শুরু করুন'],
     steps: [
       { title: ['Sign up', 'রেজিস্ট্রেশন করুন'], copy: ['Open your account in the Arohon app, or log in to the one you already have.', 'আরোহন অ্যাপে আপনার অ্যাকাউন্ট ওপেন করুন অথবা বর্তমান অ্যাকাউন্টে লগইন করুন।'] },
