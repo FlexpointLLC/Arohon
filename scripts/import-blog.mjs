@@ -64,7 +64,7 @@ function parse(file) {
   return { meta, body };
 }
 
-const files = fs.readdirSync(dir).filter((f) => f.endsWith('.md')).sort();
+const files = fs.readdirSync(dir).filter((f) => f.endsWith('.md')).filter((f) => f >= (process.env.FROM || '')).sort();
 const docs = files.map((f, n) => {
   const { meta, body } = parse(path.join(dir, f));
   return {
