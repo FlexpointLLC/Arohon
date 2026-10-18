@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { LegalPageLayout } from '@/components/LegalPageLayout';
 
 export const metadata: Metadata = {
-  title: 'Return and Refund Policy - Arohon',
+  title: { absolute: 'Return and Refund Policy | Arohon' },
   description: 'Return and Refund Policy for Arohon ride-sharing services in Bangladesh.',
 };
 

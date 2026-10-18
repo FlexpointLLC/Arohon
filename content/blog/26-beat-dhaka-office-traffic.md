@@ -80,6 +80,13 @@ When the jam is unavoidable, make the time count:
 3. **Know who is coming.** See the driver's name, photo and number plate before you board.
 4. **Share your trip.** Family can follow your ride, useful on late office nights.
 
+## Keep reading
+
+- [Book a ride](https://arohon.co/ride)
+- [Arohon for Business](https://arohon.co/services/business)
+- [Bike Ride Fare per km in Dhaka: 2026 Price Guide](https://blogs.arohon.co/bike-fare-per-km-dhaka)
+- [Getting a Ride When Dhaka Floods, Rain Day Guide](https://blogs.arohon.co/ride-in-rain-dhaka-waterlogging)
+
 ## Frequently asked questions
 
 ### What is the worst time for traffic in Dhaka?

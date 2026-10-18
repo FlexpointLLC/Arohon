@@ -5,12 +5,12 @@ export const dynamic = 'force-dynamic';
 export const revalidate = 3600;
 
 export async function GET() {
-  const slugs = await client.fetch<Array<{ slug: string }>>(POST_SLUGS_QUERY);
+  const slugs = await client.fetch<Array<{ slug: string; _updatedAt?: string }>>(POST_SLUGS_QUERY);
   const urls = [
     { loc: `${BLOG_URL}/`, lastmod: new Date().toISOString().slice(0, 10), priority: '1.0', changefreq: 'weekly' as const },
-    ...slugs.map(({ slug }) => ({
+    ...slugs.map(({ slug, _updatedAt }) => ({
       loc: `${BLOG_URL}/${slug}`,
-      lastmod: new Date().toISOString().slice(0, 10),
+      lastmod: (_updatedAt ?? new Date().toISOString()).slice(0, 10),
       priority: '0.8',
       changefreq: 'monthly' as const,
     })),

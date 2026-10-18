@@ -11,7 +11,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const c = campaignBySlug((await params).slug);
   if (!c) return {};
   return {
-    title: `${c.name[0]} | Arohon promotion`,
+    title: { absolute: `${c.name[0]} | Arohon promotion` },
     description: c.sub[0],
     alternates: { canonical: `/promotion/${c.slug}`, languages: { en: `/promotion/${c.slug}`, bn: `/bn/promotion/${c.slug}` } },
     openGraph: { images: [c.img] },

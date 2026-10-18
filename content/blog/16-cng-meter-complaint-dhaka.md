@@ -81,6 +81,12 @@ Arohon is designed to remove the meter argument:
 
 Rides on Arohon are paid in cash to the driver, at the fare you saw when booking.
 
+## Keep reading
+
+- [Book a ride](https://arohon.co/ride)
+- [CNG Fare in Dhaka 2026: Meter Rate vs What You Really Pay](https://blogs.arohon.co/cng-fare-dhaka)
+- [Driver Keeps Cancelling? Why It Happens and How to Avoid It](https://blogs.arohon.co/driver-cancels-ride-what-to-do)
+
 ## Frequently asked questions
 
 ### What is the official CNG meter rate in Dhaka?

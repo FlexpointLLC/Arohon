@@ -61,6 +61,12 @@ If you get stuck, every step has a Help button, and our team can walk you throug
 - Uploading only the front side of a document.
 - Signing up with a phone number you do not use daily.
 
+## Keep reading
+
+- [Drive with Arohon](https://arohon.co/driver)
+- [Ride Sharing Driver Income in Bangladesh: What You Really Keep in 2026](https://blogs.arohon.co/ride-sharing-driver-income-bangladesh)
+- [Earn Extra Income With Your Motorbike in Dhaka](https://blogs.arohon.co/earn-extra-income-motorbike-dhaka)
+
 ## FAQ
 
 **How long does approval take?**
@@ -71,4 +77,3 @@ You need a valid licence for your vehicle class. Ask our team if you are unsure 
 
 **Do I need to own the vehicle?**
 No, but you need the vehicle's valid papers and permission from the owner.
-

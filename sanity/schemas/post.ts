@@ -35,6 +35,8 @@ export const postType = defineType({
       type: 'text',
       rows: 3,
     }),
+    defineField({ name: 'metaTitle', title: 'SEO title (under 60 characters)', type: 'string', validation: (Rule) => Rule.max(70) }),
+    defineField({ name: 'metaDescription', title: 'SEO description (under 160 characters)', type: 'text', rows: 2, validation: (Rule) => Rule.max(170) }),
     defineField({
       name: 'mainImage',
       title: 'Main image',

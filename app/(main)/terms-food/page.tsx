@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { LegalPageLayout } from '@/components/LegalPageLayout';
 
 export const metadata: Metadata = {
-  title: 'Food and Medicine Orders Policy - Arohon',
+  title: { absolute: 'Food and Medicine Orders Policy | Arohon' },
   description: 'Rules for ordering food and medicine through Arohon: orders, payment, cancellations and refunds.',
 };
 

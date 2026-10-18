@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { LegalPageLayout } from '@/components/LegalPageLayout';
 
 export const metadata: Metadata = {
-  title: 'Terms of Service: Customers - Arohon',
+  title: { absolute: 'Terms of Service: Customers | Arohon' },
   description: 'Terms of Service for Arohon Customers - ride-sharing platform in Bangladesh.',
 };
 

@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { LegalPageLayout } from '@/components/LegalPageLayout';
 
 export const metadata: Metadata = {
-  title: 'Rental Policy - Arohon',
+  title: { absolute: 'Rental Policy | Arohon' },
   description: 'Rules for hiring a car and driver with Arohon by the hour, day, week or month, including bids, cancellations and conduct.',
 };
 

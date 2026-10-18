@@ -22,10 +22,13 @@ export const POST_BY_SLUG_QUERY = `*[_type == "post" && slug.current == $slug][0
   title,
   "slug": slug.current,
   excerpt,
+  metaTitle,
+  metaDescription,
   publishedAt,
+  _updatedAt,
   body,
   "mainImage": mainImage.asset->url,
   readTime
 }`;
 
-export const POST_SLUGS_QUERY = `*[_type == "post" && defined(slug.current)]{ "slug": slug.current }`;
+export const POST_SLUGS_QUERY = `*[_type == "post" && defined(slug.current)]{ "slug": slug.current, _updatedAt }`;

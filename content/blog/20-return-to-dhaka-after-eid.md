@@ -66,6 +66,13 @@ Coming back to an empty flat after a week away often means an empty fridge too. 
 
 Arohon is built for exactly this kind of trip. For the journey back, request an intercity car, micro or Hiace and compare driver offers. For the last mile from Gabtoli, Sayedabad, Mohakhali or Kamalapur, book a bike, EV bike, CNG or car with the fare shown upfront and no bargaining. You see your driver's details before boarding and can share your trip with family. Rides are paid in cash.
 
+## Keep reading
+
+- [Rent a car with driver](https://arohon.co/services/rental)
+- [Food and medicine delivery](https://arohon.co/services/food)
+- [Eid Bus Tickets Sold Out? 5 Ways to Get Home](https://blogs.arohon.co/eid-bus-ticket-sold-out)
+- [Sharing a Micro or Hiace Home for Eid, How to Split the Cost](https://blogs.arohon.co/eid-micro-hiace-rent-share)
+
 ## Frequently asked questions
 
 ### What is the best time to return to Dhaka after Eid?

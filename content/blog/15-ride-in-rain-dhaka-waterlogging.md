@@ -82,6 +82,13 @@ Sometimes the best trip in the rain is the one you do not take. If you need a pa
 
 Rides on Arohon are paid in cash to the driver.
 
+## Keep reading
+
+- [Book a ride](https://arohon.co/ride)
+- [Food and medicine delivery](https://arohon.co/services/food)
+- [Driver Keeps Cancelling? Why It Happens and How to Avoid It](https://blogs.arohon.co/driver-cancels-ride-what-to-do)
+- [Beat Dhaka Office Traffic, Times, Routes and Modes](https://blogs.arohon.co/beat-dhaka-office-traffic)
+
 ## Frequently asked questions
 
 ### Why do fares go up so much when it rains in Dhaka?

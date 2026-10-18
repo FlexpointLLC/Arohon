@@ -11,10 +11,10 @@ import { PromoCard } from '@/components/home/PromoCard';
 export const revalidate = 60; // Revalidate so new blog posts appear on homepage
 
 export const metadata = {
-  title: 'Arohon | Book a Ride in Bangladesh, Dhaka, Sylhet, 64 Districts',
+  title: { absolute: 'Arohon | Book a Ride in Bangladesh, Dhaka, Sylhet, 64 Districts' },
   description:
     'Book a ride, plan your journey, or plan your trip in Bangladesh. Arohon ride sharing: Dhaka, Sylhet, 64 districts. Safe, affordable rides. One tap to ride.',
-  alternates: { canonical: '/', languages: { en: '/', bn: '/bn' } },
+  alternates: { canonical: '/', languages: { 'x-default': '/', en: '/', bn: '/bn' } },
 };
 
 export default async function Home() {

@@ -78,6 +78,12 @@ Arohon gives you a fair way to get home when buses are full. For intercity and r
 
 Need to send Eid gifts instead of carrying them? Arohon parcel delivery reaches all 64 districts in 1 to 3 days.
 
+## Keep reading
+
+- [Rent a car with driver](https://arohon.co/services/rental)
+- [Sharing a Micro or Hiace Home for Eid, How to Split the Cost](https://blogs.arohon.co/eid-micro-hiace-rent-share)
+- [Coming Back to Dhaka After Eid Without the Rush](https://blogs.arohon.co/return-to-dhaka-after-eid)
+
 ## Frequently asked questions
 
 ### When should I start looking for an Eid car or micro?

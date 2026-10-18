@@ -74,6 +74,13 @@ Arohon does not provide trucks or shifting services, so book your truck with a l
 3. **Safety.** See the driver's name, photo and number plate before boarding, and share the trip with family so they can follow along.
 4. **Food and medicine on the first night.** Order food or medicine to the new address and pay with cash, bKash, Nagad or card.
 
+## Keep reading
+
+- [Parcel delivery](https://arohon.co/services/parcel)
+- [Rent a car with driver](https://arohon.co/services/rental)
+- [Sending a Parcel to Any District, Time and Cost Guide](https://blogs.arohon.co/send-parcel-to-other-district)
+- [Same Day Parcel Delivery in Dhaka: Options, Weights and Tips](https://blogs.arohon.co/parcel-delivery-dhaka)
+
 ## Frequently asked questions
 
 ### When is the best day to move house in Dhaka?

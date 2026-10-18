@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { LegalPageLayout } from '@/components/LegalPageLayout';
 
 export const metadata: Metadata = {
-  title: 'Rewards and Missions Terms - Arohon',
+  title: { absolute: 'Rewards and Missions Terms | Arohon' },
   description: 'Terms for Arohon reward points, tiers, coupons and daily missions.',
 };
 

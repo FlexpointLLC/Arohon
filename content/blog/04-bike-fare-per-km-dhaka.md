@@ -69,6 +69,12 @@ Electric bikes are arriving on Bangladeshi roads fast. They cost less to run, an
 
 For one person, a bike is almost always cheaper and faster. For two or three people, or when you have bags, a CNG can work out better per person. See our guide to **CNG fares in Dhaka** for a side by side.
 
+## Keep reading
+
+- [Book a ride](https://arohon.co/ride)
+- [CNG Fare in Dhaka 2026: Meter Rate vs What You Really Pay](https://blogs.arohon.co/cng-fare-dhaka)
+- [Beat Dhaka Office Traffic, Times, Routes and Modes](https://blogs.arohon.co/beat-dhaka-office-traffic)
+
 ## FAQ
 
 **How much is a bike ride per km in Dhaka?**

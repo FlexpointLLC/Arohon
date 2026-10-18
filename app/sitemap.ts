@@ -1,62 +1,21 @@
 import { MetadataRoute } from 'next';
+import { BN_PATHS } from '@/lib/langPaths';
+import { CAMPAIGNS } from '@/lib/campaigns';
 
 const BASE_URL = 'https://arohon.co';
+const LEGAL = ['/privacy', '/terms', '/terms-customers', '/terms-promo-code', '/terms-return-refund', '/terms-parcel', '/terms-food', '/terms-rental', '/terms-rewards', '/terms-merchants', '/community-guidelines'];
+
+const url = (p: string) => BASE_URL + (p === '/' ? '' : p);
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const routes = [
-    '',
-    '/about',
-    '/contact',
-    '/driver',
-    '/ride',
-    '/safety',
-    '/bn',
-    '/bn/ride',
-    '/bn/driver',
-    '/bn/services',
-    '/bn/safety',
-    '/bn/about',
-    '/bn/contact',
-    '/bn/partners',
-    '/bn/join-our-team',
-    '/bn/whats-new',
-    '/bn/cities',
-    '/bn/services/business',
-    '/bn/services/parcel',
-    '/bn/services/rental',
-    '/bn/services/food',
-    '/bn/services/ambulance',
-    '/bn/services/airport',
-    '/bn/services/payment',
-    '/cities',
-    '/promotion',
-    '/promotion/passenger-income',
-    '/bn/promotion',
-    '/bn/promotion/passenger-income',
-    '/terms-parcel',
-    '/terms-food',
-    '/terms-rental',
-    '/terms-rewards',
-    '/terms-merchants',
-    '/community-guidelines',
-    '/join-our-team',
-    '/partners',
-    '/privacy',
-    '/terms',
-    '/terms-customers',
-    '/terms-promo-code',
-    '/terms-return-refund',
-    '/services',
-    '/services/ambulance',
-    '/services/airport',
-    '/services/payment',
-    '/whats-new',
-  ];
-
-  return routes.map((route) => ({
-    url: `${BASE_URL}${route || '/'}`,
-    lastModified: new Date(),
-    changeFrequency: route === '' ? 'weekly' : 'monthly' as const,
-    priority: route === '' ? 1 : 0.8,
-  }));
+  const paired = [...BN_PATHS, ...CAMPAIGNS.map((c) => `/promotion/${c.slug}`)];
+  const withBn = paired.flatMap((p) => {
+    const languages = { en: url(p), bn: url(p === '/' ? '/bn' : `/bn${p}`), 'x-default': url(p) };
+    const priority = p === '/' ? 1 : p.split('/').length > 2 ? 0.8 : 0.9;
+    return [
+      { url: languages.en, changeFrequency: 'weekly' as const, priority, alternates: { languages } },
+      { url: languages.bn, changeFrequency: 'weekly' as const, priority, alternates: { languages } },
+    ];
+  });
+  return [...withBn, ...LEGAL.map((p) => ({ url: url(p), changeFrequency: 'yearly' as const, priority: 0.3 }))];
 }

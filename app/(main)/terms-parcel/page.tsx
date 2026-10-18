@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { LegalPageLayout } from '@/components/LegalPageLayout';
 
 export const metadata: Metadata = {
-  title: 'Parcel Policy - Arohon',
+  title: { absolute: 'Parcel Policy | Arohon' },
   description: 'Rules for sending parcels with Arohon in Dhaka and across Bangladesh: what you can send, weight limits, delivery times and responsibilities.',
 };
 

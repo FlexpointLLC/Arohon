@@ -60,6 +60,12 @@ On Arohon you can even post your trip and let other travellers join to share the
 
 For multi day trips, hire a car and driver through **Arohon Rental**. Post your dates and route, drivers send offers, and you choose the one you like.
 
+## Keep reading
+
+- [Rent a car with driver](https://arohon.co/services/rental)
+- [Rent a Car in Dhaka with Driver: Hourly, Daily and Monthly Guide](https://blogs.arohon.co/rent-a-car-dhaka-with-driver)
+- [Sharing a Micro or Hiace Home for Eid, How to Split the Cost](https://blogs.arohon.co/eid-micro-hiace-rent-share)
+
 ## FAQ
 
 **How much is car rent from Dhaka to Chittagong?**

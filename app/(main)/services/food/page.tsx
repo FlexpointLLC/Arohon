@@ -4,7 +4,7 @@ import { FoodPage } from '@/components/services/ServicePages';
 export const metadata: Metadata = {
   title: 'Food delivery | Food and medicine to your door',
   description: 'Order from restaurants and pharmacies near you in the Arohon app and follow it to your door.',
-  alternates: { canonical: '/services/food', languages: { en: '/services/food', bn: '/bn/services/food' } },
+  alternates: { canonical: '/services/food', languages: { 'x-default': '/services/food', en: '/services/food', bn: '/bn/services/food' } },
 };
 
 export default function Page() {

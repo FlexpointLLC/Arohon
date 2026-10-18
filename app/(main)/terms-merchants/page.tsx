@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { LegalPageLayout } from '@/components/LegalPageLayout';
 
 export const metadata: Metadata = {
-  title: 'Merchant Terms - Arohon',
+  title: { absolute: 'Merchant Terms | Arohon' },
   description: 'Terms for restaurants, shops and pharmacies selling on Arohon through the Arohon Shop app.',
 };
 

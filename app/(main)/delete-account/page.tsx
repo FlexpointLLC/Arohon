@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { LegalPageLayout } from '@/components/LegalPageLayout';
 
 export const metadata: Metadata = {
-  title: 'Account Deletion - Arohon',
+  title: { absolute: 'Account Deletion | Arohon' },
   description: 'How to request deletion of your Arohon account and associated data.',
 };
 

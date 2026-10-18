@@ -95,6 +95,13 @@ Arohon gives you the tools for this checklist in one app:
 
 Rides are paid in cash to the driver, and the fare is fixed before you book, so you can keep the exact amount ready.
 
+## Keep reading
+
+- [Safety on Arohon](https://arohon.co/safety)
+- [Book a ride](https://arohon.co/ride)
+- [How to Get Home Safely Late at Night in Dhaka](https://blogs.arohon.co/safe-ride-home-at-night-dhaka)
+- [Catching a 6 AM Flight from Dhaka, Timing Guide](https://blogs.arohon.co/early-morning-flight-dhaka-airport)
+
 ## Frequently asked questions
 
 ### Which vehicle is safest for women in Dhaka?

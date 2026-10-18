@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { LegalPageLayout } from '@/components/LegalPageLayout';
 
 export const metadata: Metadata = {
-  title: 'Promo Code Terms - Arohon',
+  title: { absolute: 'Promo Code Terms | Arohon' },
   description: 'Terms and conditions for Arohon promo codes and discounts on ride-sharing in Bangladesh.',
 };
 

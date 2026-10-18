@@ -73,6 +73,8 @@ const docs = files.map((f, n) => {
     title: meta.title,
     slug: { _type: 'slug', current: meta.slug },
     excerpt: meta.excerpt,
+    metaTitle: meta.metaTitle,
+    metaDescription: meta.metaDescription,
     readTime: Number(meta.readTime),
     // spread publish dates a day apart, newest first, so the journal shows a steady cadence
     publishedAt: new Date(Date.now() - n * 86400000).toISOString(),
@@ -88,6 +90,8 @@ const token = process.env.SANITY_WRITE_TOKEN;
 if (!token) throw new Error('Set SANITY_WRITE_TOKEN (Sanity manage, API, Tokens, Editor)');
 const client = createClient({ projectId: 'pfm6u125', dataset: 'production', apiVersion: '2024-01-01', token, useCdn: false });
 const tx = client.transaction();
-docs.forEach((d) => tx.createOrReplace(d));
+// PATCH=1 updates published posts in place and keeps their publish dates
+if (process.env.PATCH) docs.forEach(({ _id, publishedAt, ...d }) => tx.patch(_id.replace('drafts.', ''), (p) => p.set({ title: d.title, excerpt: d.excerpt, metaTitle: d.metaTitle, metaDescription: d.metaDescription, readTime: d.readTime, body: d.body })));
+else docs.forEach((d) => tx.createOrReplace(d));
 await tx.commit();
-console.log(`Imported ${docs.length} drafts. Review and publish them in /studio.`);
+console.log(`${process.env.PATCH ? 'Updated' : 'Imported'} ${docs.length} posts.`);

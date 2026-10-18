@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { LegalPageLayout } from '@/components/LegalPageLayout';
 
 export const metadata: Metadata = {
-  title: 'Community Guidelines - Arohon',
+  title: { absolute: 'Community Guidelines | Arohon' },
   description: 'How riders, drivers, merchants and everyone on Arohon are expected to treat each other.',
 };
 

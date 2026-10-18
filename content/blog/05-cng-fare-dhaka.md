@@ -65,6 +65,12 @@ These are similar to what a fair street negotiation would land on, but with no a
 - **Share your trip** with family if you are travelling at night.
 - **Pay cash at the end**, at the fare you saw. No extra.
 
+## Keep reading
+
+- [Book a ride](https://arohon.co/ride)
+- [CNG Won't Go by Meter? Your Rights and What to Do](https://blogs.arohon.co/cng-meter-complaint-dhaka)
+- [Bike Ride Fare per km in Dhaka: 2026 Price Guide](https://blogs.arohon.co/bike-fare-per-km-dhaka)
+
 ## FAQ
 
 **What is the CNG meter rate in Dhaka?**

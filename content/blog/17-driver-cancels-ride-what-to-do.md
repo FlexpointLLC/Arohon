@@ -78,6 +78,12 @@ Most ride apps take 15% to 25% of every fare from drivers. A lower, simpler deal
 
 Rides on Arohon are paid in cash to the driver.
 
+## Keep reading
+
+- [Book a ride](https://arohon.co/ride)
+- [Getting a Ride When Dhaka Floods, Rain Day Guide](https://blogs.arohon.co/ride-in-rain-dhaka-waterlogging)
+- [How to Get Home Safely Late at Night in Dhaka](https://blogs.arohon.co/safe-ride-home-at-night-dhaka)
+
 ## Frequently asked questions
 
 ### Why does my ride keep getting cancelled?

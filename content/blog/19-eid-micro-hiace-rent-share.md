@@ -79,6 +79,12 @@ A shared vehicle that picks up from Uttara, Mirpur and Mohakhali before leaving 
 
 Arohon makes group travel for Eid simpler. Choose car, micro or Hiace, send your intercity request, and compare driver offers by price, rating and vehicle. Before boarding, you can see the driver's name, photo and number plate, and you can share the trip with family at home. Payment is cash, so splitting between the group stays easy.
 
+## Keep reading
+
+- [Rent a car with driver](https://arohon.co/services/rental)
+- [Eid Bus Tickets Sold Out? 5 Ways to Get Home](https://blogs.arohon.co/eid-bus-ticket-sold-out)
+- [Dhaka to Chittagong Car Rent: 2026 Price List (Car, Micro, Hiace)](https://blogs.arohon.co/dhaka-to-chittagong-car-rent)
+
 ## Frequently asked questions
 
 ### How many people fit in a micro?
