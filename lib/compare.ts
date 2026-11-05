@@ -79,7 +79,7 @@ function abroad(a: { slug: string; name: string; kind: string; what: string; bes
 export const COMPARES: Compare[] = [
   {
     slug: 'arohon-vs-uber',
-    glance: ['Up to 25% (2023)', 'Estimate, surge', 'Yes', 'Not confirmed', 'Not confirmed', 'Not confirmed'],
+    glance: ['Up to 25% (2023)', 'Estimate, surge', 'Yes', 'Yes', 'Yes', 'Closed 2020'],
     name: 'Uber',
     metaTitle: 'Arohon vs Uber Bangladesh: Fares and Commission',
     metaDescription: 'Arohon vs Uber Bangladesh: driver commission, upfront fares, surge, payment and services. Which ride sharing app is better and cheaper in Dhaka?',
@@ -93,8 +93,8 @@ export const COMPARES: Compare[] = [
       ['Driver commission', AROHON_ROWS.commission, 'Up to 25%, as reported in 2023'],
       ['Pricing', AROHON_ROWS.pricing, 'Upfront estimate, surge pricing at busy times'],
       ['Payment for rides', AROHON_ROWS.payment, 'Check the Uber app for current options'],
-      ['Vehicles', AROHON_ROWS.vehicles, 'Car and moto, options vary by city'],
-      ['Beyond rides', AROHON_ROWS.extras, 'Rides focused in Bangladesh'],
+      ['Vehicles', AROHON_ROWS.vehicles, 'Car, moto and CNG, options vary by city'],
+      ['Beyond rides', AROHON_ROWS.extras, 'Uber Parcel delivery, food delivery closed in 2020'],
       ['Rental and intercity', AROHON_ROWS.rental, 'Book trips in the app'],
     ],
     verdict: {
@@ -112,11 +112,13 @@ export const COMPARES: Compare[] = [
     sources: [
       { label: 'Rest of World, Uber commission in Bangladesh, 2023', url: 'https://restofworld.org/2023/uber-commission-fees-bangladesh/' },
       { label: 'bdnews24, rideshare customers unhappy with inconsistent fares', url: 'https://bdnews24.com/bangladesh/rideshare-customers-unhappy-with-inconsistent-fares' },
+      { label: 'TOB News, Uber launches parcel delivery in Bangladesh, 2026', url: 'https://tob.news/uber-launches-parcel-delivery-service-with-gps-tracking/' },
+      { label: 'TBS News, Uber Eats discontinues operations in Bangladesh', url: 'https://www.tbsnews.net/tech/uber-eats-discontinue-operations-bangladesh-june-2-83218' },
     ],
   },
   {
     slug: 'arohon-vs-pathao',
-    glance: ['10% to 15% bikes (2021)', 'Yes', 'Yes', 'Not confirmed', 'Yes', 'Food'],
+    glance: ['10% to 15% bikes (2021)', 'Yes', 'Yes', 'Yes', 'Yes', 'Food'],
     name: 'Pathao',
     metaTitle: 'Arohon vs Pathao: Which Is Better and Cheaper?',
     metaDescription: 'Arohon vs Pathao: bike commission, upfront fares, CNG, parcel, food and payment compared. Find the best Pathao alternative in Bangladesh.',
@@ -256,7 +258,7 @@ export const COMPARES: Compare[] = [
   {
     slug: 'arohon-vs-garibook',
     noCalc: true,
-    glance: ['0%, driver subscription', 'City yes, intercity bids', 'No', 'No', 'No', 'No'],
+    glance: ['Driver Pass', 'City yes, intercity bids', 'No', 'No', 'No', 'No'],
     name: 'Garibook',
     metaTitle: 'Arohon vs Garibook: Zero Commission vs 2%, Compared',
     metaDescription: 'Arohon vs Garibook: zero commission with a subscription or a flat 2%, bike, CNG and car rides, rental bidding, parcel and food. Which suits you?',
