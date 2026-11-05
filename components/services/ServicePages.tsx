@@ -34,7 +34,7 @@ function useLoop(steps: number, ms: number) {
 }
 
 /** shared hero: statement left, live product visual right */
-function Hero({ label, title, rest, copy, children, cta }: { label: string; title: string; rest: string; copy: string; children: React.ReactNode; cta?: React.ReactNode }) {
+export function Hero({ label, title, rest, copy, children, cta }: { label: string; title: string; rest: string; copy: string; children: React.ReactNode; cta?: React.ReactNode }) {
   return (
     <section className="relative overflow-hidden bg-[#FDFDFD] pb-24 pt-28 dark:bg-black sm:pt-32">
       <div className="mx-auto grid max-w-[1280px] items-center gap-12 px-6 md:px-16 lg:grid-cols-[1fr_400px] lg:gap-20">
@@ -56,7 +56,7 @@ function Hero({ label, title, rest, copy, children, cta }: { label: string; titl
   );
 }
 
-function Head({ label, title, rest, copy, inline }: { label: string; title: string; rest: string; copy?: string; inline?: boolean }) {
+export function Head({ label, title, rest, copy, inline }: { label: string; title: string; rest: string; copy?: string; inline?: boolean }) {
   return (
     // only split into two columns when there is copy to sit beside the title
     <motion.div {...fade()} className={`grid gap-6 ${copy ? 'md:grid-cols-2' : ''}`}>
@@ -74,7 +74,7 @@ function Head({ label, title, rest, copy, inline }: { label: string; title: stri
 }
 
 /** Linear-style feature grid used by every page */
-function Grid({ items }: { items: { title: string; copy: string; icon?: React.ElementType }[] }) {
+export function Grid({ items }: { items: { title: string; copy: string; icon?: React.ElementType }[] }) {
   return (
     <div className="mt-14 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
       {items.map((s, i) => (
@@ -87,7 +87,7 @@ function Grid({ items }: { items: { title: string; copy: string; icon?: React.El
   );
 }
 
-function Close({ title, rest, children }: { title: string; rest: string; children?: React.ReactNode }) {
+export function Close({ title, rest, children }: { title: string; rest: string; children?: React.ReactNode }) {
   return (
     <section className="mx-auto max-w-[1280px] border-t border-black/10 px-6 py-32 text-center sm:py-40 md:px-16 dark:border-white/10">
       <motion.h2 {...fade()} className="text-[40px] font-medium leading-[1.05] tracking-[-0.022em] sm:text-[64px]">
@@ -102,7 +102,7 @@ function Close({ title, rest, children }: { title: string; rest: string; childre
 
 
 /** compact FAQ in the site's Linear style */
-function Faq({ title, rest, items }: { title: string; rest: string; items: [string, string][] }) {
+export function Faq({ title, rest, items }: { title: string; rest: string; items: [string, string][] }) {
   const { t } = useT();
   const [open, setOpen] = useState(0);
   return (

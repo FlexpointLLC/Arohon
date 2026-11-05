@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next';
 import { BN_PATHS } from '@/lib/langPaths';
 import { CAMPAIGNS } from '@/lib/campaigns';
+import { COMPARES } from '@/lib/compare';
 
 const BASE_URL = 'https://arohon.co';
 const LEGAL = ['/privacy', '/terms', '/terms-customers', '/terms-promo-code', '/terms-return-refund', '/terms-parcel', '/terms-food', '/terms-rental', '/terms-rewards', '/terms-merchants', '/community-guidelines'];
@@ -8,7 +9,7 @@ const LEGAL = ['/privacy', '/terms', '/terms-customers', '/terms-promo-code', '/
 const url = (p: string) => BASE_URL + (p === '/' ? '' : p);
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const paired = [...BN_PATHS, ...CAMPAIGNS.map((c) => `/promotion/${c.slug}`)];
+  const paired = [...BN_PATHS, ...CAMPAIGNS.map((c) => `/promotion/${c.slug}`), ...COMPARES.map((c) => `/compare/${c.slug}`)];
   const withBn = paired.flatMap((p) => {
     const languages = { en: url(p), bn: url(p === '/' ? '/bn' : `/bn${p}`), 'x-default': url(p) };
     const priority = p === '/' ? 1 : p.split('/').length > 2 ? 0.8 : 0.9;

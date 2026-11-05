@@ -3,7 +3,7 @@ import { LegalPageLayout } from '@/components/LegalPageLayout';
 
 export const metadata: Metadata = {
   title: { absolute: 'Privacy Policy | Arohon' },
-  description: 'Privacy Policy for Arohon ride-sharing platform in Bangladesh.',
+  description: 'How Arohon collects, uses and protects your personal data when you ride, deliver or order with us in Bangladesh, and the choices you have.',
 };
 
 export default function PrivacyPage() {

@@ -3,7 +3,7 @@ import { LegalPageLayout } from '@/components/LegalPageLayout';
 
 export const metadata: Metadata = {
   title: { absolute: 'Rewards and Missions Terms | Arohon' },
-  description: 'Terms for Arohon reward points, tiers, coupons and daily missions.',
+  description: 'Terms for Arohon reward points, tiers, coupons and daily missions: how you earn, when rewards expire and how they can be used on rides and orders.',
 };
 
 export default function RewardsTermsPage() {

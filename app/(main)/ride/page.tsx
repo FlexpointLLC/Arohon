@@ -6,7 +6,7 @@ import { FleetScroll } from '@/components/home/FleetScroll';
 import { Coverage, SafetyStory, Faq, FinalCTA } from '@/components/home/Sections';
 
 export const metadata: Metadata = {
-  title: 'Book a Ride | City, Intercity & Airport Rides in Bangladesh',
+  title: 'Book a Ride in Bangladesh | City, Intercity, Airport',
   description: 'Book a bike, CNG, car, micro or Hiace in Bangladesh. Upfront fares, verified drivers and live tracking across all 64 districts.',
   alternates: { canonical: '/ride', languages: { 'x-default': '/ride', en: '/ride', bn: '/bn/ride' } },
 };
