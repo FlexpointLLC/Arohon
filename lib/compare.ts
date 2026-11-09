@@ -202,9 +202,9 @@ export const COMPARES: Compare[] = [
       ['Driver commission', AROHON_ROWS.commission, 'Not published'],
       ['Pricing', AROHON_ROWS.pricing, 'Upfront fare in the app'],
       ['Payment for rides', 'Cash', 'Digital payments such as bKash and card, as reported in 2021'],
-      ['Vehicles', AROHON_ROWS.vehicles, 'CNG and car. Bike service closed in 2021'],
-      ['Beyond rides', AROHON_ROWS.extras, 'Parcel and scheduled rides'],
-      ['Cities', 'Dhaka and cities across Bangladesh', '23 cities, as reported by Prothom Alo'],
+      ['Vehicles', AROHON_ROWS.vehicles, 'Car, CNG and truck. Bike rides suspended, as reported in 2023'],
+      ['Beyond rides', AROHON_ROWS.extras, 'Parcel delivery, truck booking and vehicle tracking'],
+      ['Cities', 'Dhaka and cities across Bangladesh', '23+ cities, according to its website'],
     ],
     verdict: {
       arohon: 'Choose Arohon if you want bikes and EV bikes too, pay in cash, and want parcels, food, medicine and rental in the same app.',
@@ -213,13 +213,14 @@ export const COMPARES: Compare[] = [
     theirStrengths: ['Focus on CNG and car rides', 'OBON service designed for women', 'Booking also possible on WhatsApp'],
     faqs: [
       ['Does Obhai have bike rides?', 'Rest of World reported in 2022 that Obhai shut down its bike service in 2021. Arohon offers bike and EV bike rides alongside CNG and car.'],
-      ['Is Obhai still working?', 'The Obhai app is still listed on the app stores. Check the app for current cities and services.'],
+      ['Is Obhai still working?', 'Obhai\'s website lists car, CNG, intercity, truck and parcel services in more than 23 cities. It does not list bike rides.'],
       ['Which is better for CNG in Dhaka, Arohon or Obhai?', 'Both let you book a CNG in the app. Arohon shows an upfront fare and lets you pay the driver in cash when you arrive.'],
       ['Is there a safe ride option for women on Arohon?', 'Every Arohon trip shows the driver\'s name, photo and plate before pickup, and you can share your live trip with family.'],
     ],
     sources: [
       { label: 'Rest of World, Bangladesh bike taxi apps, 2022', url: 'https://restofworld.org/2022/bangladesh-abandoning-bike-taxi-apps/' },
-      { label: 'Prothom Alo, Obhai now in 23 cities', url: 'https://en.prothomalo.com/corporate/OBHAI-now-available-in-23-cities' },
+      { label: 'Obhai website, services and cities', url: 'https://obhai.com/' },
+      { label: 'TBS, bike sharing apps halt service, 2023', url: 'https://www.tbsnews.net/economy/bike-sharing-thru-apps-decline-forcing-cos-halt-service-706030' },
     ],
   },
   {
@@ -267,14 +268,14 @@ export const COMPARES: Compare[] = [
     rest: 'Two fair models, compared.',
     intro: 'Garibook says drivers keep 100% of the fare and pay a subscription instead. Arohon takes a flat 2% only when you earn, with no subscription. Both let drivers keep far more than most apps. Here is how they differ.',
     rate: null,
-    rateNote: 'Garibook advertises zero commission, with drivers paying a subscription, as reported by Dhaka Tribune in 2024.',
+    rateNote: 'Garibook says drivers keep 100% of the fare and pay a small monthly subscription. It does not publish the amount.',
     rows: [
       ['Driver fees', 'Flat 2% plus ৳3 safety and a small booking fee, only on trips you complete', 'Zero commission, drivers pay a subscription'],
       ['Pricing', 'Upfront fare in the city. Offers from drivers for rental and intercity', 'Fixed fare in the city, bidding for intercity'],
       ['Vehicles', AROHON_ROWS.vehicles, 'Sedan, Noah and Hiace'],
       ['Bike and CNG', 'Yes', 'Not offered'],
       ['Beyond rides', AROHON_ROWS.extras, 'Car rental and a car investment club'],
-      ['Payment for rides', AROHON_ROWS.payment, 'Check the app'],
+      ['Payment for rides', AROHON_ROWS.payment, 'Not published'],
     ],
     verdict: {
       arohon: 'Choose Arohon if you ride a bike or CNG, want to pay only when you earn, or want rides, parcels, food, medicine and ambulance in one app.',
@@ -282,12 +283,12 @@ export const COMPARES: Compare[] = [
     },
     theirStrengths: ['Zero commission model for drivers', 'Bidding on intercity trips', 'Large vehicles for family trips'],
     faqs: [
-      ['Is Garibook really zero commission?', 'Dhaka Tribune reported in 2024 that Garibook lets drivers keep 100% of the fare. Drivers pay a subscription instead, so check the current fee in the Garibook app before comparing.'],
+      ['Is Garibook really zero commission?', 'Garibook says drivers keep 100% of the fare and pay a small monthly subscription instead. It does not publish the amount, so ask Garibook for the current fee before comparing.'],
       ['Which is better for drivers, Garibook or Arohon?', 'It depends on how much you drive. A subscription costs the same in a slow week as in a busy one. On Arohon you pay a flat 2% plus ৳3 safety and a small booking fee only on trips you complete, so on a ৳100 trip you keep ৳90, and in a week with no trips you pay nothing.'],
       ['Does Garibook have bike rides?', 'Garibook focuses on cars, Noah and Hiace. Arohon offers bike, EV bike, CNG, car, car plus, micro and Hiace.'],
       ['Can I rent a car with driver on Arohon?', 'Yes. Send your trip, drivers send offers, and you pick by price, rating and car.'],
     ],
-    sources: [{ label: 'Dhaka Tribune, Garibook to offer Chander Gari', url: 'https://www.dhakatribune.com/business/365516/digital-app-garibook-to-offer-%E2%80%98chander-gari%E2%80%99' }],
+    sources: [{ label: 'Garibook, earn with Garibook', url: 'https://garibook.com/earn-with-garibook' }, { label: 'Dhaka Tribune, Garibook to offer Chander Gari', url: 'https://www.dhakatribune.com/business/365516/digital-app-garibook-to-offer-%E2%80%98chander-gari%E2%80%99' }],
   },
   {
     slug: 'arohon-vs-truck-lagbe',
@@ -301,7 +302,7 @@ export const COMPARES: Compare[] = [
     rest: 'Trucks or parcels, pick the right one.',
     intro: 'Truck Lagbe is built for hiring a truck to move big loads. Arohon moves parcels, shop orders and people, fast. They solve different problems, so here is when to use each.',
     rate: null,
-    rateNote: 'Truck Lagbe has used both no fee and service fee models over the years. Its current rate is not verified.',
+    rateNote: 'Truck Lagbe charges fees on bookings. Its exact commission on spot trips is not public.',
     rows: [
       ['Best for', 'Parcels up to 8 kg, shop orders, documents, people', 'Truck loads, house shifting, factory goods'],
       ['Speed in Dhaka', 'Parcel within 1 hour', 'Booked by trip'],
@@ -323,7 +324,7 @@ export const COMPARES: Compare[] = [
     ],
     sources: [
       { label: 'Financial Express, Truck Lagbe new app version, 2020', url: 'https://thefinancialexpress.com.bd/trade/truck-lagbe-launches-new-version-of-app-1605780095' },
-      { label: 'Future Startup, Truck Lagbe funding, 2019', url: 'https://futurestartup.com/2019/04/18/truck-lagbe-raises-new-funding-plots-big-growth-push/' },
+      { label: 'Deshi Startup, Truck Lagbe case study', url: 'https://deshistartup.com/en/case-studies/truck-lagbe' },
     ],
   },
   abroad({ slug: 'lalamove', name: 'Lalamove', kind: 'on demand delivery', what: 'Lalamove delivers with vans, trucks and motorbikes in 18 markets across Asia, the Middle East and Europe, and runs a ride service in the Philippines', best: 'parcels within an hour in Dhaka, shipping to 64 districts and rides', rate: null, note: 'Lalamove Ride started with a 2% commission in the Philippines, as reported by ABS-CBN in 2025.', strengths: ['Instant matching with vans and trucks', 'Multi stop routes', 'Fast growth across Asia'], source: { label: 'Wikipedia, Lalamove, 2026', url: 'https://en.wikipedia.org/wiki/Lalamove' } }),

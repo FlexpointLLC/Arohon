@@ -17,7 +17,7 @@ const GROUPS = [
   { title: 'Ride', bn: 'রাইড', links: [['City rides', '/ride', 'শহরে রাইড'], ['Airport rides', '/services/airport', 'এয়ারপোর্ট রাইড'], ['Ambulance', '/services/ambulance', 'অ্যাম্বুলেন্স'], ['Payments', '/services/payment', 'পেমেন্ট'], ['All services', '/services', 'সব সেবা']] },
   { title: 'Earn', bn: 'আয় করুন', links: [['Become a driver', '/driver', 'চালক হোন'], ['Partners & fleets', '/partners', 'পার্টনার'], ['Join our team', '/join-our-team', 'আমাদের টিমে যোগ দিন']] },
   { title: 'Company', bn: 'কোম্পানি', links: [['About', '/about', 'আমাদের কথা'], ["What's new", '/whats-new', 'নতুন কী'], ['Blog', '/blog', 'ব্লগ'], ['Promotions', '/promotion', 'প্রোমোশন'], ['Compare apps', '/compare', 'অ্যাপ তুলনা'], ['Contact', '/contact', 'যোগাযোগ']] },
-  { title: 'Help', bn: 'সাহায্য', links: [['Safety', '/safety', 'নিরাপত্তা'], ['Refund policy', '/terms-return-refund', 'রিফান্ড নীতি'], ['Promo terms', '/terms-promo-code', 'প্রোমো শর্তাবলি'], ['Community guidelines', '/community-guidelines', 'কমিউনিটি নির্দেশিকা'], ['Delete account', '/delete-account', 'অ্যাকাউন্ট মুছুন']] },
+  { title: 'Help', bn: 'সাহায্য', links: [['Safety', '/safety', 'নিরাপত্তা'], ['System status', 'https://stats.uptimerobot.com/xBLe493Ec0', 'সিস্টেম স্ট্যাটাস'], ['Refund policy', '/terms-return-refund', 'রিফান্ড নীতি'], ['Promo terms', '/terms-promo-code', 'প্রোমো শর্তাবলি'], ['Community guidelines', '/community-guidelines', 'কমিউনিটি নির্দেশিকা'], ['Delete account', '/delete-account', 'অ্যাকাউন্ট মুছুন']] },
   { title: 'Connect', bn: 'যুক্ত থাকুন', links: SOCIAL },
 ];
 

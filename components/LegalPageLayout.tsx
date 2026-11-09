@@ -28,6 +28,7 @@ const slug = (t: string) => t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(
 export function LegalPageLayout({ children, title, lastUpdated, heroTitle = 'Terms and Policies', heroSubtitle = 'Please read these terms carefully.' }: { children: React.ReactNode; title: string; lastUpdated?: string; heroTitle?: string; heroSubtitle?: string }) {
   const pathname = usePathname();
   const doc = useRef<HTMLDivElement>(null);
+  const chips = useRef<HTMLElement>(null);
   const [toc, setToc] = useState<{ id: string; text: string }[]>([]);
   const [active, setActive] = useState('');
   const { scrollYProgress } = useScroll();
@@ -35,6 +36,9 @@ export function LegalPageLayout({ children, title, lastUpdated, heroTitle = 'Ter
 
   // the policies are hand written JSX, so read their section headings from the page and give each an id
   useEffect(() => {
+    // phones: bring the current policy chip into view, it can start far off screen
+    const on = chips.current?.querySelector('[aria-current="page"]');
+    if (on && chips.current) chips.current.scrollLeft += on.getBoundingClientRect().left - chips.current.getBoundingClientRect().left - 24;
     const hs = Array.from(doc.current?.querySelectorAll('section > h2') ?? []) as HTMLElement[];
     const used = new Set<string>();
     const items = hs.map((h, i) => {
@@ -65,7 +69,7 @@ export function LegalPageLayout({ children, title, lastUpdated, heroTitle = 'Ter
 
         <div className="mt-14 border-t border-black/10 pt-12 lg:grid lg:grid-cols-[220px_1fr] lg:gap-14 xl:grid-cols-[220px_1fr_200px] dark:border-white/10">
           {/* policy list: chips on phones, a sticky list on desktop */}
-          <nav aria-label="Policies" className="-mx-6 mb-10 flex gap-2 overflow-x-auto px-6 pb-1 lg:sticky lg:top-32 lg:mx-0 lg:mb-0 lg:block lg:space-y-1 lg:self-start lg:overflow-visible lg:px-0">
+          <nav ref={chips} aria-label="Policies" className="-mx-6 mb-10 flex gap-2 overflow-x-auto px-6 pb-1 [scrollbar-width:none] lg:sticky lg:top-32 lg:mx-0 lg:mb-0 lg:block lg:space-y-1 lg:self-start lg:overflow-visible lg:px-0">
             <p className={`hidden text-[12px] lg:mb-3 lg:block ${muted}`}>Terms and Policies</p>
             {DOCS.map((d, i) => {
               const on = pathname === d.href;
