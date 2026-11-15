@@ -9,7 +9,8 @@ const ease = [0.76, 0, 0.24, 1] as const;
 // Splash shown once per session: a light 0 to 100 counter with a hairline bar, then the page lifts in.
 // It climbs to 90 on its own and only finishes once the page has actually loaded.
 export function Intro() {
-  const [show, setShow] = useState(false);
+  // rendered in the server HTML so it covers the very first paint; the head script hides it for repeat visits
+  const [show, setShow] = useState(true);
   // one motion value drives both the number and the bar, so it never re-renders or jumps
   const { t, bn } = useT();
   const n = useMotionValue(0);
@@ -22,8 +23,7 @@ export function Intro() {
       seen = sessionStorage.getItem('intro') === '1';
       sessionStorage.setItem('intro', '1');
     } catch {}
-    if (seen || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    setShow(true);
+    if (seen || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return setShow(false);
 
     let done = false;
     // climbs smoothly towards 90 while the page loads
@@ -51,7 +51,7 @@ export function Intro() {
     <AnimatePresence>
       {show && (
         <motion.div
-          className="fixed inset-0 z-[100] bg-[#FDFDFD] text-black dark:bg-black dark:text-white"
+          className="intro fixed inset-0 z-[100] bg-[#FDFDFD] text-black dark:bg-black dark:text-white"
           initial={{ clipPath: 'inset(0 0 0% 0)' }}
           exit={{ clipPath: 'inset(0 0 100% 0)' }}
           transition={{ duration: 0.8, ease }}

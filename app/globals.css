@@ -298,3 +298,6 @@ html[lang='bn'] p { line-height: 1.75; }
 @keyframes cometLap { to { stroke-dashoffset: -100; } }
 .comet { animation: cometLap 4s linear infinite; }
 @media (prefers-reduced-motion: reduce) { .comet { animation: none; opacity: 0; } }
+
+/* splash is server rendered; repeat visits skip it before first paint */
+html.intro-seen .intro { display: none; }
