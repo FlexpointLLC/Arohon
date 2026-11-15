@@ -131,7 +131,7 @@ function FeatureSection({ s }: { s: Feature }) {
             {(rows ?? []).map((r) => {
               const Icon = TAG_ICON[r.tag as keyof typeof TAG_ICON];
               return (
-                <li key={r.title} className="flex items-center gap-3 py-3.5 text-[13px] animate-[fadein_.5s_ease]">
+                <li key={r.tag} className="flex items-center gap-3 py-3.5 text-[13px] animate-[fadein_.5s_ease]">
                   <span className="min-w-0 flex-1">
                     <span className="block truncate font-medium">{t(r.title, r.titleBn)}</span>
                     <span className="block text-[12px] text-black/45 dark:text-[#8A8F98]">{t(r.meta, r.metaBn)}</span>
