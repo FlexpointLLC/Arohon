@@ -15,7 +15,9 @@ async function sb<T>(path: string, init: RequestInit & { prefer?: string } = {})
     headers: { apikey: key!, ...(key!.startsWith('eyJ') ? { Authorization: `Bearer ${key}` } : {}), 'Content-Type': 'application/json', ...(init.prefer ? { Prefer: init.prefer } : {}) },
   });
   if (!res.ok) throw new Error(`Supabase ${res.status}: ${await res.text()}`);
-  return res.status === 204 ? (undefined as T) : res.json();
+  // inserts and updates answer 201/204 with an empty body
+  const text = await res.text();
+  return (text ? JSON.parse(text) : undefined) as T;
 }
 
 /** what the public board may see: no email, phone or note */
