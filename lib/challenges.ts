@@ -24,8 +24,8 @@ export const CHALLENGES: Challenge[] = [
     prize: 'GTA 6',
     winners: 2,
     opens: '2026-11-25T00:00:00+06:00',
-    closes: '2026-12-31T23:59:59+06:00',
-    results: '2027-01-15',
+    closes: '2026-12-10T23:59:59+06:00',
+    results: '2026-12-20',
     faq: [
       ['What should I build?', 'Anything that helps people in Bangladesh move better. Rides, parcels, food, payments, safety, traffic. A live jam map, a fare splitter for Eid trips, a night pharmacy finder, or something we never thought of.'],
       ['What do I need to submit?', 'A link we can open (APK, Play Store, TestFlight, Vercel or Netlify, a Figma prototype or a demo video) and your GitHub repo. The repo must be public, or shared with the Arohon team, until results are out.'],
