@@ -14,7 +14,7 @@ const line = 'border-black/10 dark:border-white/10';
 const fmtDate = (iso: string) => new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'Asia/Dhaka' });
 
 /** ticks once a second; null until mounted so server and client HTML match */
-function useNow() {
+export function useNow() {
   const [now, setNow] = useState<number | null>(null);
   useEffect(() => {
     setNow(Date.now());
@@ -24,13 +24,13 @@ function useNow() {
   return now;
 }
 
-function left(ms: number) {
+export function left(ms: number) {
   const s = Math.max(0, Math.floor(ms / 1000));
   return { d: Math.floor(s / 86400), h: Math.floor(s / 3600) % 24, m: Math.floor(s / 60) % 60, s: s % 60 };
 }
 
 /** a digit pair that rolls when it changes */
-function Roll({ v }: { v: number }) {
+export function Roll({ v }: { v: number }) {
   const txt = String(v).padStart(2, '0');
   return (
     <span className="relative inline-flex overflow-hidden tabular-nums">
@@ -43,7 +43,7 @@ function Roll({ v }: { v: number }) {
   );
 }
 
-function Countdown({ c }: { c: Challenge }) {
+export function Countdown({ c }: { c: Challenge }) {
   const now = useNow();
   const t = left(now === null ? +new Date(c.closes) - +new Date(c.opens) : +new Date(c.closes) - now);
   const cells: [number, string][] = [[t.d, 'days'], [t.h, 'hrs'], [t.m, 'min'], [t.s, 'sec']];
@@ -190,7 +190,7 @@ function SubmitForm({ c }: { c: Challenge }) {
         <Field label="Project link" hint={lk ? <motion.span key={lk} initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }}>detected: {lk}</motion.span> : 'apk, vercel, figma, video'}>
           <input name="live" type="url" required inputMode="url" placeholder="https://your-project.vercel.app" value={live} onChange={(e) => setLive(e.target.value.trim())} className={field} />
         </Field>
-        <Field label="GitHub repo" hint={rp ? <motion.span key={rp} initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-1"><Check size={12} /> {rp}</motion.span> : repo ? 'needs github.com/owner/repo' : 'public, or shared with us'}>
+        <Field label="GitHub repo" hint={rp ? <motion.span key={rp} initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-1"><Check size={12} /> {rp}</motion.span> : repo ? 'needs github.com/owner/repo' : 'must be public'}>
           <input name="repo" type="url" required inputMode="url" pattern="https?://(www\.)?github\.com/[^/\s]+/[^/\s]+.*" title="A github.com/owner/repo link" placeholder="https://github.com/you/project" value={repo} onChange={(e) => setRepo(e.target.value.trim())} className={field} />
         </Field>
         <div className="grid gap-5 sm:grid-cols-2">

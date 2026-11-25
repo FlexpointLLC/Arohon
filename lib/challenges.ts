@@ -28,7 +28,7 @@ export const CHALLENGES: Challenge[] = [
     results: '2026-12-20',
     faq: [
       ['What should I build?', 'Anything that helps people in Bangladesh move better. Rides, parcels, food, payments, safety, traffic. A live jam map, a fare splitter for Eid trips, a night pharmacy finder, or something we never thought of.'],
-      ['What do I need to submit?', 'A link we can open (APK, Play Store, TestFlight, Vercel or Netlify, a Figma prototype or a demo video) and your GitHub repo. The repo must be public, or shared with the Arohon team, until results are out.'],
+      ['What do I need to submit?', 'A link we can open (APK, Play Store, TestFlight, Vercel or Netlify, a Figma prototype or a demo video) and your GitHub repo. The repo must be public until results are out, so anyone can check the code.'],
       ['Who can join?', 'Anyone in Bangladesh. Students, developers, designers, first time builders. Solo or a team of up to 4, one entry per person.'],
       ['How are winners picked?', 'The Arohon team opens every entry and judges on four things: it works, it solves a real problem, the craft and UX, and readable code. Leaderboard votes show us what people love.'],
       ['Does it have to use Arohon?', 'No. Work you started before the challenge is fine too, as long as you built it. You keep full ownership.'],

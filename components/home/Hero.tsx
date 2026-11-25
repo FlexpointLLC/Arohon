@@ -9,6 +9,7 @@ import { ease, up } from '../motion';
 import { CityMap, useTripProgress } from './CityMap';
 import { RIDES, RideStack } from './RideStack';
 import { CometBorder } from './CometBorder';
+import { ChallengeCard, liveChallenge } from './ChallengeCard';
 import { useT } from '@/lib/i18n';
 import { CAMPAIGNS, isLive } from '@/lib/campaigns';
 import Link from 'next/link';
@@ -30,7 +31,9 @@ export function Hero() {
     restart();
   };
   const ride = RIDES[active];
-  const promo = CAMPAIGNS.find((c) => isLive(c));
+  // while a build challenge runs, its pill is the only badge so it gets the attention
+  const challenge = liveChallenge();
+  const promo = challenge ? undefined : CAMPAIGNS.find((c) => isLive(c));
 
   return (
     <section className="relative overflow-hidden bg-[#FDFDFD] pt-28 dark:bg-black sm:pt-32">
@@ -47,10 +50,13 @@ export function Hero() {
               </span>
             </Link>
           )}
+          <ChallengeCard />
+          {!challenge && (
           <span className="inline-flex items-center gap-1.5 rounded-full border border-black/10 py-[5px] pl-[9px] pr-[13px] text-[13px] text-black/70 dark:border-white/[.12] dark:text-[#D0D6E0]">
             <MapPin size={13} weight="fill" className="text-black/50 dark:text-white/50" />
             {t('Dhaka, BD', 'ঢাকা, বাংলাদেশ')}
           </span>
+          )}
         </motion.div>
         <motion.h1 {...up(0.2)} className="mt-3 u-h1 text-black dark:text-white">
           {t('Go anywhere,', 'যেখানে খুশি যান,')}
@@ -89,7 +95,6 @@ export function Hero() {
 
       <motion.div {...up(0.4)} className="relative -mt-6 sm:-mt-10">
         <CityMap progress={progress} riderV={ride.v} dest={t(ride.dest, ride.destBn)} />
-
       </motion.div>
     </section>
   );

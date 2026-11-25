@@ -8,7 +8,7 @@ import { AnimatePresence, LayoutGroup, motion } from 'framer-motion';
 import { ArrowRight, ArrowUp, ArrowUpRight, GithubLogo, MagnifyingGlass } from '@phosphor-icons/react';
 import { ease, up } from '../motion';
 import { challengeBySlug, isOpen } from '@/lib/challenges';
-import { kind, repoOf } from './Challenges';
+import { kind, left, repoOf, useNow } from './Challenges';
 import type { PublicEntry } from '@/lib/challengeDb';
 
 const wrap = 'mx-auto max-w-[1280px] px-6 md:px-16';
@@ -36,6 +36,37 @@ function Count({ n }: { n: number }) {
         </motion.span>
       </AnimatePresence>
     </span>
+  );
+}
+
+/** slim strip under the nav: live countdown on the left, submit on the right */
+function CountdownBanner({ slug }: { slug: string }) {
+  const c = challengeBySlug(slug)!;
+  const now = useNow();
+  const open = now === null || isOpen(c, now);
+  const t = now === null ? null : left(+new Date(c.closes) - now);
+  return (
+    <div className="mx-auto max-w-[1280px] px-6 md:px-16">
+      <div className="flex items-center gap-3 rounded-xl border border-black/10 bg-white py-2 pl-4 pr-2 shadow-[0_10px_30px_-18px_rgba(0,0,0,.35)] dark:border-white/10 dark:bg-[#111113]">
+        <Image src="/challenges/gta6.png" alt={`Win ${c.prize}`} width={56} height={44} className="h-7 w-auto shrink-0" />
+        <span className="hidden whitespace-nowrap font-mono text-[12px] tracking-wide text-black/50 sm:inline dark:text-[#8A8F98]">{open ? 'submissions close in' : 'submissions closed'}</span>
+        {open && (
+          <span className="ml-auto flex items-center gap-1 font-mono tabular-nums">
+            {(([[t?.d, 'd'], [t?.h, 'h'], [t?.m, 'm'], [t?.s, 's']] as const)).map(([v, k], i) => (
+              <span key={k} className="flex items-center gap-1">
+                {i > 0 && <span aria-hidden className="text-[14px] text-[#b23a8a]/50 dark:text-[#e0457b]/60">:</span>}
+                <span className="flex flex-col items-center">
+                  <span className="flex h-8 min-w-[40px] items-center justify-center rounded-md border border-[#b23a8a]/25 bg-[#7b3fe4]/[.05] px-1.5 text-[14px] font-medium text-[#5b21b6] dark:border-[#e0457b]/30 dark:bg-[#e0457b]/[.08] dark:text-[#ffb3d1]">
+                    {v === undefined ? '--' : String(v).padStart(2, '0')}
+                    <span className="ml-0.5 text-[10px] font-normal text-black/40 dark:text-white/40">{k}</span>
+                  </span>
+                </span>
+              </span>
+            ))}
+          </span>
+        )}
+      </div>
+    </div>
   );
 }
 
@@ -122,18 +153,21 @@ export function Leaderboard({ slug, entries, voted, demo }: { slug: string; entr
   }
 
   return (
-    // always dark here so the key art behind the hero reads well
-    <div className="dark bg-black pb-32 text-white">
+    <div className="bg-[#FDFDFD] pb-32 dark:bg-black">
       <section className="relative overflow-hidden">
         <motion.div aria-hidden initial={{ opacity: 0, scale: 1.04 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1.6, ease }} className="absolute inset-0">
-          <Image src="/challenges/bg.jpg" alt="" fill priority sizes="100vw" className="object-cover object-[70%_20%] opacity-45" />
+          <Image src="/challenges/bg-white.jpg" alt="" fill priority sizes="100vw" className="object-cover object-[70%_20%] opacity-70 dark:hidden" />
+          <Image src="/challenges/bg.jpg" alt="" fill priority sizes="100vw" className="hidden object-cover object-[70%_20%] opacity-45 dark:block" />
         </motion.div>
-        <div aria-hidden className="absolute inset-0 bg-[linear-gradient(90deg,#000_0%,rgba(0,0,0,.75)_45%,rgba(0,0,0,.2)_100%)]" />
-        <div aria-hidden className="absolute inset-x-0 bottom-0 h-40 bg-[linear-gradient(180deg,transparent,#000)]" />
+        <div aria-hidden className="absolute inset-0 bg-[linear-gradient(90deg,#FDFDFD_0%,rgba(253,253,253,.8)_45%,rgba(253,253,253,.1)_100%)] dark:bg-[linear-gradient(90deg,#000_0%,rgba(0,0,0,.75)_45%,rgba(0,0,0,.2)_100%)]" />
+        <div aria-hidden className="absolute inset-x-0 bottom-0 h-40 bg-[linear-gradient(180deg,transparent,#FDFDFD)] dark:bg-[linear-gradient(180deg,transparent,#000)]" />
 
-        <div className={`${wrap} relative pb-4 pt-28 sm:pt-36`}>
+        <motion.div {...up(0.02)} className="relative pt-24 sm:pt-28">
+          <CountdownBanner slug={slug} />
+        </motion.div>
+        <div className={`${wrap} relative pb-4 pt-10 sm:pt-14`}>
           <motion.div {...up(0.05)} className={`flex flex-wrap items-center gap-x-4 gap-y-2 ${mono} ${muted}`}>
-            <Link href="/challenges" className="hover:text-white">challenges</Link>
+            <Link href="/challenges" className="hover:text-black dark:hover:text-white">challenges</Link>
             <span>/</span>
             <span>{c.no}</span>
           </motion.div>
@@ -149,13 +183,13 @@ export function Leaderboard({ slug, entries, voted, demo }: { slug: string; entr
               </motion.p>
             </div>
             <motion.div {...up(0.24)} className="grid gap-3 sm:flex">
-              <Link href={`/challenges/${c.slug}/submit`} className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-white px-7 py-4 text-[15px] font-medium text-black transition-transform active:scale-[.98] sm:w-auto">
+              <Link href={`/challenges/${c.slug}/submit`} className="group inline-flex w-full items-center justify-center gap-2 rounded-full bg-black px-7 py-4 text-[15px] font-medium text-white transition-transform active:scale-[.98] sm:w-auto dark:bg-white dark:text-black">
                 {open ? 'Submit yours' : 'See the challenge'} <ArrowRight size={16} className="transition-transform group-hover:translate-x-0.5" />
               </Link>
             </motion.div>
           </div>
 
-          <motion.div {...up(0.3)} className={`mt-14 grid grid-cols-3 border-y ${line}`}>
+          <motion.div {...up(0.32)} className={`mt-14 grid grid-cols-3 border-y ${line}`}>
             {[
               [rows.length, 'entries'],
               [total, 'votes'],
@@ -176,7 +210,7 @@ export function Leaderboard({ slug, entries, voted, demo }: { slug: string; entr
         <div className={`relative inline-flex self-start rounded-full border p-1 ${line}`}>
           {(['top', 'new'] as const).map((k) => (
             <button key={k} type="button" onClick={() => setSort(k)} className={`relative z-10 rounded-full px-4 py-1.5 text-[13px] font-medium transition-colors ${sort === k ? 'text-white dark:text-black' : muted}`}>
-              {sort === k && <motion.span layoutId="sort" className="absolute inset-0 -z-10 rounded-full bg-white" transition={{ duration: 0.35, ease }} />}
+              {sort === k && <motion.span layoutId="sort" className="absolute inset-0 -z-10 rounded-full bg-black dark:bg-white" transition={{ duration: 0.35, ease }} />}
               {k === 'top' ? 'Top' : 'New'}
             </button>
           ))}
@@ -214,7 +248,7 @@ export function Leaderboard({ slug, entries, voted, demo }: { slug: string; entr
                     layout="position"
                     key={r.id}
                     transition={{ duration: 0.5, ease }}
-                    className={`group relative grid grid-cols-[36px_1fr_auto] items-start gap-x-4 border-b py-6 sm:grid-cols-[56px_1fr_auto] sm:gap-x-6 ${line} ${sort === 'top' && n === c.winners && shown.length > c.winners ? 'border-b-white/40' : ''}`}
+                    className={`group relative grid grid-cols-[36px_1fr_auto] items-start gap-x-4 border-b py-6 sm:grid-cols-[56px_1fr_auto] sm:gap-x-6 ${line} ${sort === 'top' && n === c.winners && shown.length > c.winners ? 'border-b-black/40 dark:border-b-white/40' : ''}`}
                   >
                     {prize && <span aria-hidden className="pointer-events-none absolute inset-y-0 -left-6 right-0 -z-0 bg-[radial-gradient(60%_120%_at_0%_50%,rgba(214,92,170,.10),transparent_70%)] md:-left-10" />}
                     <span className={`pt-1 ${mono} text-[13px] ${prize ? '' : muted}`}>{String(n).padStart(2, '0')}</span>
@@ -246,7 +280,7 @@ export function Leaderboard({ slug, entries, voted, demo }: { slug: string; entr
                       onClick={() => vote(r.id)}
                       aria-pressed={on}
                       aria-label={`${on ? 'Remove vote for' : 'Vote for'} ${r.project}, ${r.votes} votes`}
-                      className={`flex min-w-[56px] flex-col items-center gap-1 rounded-xl border px-3 py-2.5 transition-colors ${on ? 'border-white bg-white text-black' : `${line} hover:border-white/40`}`}
+                      className={`flex min-w-[56px] flex-col items-center gap-1 rounded-xl border px-3 py-2.5 transition-colors ${on ? 'border-black bg-black text-white dark:border-white dark:bg-white dark:text-black' : `${line} hover:border-black/40 dark:hover:border-white/40`}`}
                     >
                       <motion.span animate={on ? { y: [0, -4, 0] } : { y: 0 }} transition={{ duration: 0.35, ease }}>
                         <ArrowUp size={15} weight={on ? 'bold' : 'regular'} />

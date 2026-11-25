@@ -30,6 +30,12 @@ export async function POST(req: Request) {
   if (!isUrl(live)) return NextResponse.json({ error: 'The project link must be a full URL starting with https://' }, { status: 400 });
   if (!isRepo(repo)) return NextResponse.json({ error: 'The repo must be a github.com/owner/repo link.' }, { status: 400 });
 
+  // the repo has to be public: GitHub answers 404 for private or missing repos. If GitHub is down or rate limits us, let it through.
+  const [owner, name_] = new URL(repo).pathname.split('/').filter(Boolean);
+  const gh = await fetch(`https://api.github.com/repos/${owner}/${name_.replace(/\.git$/, '')}`, { headers: { Accept: 'application/vnd.github+json', 'User-Agent': 'arohon-challenge' } }).catch(() => null);
+  if (gh?.status === 404) return NextResponse.json({ error: 'We can’t see that repo. Make it public on GitHub, then submit again.' }, { status: 400 });
+  if (gh?.ok && (await gh.json().catch(() => ({}))).private) return NextResponse.json({ error: 'That repo is private. Make it public, then submit again.' }, { status: 400 });
+
   // short receipt id the entrant sees and we see in the subject, so entries can be matched later
   const id = `${c.no}-${Date.now().toString(36).toUpperCase().slice(-5)}${Math.random().toString(36).slice(2, 4).toUpperCase()}`;
   let receipt = id;
