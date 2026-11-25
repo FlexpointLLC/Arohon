@@ -17,7 +17,7 @@ export async function POST(req: Request) {
 
   try {
     const r = await toggleVote(entry, voter!, ip);
-    if (r.error === 'limit') return NextResponse.json({ error: 'Too many votes from this network for this project.' }, { status: 429 });
+    if (r.error === 'limit') return NextResponse.json({ error: 'You already voted for this project.' }, { status: 429 });
     if (r.error) return NextResponse.json({ error: 'Entry not found' }, { status: 404 });
     const res = NextResponse.json(r);
     if (fresh) res.cookies.set('ch_voter', voter!, { httpOnly: true, sameSite: 'lax', secure: true, path: '/', maxAge: 60 * 60 * 24 * 365 });
