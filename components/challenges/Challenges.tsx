@@ -190,8 +190,8 @@ function SubmitForm({ c }: { c: Challenge }) {
         <Field label="Project link" hint={lk ? <motion.span key={lk} initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }}>detected: {lk}</motion.span> : 'apk, vercel, figma, video'}>
           <input name="live" type="url" required inputMode="url" placeholder="https://your-project.vercel.app" value={live} onChange={(e) => setLive(e.target.value.trim())} className={field} />
         </Field>
-        <Field label="GitHub repo" hint={rp ? <motion.span key={rp} initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-1"><Check size={12} /> {rp}</motion.span> : repo ? 'needs github.com/owner/repo' : 'must be public'}>
-          <input name="repo" type="url" required inputMode="url" pattern="https?://(www\.)?github\.com/[^/\s]+/[^/\s]+.*" title="A github.com/owner/repo link" placeholder="https://github.com/you/project" value={repo} onChange={(e) => setRepo(e.target.value.trim())} className={field} />
+        <Field label="GitHub repo (optional)" hint={rp ? <motion.span key={rp} initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-1"><Check size={12} /> {rp}</motion.span> : repo ? 'needs github.com/owner/repo' : 'public, if you add one'}>
+          <input name="repo" type="url" inputMode="url" pattern="https?://(www\.)?github\.com/[^/\s]+/[^/\s]+.*" title="A github.com/owner/repo link" placeholder="https://github.com/you/project" value={repo} onChange={(e) => setRepo(e.target.value.trim())} className={field} />
         </Field>
         <div className="grid gap-5 sm:grid-cols-2">
           <Field label="Project name">
