@@ -33,7 +33,7 @@ export const CHALLENGES: Challenge[] = [
       ['How are winners picked?', 'The Arohon team opens every entry and judges on four things: it works, it solves a real problem, the craft and UX, and readable code if you shared a repo. Leaderboard votes show us what people love.'],
       ['Does it have to use Arohon?', 'No. Work you started before the challenge is fine too, as long as you built it. You keep full ownership.'],
       ['Can I submit a design only?', 'Yes, if the prototype is clickable. Use the Figma link as your project link. No repo needed.'],
-      ['Can I edit my entry after submitting?', 'Submit again with the same email. We judge your latest entry.'],
+      ['Can I edit my entry after submitting?', 'Email support@arohon.co from the address you entered and tell us what to change. One entry per email.'],
       ['How will I know if I won?', 'We email the two winners and post the results on our socials. One GTA 6 copy per winning entry.'],
       ['Which platform is the GTA 6 copy for?', 'Winners choose the console version they want.'],
     ],

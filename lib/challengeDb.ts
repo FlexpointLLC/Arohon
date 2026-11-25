@@ -32,17 +32,13 @@ export const votedBy = async (voter: string) =>
 
 type EntryIn = { challenge: string; receipt: string; project: string; pitch: string; live_url: string; repo_url: string; name: string; email: string; phone: string; team: string; note: string };
 
-/** one entry per email per challenge: resubmitting updates it and keeps its votes and receipt */
+/** one entry per email per challenge. No edits from the form: anyone can type someone else's email, so a repeat is refused */
 export async function saveEntry(e: EntryIn) {
   const email = e.email.toLowerCase();
-  const [old] = await sb<{ id: string; receipt: string }[]>(`challenge_entries?select=id,receipt&challenge=eq.${encodeURIComponent(e.challenge)}&email=eq.${encodeURIComponent(email)}`);
-  const { receipt, ...fields } = { ...e, email };
-  if (old) {
-    await sb(`challenge_entries?id=eq.${old.id}`, { method: 'PATCH', body: JSON.stringify({ ...fields, updated_at: new Date().toISOString() }) });
-    return { receipt: old.receipt, updated: true };
-  }
-  await sb('challenge_entries', { method: 'POST', body: JSON.stringify({ ...fields, receipt }) });
-  return { receipt, updated: false };
+  const [old] = await sb<{ id: string }[]>(`challenge_entries?select=id&challenge=eq.${encodeURIComponent(e.challenge)}&email=eq.${encodeURIComponent(email)}`);
+  if (old) return { receipt: '', exists: true };
+  await sb('challenge_entries', { method: 'POST', body: JSON.stringify({ ...e, email }) });
+  return { receipt: e.receipt, exists: false };
 }
 
 export const toggleVote = (entry: string, voter: string, ip: string) =>

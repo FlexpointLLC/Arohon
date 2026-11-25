@@ -41,7 +41,9 @@ export async function POST(req: Request) {
   let receipt = id;
   if (dbReady) {
     try {
-      receipt = (await saveEntry({ challenge: c.slug, receipt: id, project, pitch, live_url: live, repo_url: repo, name, email, phone, team, note })).receipt;
+      const saved = await saveEntry({ challenge: c.slug, receipt: id, project, pitch, live_url: live, repo_url: repo, name, email, phone, team, note });
+      if (saved.exists) return NextResponse.json({ error: 'This email already has an entry. To change it, email support@arohon.co from that address.' }, { status: 409 });
+      receipt = saved.receipt;
     } catch (e) {
       console.error('challenge save failed', e);
       return NextResponse.json({ error: 'Couldn’t save your entry right now. Try again in a minute.' }, { status: 502 });

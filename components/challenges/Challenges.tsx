@@ -164,7 +164,7 @@ function SubmitForm({ c }: { c: Challenge }) {
             {copied === 'id' ? <Check size={14} /> : <Copy size={14} />} {copied === 'id' ? 'copied' : 'copy'}
           </button>
         </div>
-        <p className={`mt-5 text-[15px] leading-relaxed ${muted}`}>Keep this receipt. Want to update your entry? Submit again with the same email before {fmtDate(c.closes)}. Results on {fmtDate(c.results)}.</p>
+        <p className={`mt-5 text-[15px] leading-relaxed ${muted}`}>Keep this receipt. Need a change? Email support@arohon.co from the same address. Results on {fmtDate(c.results)}.</p>
         <div className="mt-6 grid gap-3 sm:flex">
           <button type="button" onClick={share} className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-black px-6 py-3.5 text-[15px] font-medium text-white transition-transform active:scale-[.98] sm:w-auto dark:bg-white dark:text-black">
             <ShareNetwork size={16} /> {copied === 'share' ? 'Link copied' : 'Tell your friends'}
